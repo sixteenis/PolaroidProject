@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StartButton: UIButton {
+final class SuccessButton: UIButton {
     init(_ title: String, bool: Bool = true) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
@@ -16,7 +16,7 @@ final class StartButton: UIButton {
         contentMode = .center
         layer.cornerRadius = 20
     }
-    private func toggleColor(_ bool: Bool) {
+    func toggleColor(_ bool: Bool) {
         backgroundColor = bool ? .cBlue : .cGray
     }
     required init?(coder: NSCoder) {

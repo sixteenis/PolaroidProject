@@ -24,7 +24,7 @@ final class OnboardingViewController: BaseViewController {
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 33)
     }
-    private var startButton = StartButton("시작하기")
+    private var startButton = SuccessButton("시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()

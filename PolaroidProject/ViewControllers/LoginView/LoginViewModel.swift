@@ -39,7 +39,7 @@ final class LoginViewModel {
     }
     private func checkName(_ name: String?) {
         if self.outputFilterTitle.value == .ok {
-            guard let name = name else {return}
+            guard name != nil else {return}
             outputFilterBool.value = true
             return
         }

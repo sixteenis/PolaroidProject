@@ -29,8 +29,7 @@
 		0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9882C4E3BE20083A89E /* APIKey.swift */; };
 		0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98A2C4E3D100083A89E /* TabBarController.swift */; };
 		0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98C2C4E42930083A89E /* OnboardingViewController.swift */; };
-		0621A98F2C4E4B150083A89E /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98E2C4E4B150083A89E /* StartButton.swift */; };
-		0621A9912C4E4B5A0083A89E /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9902C4E4B5A0083A89E /* Color+.swift */; };
+		0621A98F2C4E4B150083A89E /* SuccessButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98E2C4E4B150083A89E /* SuccessButton.swift */; };
 		0621A9932C4E4BCF0083A89E /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9922C4E4BCF0083A89E /* Setting.swift */; };
 		0621A9962C4E5DF70083A89E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9952C4E5DF70083A89E /* LoginViewModel.swift */; };
 		0621A9982C4E61AA0083A89E /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9972C4E61AA0083A89E /* UserDefault.swift */; };
@@ -43,6 +42,8 @@
 		0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A72C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift */; };
 		0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A92C4E9A460083A89E /* Placeholder.swift */; };
 		0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */; };
+		0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AD2C4EA4D90083A89E /* Font+.swift */; };
+		0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,8 +64,7 @@
 		0621A9882C4E3BE20083A89E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		0621A98A2C4E3D100083A89E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		0621A98C2C4E42930083A89E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		0621A98E2C4E4B150083A89E /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
-		0621A9902C4E4B5A0083A89E /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		0621A98E2C4E4B150083A89E /* SuccessButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessButton.swift; sourceTree = "<group>"; };
 		0621A9922C4E4BCF0083A89E /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		0621A9952C4E5DF70083A89E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0621A9972C4E61AA0083A89E /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
@@ -77,6 +77,8 @@
 		0621A9A72C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		0621A9A92C4E9A460083A89E /* Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameFilter.swift; sourceTree = "<group>"; };
+		0621A9AD2C4EA4D90083A89E /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
+		0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				0621A9862C4E3B560083A89E /* ReuseIdentifier+.swift */,
-				0621A9902C4E4B5A0083A89E /* Color+.swift */,
+				0621A9AD2C4EA4D90083A89E /* Font+.swift */,
 			);
 			path = "Extension+";
 			sourceTree = "<group>";
@@ -191,7 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				0621A9A02C4E72D40083A89E /* ProfileImageView.swift */,
-				0621A98E2C4E4B150083A89E /* StartButton.swift */,
+				0621A98E2C4E4B150083A89E /* SuccessButton.swift */,
+				0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -327,10 +330,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0621A98F2C4E4B150083A89E /* StartButton.swift in Sources */,
+				0621A98F2C4E4B150083A89E /* SuccessButton.swift in Sources */,
 				0621A95E2C4E37CD0083A89E /* LoginViewController.swift in Sources */,
 				0621A9A42C4E901E0083A89E /* SelectProfileViewController.swift in Sources */,
 				0621A9482C4E36720083A89E /* AppDelegate.swift in Sources */,
+				0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */,
 				0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */,
 				0621A9962C4E5DF70083A89E /* LoginViewModel.swift in Sources */,
 				0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */,
@@ -341,7 +345,6 @@
 				0621A9A62C4E90760083A89E /* SelectProfileViewModel.swift in Sources */,
 				0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */,
 				0621A99D2C4E62750083A89E /* ProfileImage.swift in Sources */,
-				0621A9912C4E4B5A0083A89E /* Color+.swift in Sources */,
 				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,
 				0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */,
 				0621A99F2C4E723A0083A89E /* UserBuilder.swift in Sources */,
@@ -351,6 +354,7 @@
 				0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
+				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 			);

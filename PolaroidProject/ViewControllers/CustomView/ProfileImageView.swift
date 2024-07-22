@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class SelcetProfileImageView: UIView{
+class SelcetProfileImageView: UIView {
     fileprivate let mainImageView = UIImageView()
     init(profile: String = "profile_0") {
         super.init(frame: .zero)

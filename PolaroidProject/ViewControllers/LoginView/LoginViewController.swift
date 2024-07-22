@@ -14,13 +14,27 @@ final class LoginViewController: BaseViewController {
     private let nicknameTextField = UITextField()
     private let textLine = UIView()
     private let nicknameFilterLabel = UILabel()
-    private var startButton = StartButton("시작하기")
+    
+    private let mbtiLabel = UILabel()
+    
+    private let mbtiEIButton = MBTIButtonView(frame: .zero, top: "E", bottom: "I", buttonIndex: 0)
+    private let mbtiSNButton = MBTIButtonView(frame: .zero, top: "S", bottom: "N", buttonIndex: 1)
+    private let mbtiTFButton = MBTIButtonView(frame: .zero, top: "T", bottom: "F", buttonIndex: 2)
+    private let mbtiJPButton = MBTIButtonView(frame: .zero, top: "J", bottom: "P", buttonIndex: 3)
+    
+    private var successButton = SuccessButton("완료", bool: false)
+    private let resetButton = UIButton()
+    
+    
+    
+    
     
     let vm = LoginViewModel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
     }
     override func viewDidLayoutSubviews() {
@@ -29,8 +43,8 @@ final class LoginViewController: BaseViewController {
     }
     // MARK: - vm 부분
     override func bindData() {
-        vm.outputProfileImage.bind { builder in
-            guard let builder else { return }
+        vm.outputProfileImage.bind { [weak self] builder in
+            guard let self, let builder else { return }
             self.profileImage.changeProfile(builder.profile)
         }
         vm.outputFilterTitle.bind { [weak self] result in
@@ -38,14 +52,18 @@ final class LoginViewController: BaseViewController {
             self.nicknameFilterLabel.text = result.rawValue
             self.nicknameFilterLabel.textColor = result.color
         }
+        vm.outputFilterBool.bind { [weak self] bool in
+            guard let self else {return}
+            self.successButton.toggleColor(bool)
+        }
         
-//        vm.outputProfileImage.bind { image in
-//            self.profileImage.changeImage(image)
-//        }
-//        vm.outputFilterTitle.bind { data in
-//            self.nicknameFilterLabel.text = data.rawValue
-//            self.nicknameFilterLabel.textColor = data.color
-//        }
+        //        vm.outputProfileImage.bind { image in
+        //            self.profileImage.changeImage(image)
+        //        }
+        //        vm.outputFilterTitle.bind { data in
+        //            self.nicknameFilterLabel.text = data.rawValue
+        //            self.nicknameFilterLabel.textColor = data.color
+        //        }
         
     }
     // MARK: - connect 부분
@@ -55,13 +73,19 @@ final class LoginViewController: BaseViewController {
         view.addSubview(nicknameTextField)
         view.addSubview(textLine)
         view.addSubview(nicknameFilterLabel)
-        view.addSubview(startButton)
-            
+        view.addSubview(successButton)
+        view.addSubview(resetButton)
+        view.addSubview(mbtiLabel)
+        view.addSubview(mbtiEIButton)
+        view.addSubview(mbtiSNButton)
+        view.addSubview(mbtiTFButton)
+        view.addSubview(mbtiJPButton)
+        
         //델리게이트
         nicknameTextField.delegate = self
         
-        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        
+        successButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         let tap = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImage.addGestureRecognizer(tap)
     }
@@ -91,8 +115,37 @@ final class LoginViewController: BaseViewController {
             make.top.equalTo(textLine.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
-        startButton.snp.makeConstraints { make in
-            make.top.equalTo(nicknameFilterLabel.snp.bottom).offset(20)
+        mbtiLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(15)
+            make.top.equalTo(textLine.snp.bottom).offset(40)
+        }
+        mbtiEIButton.snp.makeConstraints { make in
+            make.top.equalTo(textLine.snp.bottom).offset(40)
+            make.height.equalTo(100)
+            make.width.equalTo(50)
+            make.trailing.equalTo(mbtiSNButton.snp.leading).offset(-5)
+        }
+        mbtiSNButton.snp.makeConstraints { make in
+            make.top.equalTo(textLine.snp.bottom).offset(40)
+            make.height.equalTo(100)
+            make.width.equalTo(50)
+            make.trailing.equalTo(mbtiTFButton.snp.leading).offset(-5)
+        }
+        mbtiTFButton.snp.makeConstraints { make in
+            make.top.equalTo(textLine.snp.bottom).offset(40)
+            make.height.equalTo(100)
+            make.width.equalTo(50)
+            make.trailing.equalTo(mbtiJPButton.snp.leading).offset(-5)
+        }
+        mbtiJPButton.snp.makeConstraints { make in
+            make.top.equalTo(textLine.snp.bottom).offset(40)
+            make.height.equalTo(100)
+            make.width.equalTo(50)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
+        }
+        
+        successButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(45)
         }
@@ -101,15 +154,30 @@ final class LoginViewController: BaseViewController {
     // MARK: - UI 세팅 부분
     override func setUpView() {
         navigationController?.navigationBar.tintColor = .cBlack
-//        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
-//        navigationItem.leftBarButtonItem = backButton
-//        guard let type = vm.settingType else { return }
-//        if type == .setting{
-//            let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
-//            navigationItem.rightBarButtonItem = saveButton
-//            okButton.isHidden = true
-//        }
+        //        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
+        //        navigationItem.leftBarButtonItem = backButton
+        //        guard let type = vm.settingType else { return }
+        //        if type == .setting{
+        //            let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        //            navigationItem.rightBarButtonItem = saveButton
+        //            okButton.isHidden = true
+        //        }
         //navigationItem.title = profileSetType.rawValue
+        navigationItem.title = vm.settingType?.navTitle
+        successButton.isHidden = true
+        resetButton.isHidden = true
+        
+        switch vm.settingType {
+        case .onboarding:
+            successButton.isHidden = false
+        case .setting:
+            resetButton.isHidden = false
+            let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(startButtonTapped))
+            navigationItem.rightBarButtonItem = saveButton
+        case .none:
+            print("error")
+        }
+        
         
         line.backgroundColor = .cGray
         nicknameTextField.placeholder = PlaceholderEnum.nickName
@@ -121,7 +189,11 @@ final class LoginViewController: BaseViewController {
         
         nicknameFilterLabel.textAlignment = .left
         nicknameFilterLabel.numberOfLines = 1
-        nicknameFilterLabel.font = .systemFont(ofSize: 13)
+        nicknameFilterLabel.font = .regular13
+        
+        mbtiLabel.text = "MBTI"
+        mbtiLabel.font = .heavy20
+        mbtiLabel.textColor = .cBlack
         
         
     }
@@ -141,7 +213,13 @@ final class LoginViewController: BaseViewController {
     }
     @objc func startButtonTapped() {
         // MARK: - 시작버튼 눌렀을 때 필터링 해주기
-//        self.checkTextFiled(self.vm.outputFilterBool.value)
+        //        self.checkTextFiled(self.vm.outputFilterBool.value)
+    }
+    // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
+    @objc func resetButtonTapped() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
     }
     // MARK: - 다음뷰로 이동하는 부분
     private func nextView() {
@@ -156,23 +234,43 @@ final class LoginViewController: BaseViewController {
     
     // MARK: - 확인 버튼 눌렀을 때 다음 뷰로 갈지 정하는 함수
     private func checkTextFiled(_ bool: Bool){
-//        if bool {
-//            if profileSetType == .first {
-//                nextView()
-//                return
-//            }else{
-//                navigationController?.popViewController(animated: true)
-//                return
-//            }
-//        }else{
-//            simpleShowAlert(title: "닉네임을 확인해주세요.", message: nil, okButton: "확인")
-//        }
+        //        if bool {
+        //            if profileSetType == .first {
+        //                nextView()
+        //                return
+        //            }else{
+        //                navigationController?.popViewController(animated: true)
+        //                return
+        //            }
+        //        }else{
+        //            simpleShowAlert(title: "닉네임을 확인해주세요.", message: nil, okButton: "확인")
+        //        }
+    }
+    // MARK: - mbti 버튼 인덱스값 클로저로 받아오는 함수 부분
+    private func mbtiCompletionSet() {
+        mbtiEIButton.completion = { [weak self] index, button in
+            guard let self else { return }
+            print(index,button)
+        }
+        mbtiSNButton.completion = { [weak self] index, button in
+            guard let self else { return }
+            print(index,button)
+        }
+        mbtiTFButton.completion = { [weak self] index, button in
+            guard let self else { return }
+            print(index,button)
+        }
+        mbtiJPButton.completion = { [weak self] index, button in
+            guard let self else { return }
+            print(index,button)
+        }
     }
 }
-
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //checkTextFiled()
+        // TODO: 키보드에서 리턴키 눌렀을 때 확인하고 다음 화면으로 가는거 구현하기
+        print(#function)
         return true
     }
     //텍스트 필드 글자 필터링 하는 부분
