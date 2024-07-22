@@ -21,7 +21,6 @@ final class MBTIButtonView: BaseView {
         self.bottomButton.setTitle(bottom, for: .normal)
         self.buttonIndex = buttonIndex
         super.init(frame: frame)
-        backgroundColor = .red
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -61,15 +60,31 @@ final class MBTIButtonView: BaseView {
         bottomButton.tag = 1
         topButton.layer.borderColor = UIColor.cGray.cgColor
         bottomButton.layer.borderColor = UIColor.cGray.cgColor
-        topButton.setTitleColor(.cBlack, for: .normal)
-        bottomButton.setTitleColor(.cBlack, for: .normal)
         topButton.layer.borderWidth = 3
         bottomButton.layer.borderWidth = 3
-        topButton.backgroundColor = .lightGray
-        bottomButton.backgroundColor = .lightGray
         
     }
     @objc func buttonTapped(_ sender: UIButton) {
         completion?(self.buttonIndex,sender.tag)
+    }
+    func buttonChange(_ bool: Bool?) {
+        guard let bool else {
+            topButton.setTitleColor(.cGray, for: .normal)
+            bottomButton.setTitleColor(.cGray, for: .normal)
+            topButton.backgroundColor = .white
+            bottomButton.backgroundColor = .white
+            return
+        }
+        if bool {
+            topButton.setTitleColor(.cGray, for: .normal)
+            bottomButton.setTitleColor(.cWhite, for: .normal)
+            topButton.backgroundColor = .white
+            bottomButton.backgroundColor = .cBlue
+        }else{
+            bottomButton.setTitleColor(.cGray, for: .normal)
+            topButton.setTitleColor(.cWhite, for: .normal)
+            bottomButton.backgroundColor = .white
+            topButton.backgroundColor = .cBlue
+        }
     }
 }

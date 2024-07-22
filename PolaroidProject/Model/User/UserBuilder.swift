@@ -22,9 +22,9 @@ struct UserBuilder {
         //guard let setType else { return }
         switch setType {
         case .onboarding:
-            self.init(nickName: "", profile: user.getRandomProfile(), mbti: [nil,nil,nil,nil])
+            self.init(nickName: "", profile: user.getRandomProfile(), mbti: user.mbti)
         case .setting:
-            self.init(nickName: user.userNickname, profile: user.userProfile, mbti: [nil])
+            self.init(nickName: user.userNickname, profile: user.userProfile, mbti: user.mbti)
         }
     }
 }

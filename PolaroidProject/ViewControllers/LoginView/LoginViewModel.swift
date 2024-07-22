@@ -10,19 +10,23 @@ import Foundation
 
 final class LoginViewModel {
     var settingType: Setting?
+    private lazy var builder = UserBuilder(self.settingType!)
     
     var inputViewDidLoade: Obsearvable<Void?> = Obsearvable(nil)
     var inputSetProfile: Obsearvable<String?> = Obsearvable(nil)
     var inputNickname: Obsearvable<String?> = Obsearvable(nil)
+    var inputMBTIButton: Obsearvable<(Int,Int)?> = Obsearvable(nil)
     
-    lazy private(set) var outputProfileImage: Obsearvable<UserBuilder?> = Obsearvable(nil)
+    lazy private(set) var outputProfileImage: Obsearvable<String?> = Obsearvable(nil)
     private(set) var outputFilterTitle: Obsearvable<NickNameFilter> = Obsearvable(.start)
     private(set) var outputFilterBool = Obsearvable(false)
+    private(set) var outputMBTICheck: Obsearvable<[Bool?]> = Obsearvable([Bool?]())
     
     init() {
         inputViewDidLoade.bind { [weak self] _ in
             guard let self, let settingType else { return }
-            self.outputProfileImage.value = UserBuilder(settingType)
+            self.outputProfileImage.value = builder.profile
+            self.outputMBTICheck.value = builder.mbti
         }
         inputSetProfile.bind { [weak self] image in
             guard let self, let image else { return }
@@ -32,10 +36,23 @@ final class LoginViewModel {
             self.nickNameFilter()
             self.checkName(name)
         }
+        inputMBTIButton.bind { [weak self] index in
+            guard let self, let index else { return }
+            mbitSetting(index)
+            
+        }
     }
     
+    private func mbitSetting(_ index: (Int,Int)) {
+        var checkBool = index.1 == 1 ? true : false
+        if outputMBTICheck.value[index.0] == checkBool {
+            outputMBTICheck.value[index.0] = nil
+        }else{
+            outputMBTICheck.value[index.0] = checkBool
+        }
+    }
     private func setUpProfile(_ image: String) {
-        self.outputProfileImage.value?.profile = image
+        self.outputProfileImage.value = image
     }
     private func checkName(_ name: String?) {
         if self.outputFilterTitle.value == .ok {
@@ -45,6 +62,8 @@ final class LoginViewModel {
         }
         outputFilterBool.value = false
     }
+    
+    
     private func nickNameFilter() {
         guard let name = self.inputNickname.value else { return }
         let specialChar = CharacterSet(charactersIn: "@#$%")

@@ -43,9 +43,9 @@ final class LoginViewController: BaseViewController {
     }
     // MARK: - vm 부분
     override func bindData() {
-        vm.outputProfileImage.bind { [weak self] builder in
-            guard let self, let builder else { return }
-            self.profileImage.changeProfile(builder.profile)
+        vm.outputProfileImage.bind { [weak self] image in
+            guard let self, let image else { return }
+            self.profileImage.changeProfile(image)
         }
         vm.outputFilterTitle.bind { [weak self] result in
             guard let self else { return }
@@ -56,7 +56,13 @@ final class LoginViewController: BaseViewController {
             guard let self else {return}
             self.successButton.toggleColor(bool)
         }
-        
+        vm.outputMBTICheck.bind { [weak self] bools in
+            guard let self else { return }
+            self.mbtiEIButton.buttonChange(bools[0])
+            self.mbtiSNButton.buttonChange(bools[1])
+            self.mbtiTFButton.buttonChange(bools[2])
+            self.mbtiJPButton.buttonChange(bools[3])
+        }
         //        vm.outputProfileImage.bind { image in
         //            self.profileImage.changeImage(image)
         //        }
@@ -203,7 +209,7 @@ final class LoginViewController: BaseViewController {
     }
     @objc func profileImageTapped() {
         let vc = SelectProfileViewController()
-        vc.vm.outputProfileImage.value = vm.outputProfileImage.value?.profile
+        vc.vm.outputProfileImage.value = vm.outputProfileImage.value
         vc.navTitle = vm.settingType?.navTitle
         vc.completion = { [weak self] image in
             guard let self else { return }
@@ -250,19 +256,19 @@ final class LoginViewController: BaseViewController {
     private func mbtiCompletionSet() {
         mbtiEIButton.completion = { [weak self] index, button in
             guard let self else { return }
-            print(index,button)
+            self.vm.inputMBTIButton.value = (index,button)
         }
         mbtiSNButton.completion = { [weak self] index, button in
             guard let self else { return }
-            print(index,button)
+            self.vm.inputMBTIButton.value = (index,button)
         }
         mbtiTFButton.completion = { [weak self] index, button in
             guard let self else { return }
-            print(index,button)
+            self.vm.inputMBTIButton.value = (index,button)
         }
         mbtiJPButton.completion = { [weak self] index, button in
             guard let self else { return }
-            print(index,button)
+            self.vm.inputMBTIButton.value = (index,button)
         }
     }
 }

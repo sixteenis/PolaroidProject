@@ -19,6 +19,9 @@ final class UserModelManager {
     @UserDefault(key: "userJoinDate", defaultValue: "언제죠?", storage: .standard)
     var userJoinDate: String
     
+    @UserDefault(key: "mbti", defaultValue: [Bool?](repeating: nil, count: 4), storage: .standard)
+    var mbti: [Bool?]
+    
     private init() {}
     
     // MARK: - 랜덤 프로필 가져와주는 함수
