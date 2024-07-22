@@ -41,6 +41,8 @@
 		0621A9A42C4E901E0083A89E /* SelectProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A32C4E901E0083A89E /* SelectProfileViewController.swift */; };
 		0621A9A62C4E90760083A89E /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A52C4E90760083A89E /* SelectProfileViewModel.swift */; };
 		0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A72C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift */; };
+		0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9A92C4E9A460083A89E /* Placeholder.swift */; };
+		0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		0621A9A32C4E901E0083A89E /* SelectProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewController.swift; sourceTree = "<group>"; };
 		0621A9A52C4E90760083A89E /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
 		0621A9A72C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		0621A9A92C4E9A460083A89E /* Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,8 @@
 			children = (
 				0621A9922C4E4BCF0083A89E /* Setting.swift */,
 				0621A99C2C4E62750083A89E /* ProfileImage.swift */,
+				0621A9A92C4E9A460083A89E /* Placeholder.swift */,
+				0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -342,6 +348,8 @@
 				0621A9A12C4E72D40083A89E /* ProfileImageView.swift in Sources */,
 				0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */,
 				0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */,
+				0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */,
+				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,

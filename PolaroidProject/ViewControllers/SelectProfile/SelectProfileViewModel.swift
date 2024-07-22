@@ -11,7 +11,6 @@ final class SelectProfileViewModel {
     var inputSelectProfile: Obsearvable<Int?> = Obsearvable(nil)
     
     var outputProfileImage: Obsearvable<String?> = Obsearvable(nil)
-    
     init() {
         inputSelectProfile.bind { [weak self] index in
             guard let index, let self else { return }

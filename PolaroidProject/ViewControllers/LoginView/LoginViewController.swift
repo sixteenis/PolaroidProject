@@ -17,7 +17,6 @@ final class LoginViewController: BaseViewController {
     private var startButton = StartButton("시작하기")
     
     let vm = LoginViewModel()
-    // TODO: 이친구도 vm으로 치워보자 나중에!
     
     
     override func viewDidLoad() {
@@ -33,6 +32,11 @@ final class LoginViewController: BaseViewController {
         vm.outputProfileImage.bind { builder in
             guard let builder else { return }
             self.profileImage.changeProfile(builder.profile)
+        }
+        vm.outputFilterTitle.bind { [weak self] result in
+            guard let self else { return }
+            self.nicknameFilterLabel.text = result.rawValue
+            self.nicknameFilterLabel.textColor = result.color
         }
         
 //        vm.outputProfileImage.bind { image in
@@ -96,23 +100,23 @@ final class LoginViewController: BaseViewController {
     
     // MARK: - UI 세팅 부분
     override func setUpView() {
-//        navigationController?.navigationBar.tintColor = .buttonSelectColor
+        navigationController?.navigationBar.tintColor = .cBlack
 //        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
 //        navigationItem.leftBarButtonItem = backButton
-//        
-//        if profileSetType == .edit{
+//        guard let type = vm.settingType else { return }
+//        if type == .setting{
 //            let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
 //            navigationItem.rightBarButtonItem = saveButton
 //            okButton.isHidden = true
 //        }
-//        navigationItem.title = profileSetType.rawValue
-//        
-//        line.backgroundColor = .lineColor
-//        nicknameTextField.placeholder = PlaceholderEnum.nickName
-//        nicknameTextField.textColor = .textColor
-//        nicknameTextField.contentMode = .left
-//        
-//        textLine.backgroundColor = .lineColor
+        //navigationItem.title = profileSetType.rawValue
+        
+        line.backgroundColor = .cGray
+        nicknameTextField.placeholder = PlaceholderEnum.nickName
+        nicknameTextField.textColor = .cBlack
+        nicknameTextField.contentMode = .left
+        
+        textLine.backgroundColor = .cGray
         
         
         nicknameFilterLabel.textAlignment = .left
@@ -128,6 +132,7 @@ final class LoginViewController: BaseViewController {
     @objc func profileImageTapped() {
         let vc = SelectProfileViewController()
         vc.vm.outputProfileImage.value = vm.outputProfileImage.value?.profile
+        vc.navTitle = vm.settingType?.navTitle
         vc.completion = { [weak self] image in
             guard let self else { return }
             self.vm.inputSetProfile.value = image
@@ -135,6 +140,7 @@ final class LoginViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func startButtonTapped() {
+        // MARK: - 시작버튼 눌렀을 때 필터링 해주기
 //        self.checkTextFiled(self.vm.outputFilterBool.value)
     }
     // MARK: - 다음뷰로 이동하는 부분
@@ -171,7 +177,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
     //텍스트 필드 글자 필터링 하는 부분
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        //self.vm.inputNickname.value = textField.text
+        self.vm.inputNickname.value = textField.text
     }
 
 }

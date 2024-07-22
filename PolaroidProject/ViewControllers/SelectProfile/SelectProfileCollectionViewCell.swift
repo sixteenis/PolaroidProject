@@ -11,6 +11,7 @@ import SnapKit
 
 final class SelectProfileCollectionViewCell: BaseCollectioViewCell {
     private let profileImage = SelcetProfileImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .darkGray

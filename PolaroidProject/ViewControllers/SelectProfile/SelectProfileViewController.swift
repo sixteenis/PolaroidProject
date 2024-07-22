@@ -25,6 +25,7 @@ final class SelectProfileViewController: BaseViewController {
     
     let vm = SelectProfileViewModel()
     var completion: ((String) -> Void)?
+    var navTitle: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
@@ -65,7 +66,7 @@ final class SelectProfileViewController: BaseViewController {
         navigationController?.navigationBar.tintColor = .cBlack
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.title = "냠냠"
+        navigationItem.title = navTitle
         
     }
     // MARK: - Collection 세팅 부분
