@@ -60,8 +60,8 @@ final class MBTIButtonView: BaseView {
         bottomButton.tag = 1
         topButton.layer.borderColor = UIColor.cGray.cgColor
         bottomButton.layer.borderColor = UIColor.cGray.cgColor
-        topButton.layer.borderWidth = 3
-        bottomButton.layer.borderWidth = 3
+        topButton.layer.borderWidth = 1
+        bottomButton.layer.borderWidth = 1
         
     }
     @objc func buttonTapped(_ sender: UIButton) {

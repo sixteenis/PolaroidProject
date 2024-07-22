@@ -52,9 +52,10 @@ final class LoginViewController: BaseViewController {
             self.nicknameFilterLabel.text = result.rawValue
             self.nicknameFilterLabel.textColor = result.color
         }
-        vm.outputFilterBool.bind { [weak self] bool in
+        vm.outputFilterBool.bind(true) { [weak self] bool in
             guard let self else {return}
             self.successButton.toggleColor(bool)
+            self.successButton.isEnabled = bool
         }
         vm.outputMBTICheck.bind { [weak self] bools in
             guard let self else { return }
@@ -218,8 +219,14 @@ final class LoginViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func startButtonTapped() {
-        // MARK: - 시작버튼 눌렀을 때 필터링 해주기
-        //        self.checkTextFiled(self.vm.outputFilterBool.value)
+        vm.inputSaveUserData.value = self.nicknameTextField.text!
+        
+        if vm.settingType == .onboarding {
+            nextView()
+        }else{
+            navigationController?.popViewController(animated: true)
+        }
+        
     }
     // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
     @objc func resetButtonTapped() {
@@ -238,20 +245,6 @@ final class LoginViewController: BaseViewController {
         sceneDelegate?.window?.makeKeyAndVisible()
     }
     
-    // MARK: - 확인 버튼 눌렀을 때 다음 뷰로 갈지 정하는 함수
-    private func checkTextFiled(_ bool: Bool){
-        //        if bool {
-        //            if profileSetType == .first {
-        //                nextView()
-        //                return
-        //            }else{
-        //                navigationController?.popViewController(animated: true)
-        //                return
-        //            }
-        //        }else{
-        //            simpleShowAlert(title: "닉네임을 확인해주세요.", message: nil, okButton: "확인")
-        //        }
-    }
     // MARK: - mbti 버튼 인덱스값 클로저로 받아오는 함수 부분
     private func mbtiCompletionSet() {
         mbtiEIButton.completion = { [weak self] index, button in
@@ -272,6 +265,7 @@ final class LoginViewController: BaseViewController {
         }
     }
 }
+
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //checkTextFiled()

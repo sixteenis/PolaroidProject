@@ -15,10 +15,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let vc = OnboardingViewController()
-        let nv = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nv // sb entrypoin
-        window?.makeKeyAndVisible() // show
+        let check = UserModelManager.shared.userJoinDate == "언제죠?"
+        
+        
+        let nav = check == true ? UINavigationController(rootViewController: OnboardingViewController()) : TabBarController()
+        
+        window?.rootViewController = nav
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

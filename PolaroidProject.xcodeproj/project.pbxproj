@@ -44,6 +44,8 @@
 		0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */; };
 		0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AD2C4EA4D90083A89E /* Font+.swift */; };
 		0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */; };
+		06E049642C4EC7D7003F1397 /* SearchPhotoViewConterol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewConterol.swift */; };
+		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameFilter.swift; sourceTree = "<group>"; };
 		0621A9AD2C4EA4D90083A89E /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButtonView.swift; sourceTree = "<group>"; };
+		06E049632C4EC7D7003F1397 /* SearchPhotoViewConterol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewConterol.swift; sourceTree = "<group>"; };
+		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +129,6 @@
 				0621A9632C4E38110083A89E /* Service */,
 				0621A9622C4E37F20083A89E /* Extension+ */,
 				0621A9612C4E37EE0083A89E /* Model */,
-				0621A9602C4E37E70083A89E /* ViewModel */,
 				0621A95F2C4E37D60083A89E /* ViewControllers */,
 				0621A9502C4E36730083A89E /* Assets.xcassets */,
 				0621A9522C4E36730083A89E /* LaunchScreen.storyboard */,
@@ -137,6 +140,8 @@
 		0621A95F2C4E37D60083A89E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				06E049652C4EC7DC003F1397 /* SearchPhotoView */,
+				06E049622C4EC7BA003F1397 /* TopicView */,
 				0621A9652C4E38200083A89E /* CustomView */,
 				0621A9662C4E382D0083A89E /* Base */,
 				0621A98C2C4E42930083A89E /* OnboardingViewController.swift */,
@@ -144,13 +149,6 @@
 				0621A9942C4E5DE70083A89E /* LoginView */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		0621A9602C4E37E70083A89E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0621A9612C4E37EE0083A89E /* Model */ = {
@@ -239,6 +237,22 @@
 				0621A9A52C4E90760083A89E /* SelectProfileViewModel.swift */,
 			);
 			path = SelectProfile;
+			sourceTree = "<group>";
+		};
+		06E049622C4EC7BA003F1397 /* TopicView */ = {
+			isa = PBXGroup;
+			children = (
+				06E049662C4EC804003F1397 /* TopicViewController.swift */,
+			);
+			path = TopicView;
+			sourceTree = "<group>";
+		};
+		06E049652C4EC7DC003F1397 /* SearchPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				06E049632C4EC7D7003F1397 /* SearchPhotoViewConterol.swift */,
+			);
+			path = SearchPhotoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,10 +367,12 @@
 				0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */,
 				0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
+				06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */,
 				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
+				06E049642C4EC7D7003F1397 /* SearchPhotoViewConterol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserBuilder {
+class UserBuilder {
     var nickName: String
     var profile: String
     var mbti: [Bool?]
@@ -17,7 +17,7 @@ struct UserBuilder {
         self.profile = profile
         self.mbti = mbti
     }
-    init(_ setType: Setting) {
+    convenience init(_ setType: Setting) {
         let user = UserModelManager.shared
         //guard let setType else { return }
         switch setType {

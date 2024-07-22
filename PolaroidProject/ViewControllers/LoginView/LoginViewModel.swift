@@ -11,11 +11,12 @@ import Foundation
 final class LoginViewModel {
     var settingType: Setting?
     private lazy var builder = UserBuilder(self.settingType!)
-    
+    private let user = UserModelManager.shared
     var inputViewDidLoade: Obsearvable<Void?> = Obsearvable(nil)
     var inputSetProfile: Obsearvable<String?> = Obsearvable(nil)
     var inputNickname: Obsearvable<String?> = Obsearvable(nil)
     var inputMBTIButton: Obsearvable<(Int,Int)?> = Obsearvable(nil)
+    var inputSaveUserData: Obsearvable<String> = Obsearvable("")
     
     lazy private(set) var outputProfileImage: Obsearvable<String?> = Obsearvable(nil)
     private(set) var outputFilterTitle: Obsearvable<NickNameFilter> = Obsearvable(.start)
@@ -24,7 +25,7 @@ final class LoginViewModel {
     
     init() {
         inputViewDidLoade.bind { [weak self] _ in
-            guard let self, let settingType else { return }
+            guard let self else { return }
             self.outputProfileImage.value = builder.profile
             self.outputMBTICheck.value = builder.mbti
         }
@@ -32,31 +33,37 @@ final class LoginViewModel {
             guard let self, let image else { return }
             self.setUpProfile(image)
         }
-        inputNickname.bind { name in
-            self.nickNameFilter()
-            self.checkName(name)
+        inputNickname.bind { [weak self] name in
+            guard let self else  {return }
+            self.nickNameFilter(name!)
+            self.checkCanStart()
         }
         inputMBTIButton.bind { [weak self] index in
             guard let self, let index else { return }
-            mbitSetting(index)
-            
+            self.mbitSetting(index)
+            self.checkCanStart()
+        }
+        inputSaveUserData.bind { name in
+            self.saveUserData(name)
         }
     }
     
     private func mbitSetting(_ index: (Int,Int)) {
-        var checkBool = index.1 == 1 ? true : false
+        let checkBool = index.1 == 1 ? true : false
         if outputMBTICheck.value[index.0] == checkBool {
             outputMBTICheck.value[index.0] = nil
         }else{
             outputMBTICheck.value[index.0] = checkBool
         }
+        
     }
     private func setUpProfile(_ image: String) {
         self.outputProfileImage.value = image
     }
-    private func checkName(_ name: String?) {
-        if self.outputFilterTitle.value == .ok {
-            guard name != nil else {return}
+    
+    private func checkCanStart() {
+        
+        if self.outputFilterTitle.value == .ok && !self.outputMBTICheck.value.contains(nil){
             outputFilterBool.value = true
             return
         }
@@ -64,8 +71,7 @@ final class LoginViewModel {
     }
     
     
-    private func nickNameFilter() {
-        guard let name = self.inputNickname.value else { return }
+    private func nickNameFilter(_ name: String) {
         let specialChar = CharacterSet(charactersIn: "@#$%")
         let filterNum = name.filter{$0.isNumber}
         if name.count < 2 || name.count >= 10 {
@@ -89,6 +95,15 @@ final class LoginViewModel {
             return
         }
         outputFilterTitle.value = .ok
+    }
+    
+    private func saveUserData(_ name: String) {
+        if self.settingType == .onboarding {
+            user.setUserJoinDate()
+        }
+        user.userNickname = name
+        user.userProfile = self.outputProfileImage.value!
+        user.mbti = self.outputMBTICheck.value
     }
     
 }
