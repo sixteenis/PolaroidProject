@@ -18,7 +18,7 @@ class Obsearvable<T> {
     init(_ value: T) {
         self.value = value
     }
-    func bind(_ excuteInit: Bool = true,closure: @escaping (T) -> ()) {
+    func bind(_ excuteInit: Bool = false,closure: @escaping (T) -> ()) {
         if excuteInit { closure(value) }
         
         self.closure = closure

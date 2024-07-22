@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImage" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-wt-LFX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImageCar" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-wt-LFX">
                                 <rect key="frame" x="10" y="239" width="373" height="373"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6YO-wt-LFX" secondAttribute="height" multiplier="1:1" id="fAU-oO-dZa"/>
@@ -57,7 +57,7 @@
     </scenes>
     <resources>
         <image name="launch" width="294.66665649414062" height="80.333335876464844"/>
-        <image name="launchImage" width="335" height="374"/>
+        <image name="launchImageCar" width="335" height="374"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

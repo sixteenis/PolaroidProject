@@ -24,18 +24,20 @@ final class OnboardingViewController: BaseViewController {
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 33)
     }
-    lazy private var startButton = StartButton("시작하기").then {
-        $0.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-    }
+    private var startButton = StartButton("시작하기")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        startButton.alpha = 0
+        animationImageView()
     }
+    
     override func setUpHierarchy() {
         view.addSubview(onbardingTitle)
         view.addSubview(onbardingImage)
         view.addSubview(myName)
         view.addSubview(startButton)
+        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     override func setUpLayout() {
         onbardingTitle.snp.makeConstraints { make in
@@ -61,6 +63,13 @@ final class OnboardingViewController: BaseViewController {
     
     // MARK: - 시작 버튼 함수
     @objc func startButtonTapped() {
-        print(#function)
+        let vc = LoginViewController()
+        vc.vm.settingType = .onboarding
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    private func animationImageView() {
+        UIView.animate(withDuration: 1, delay: 0.5, options: .curveEaseInOut) {
+            self.startButton.alpha = 1
+        }
     }
 }
