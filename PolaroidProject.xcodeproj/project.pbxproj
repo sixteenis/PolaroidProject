@@ -12,6 +12,26 @@
 		0621A9512C4E36730083A89E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0621A9502C4E36730083A89E /* Assets.xcassets */; };
 		0621A9542C4E36730083A89E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0621A9532C4E36730083A89E /* Base */; };
 		0621A95C2C4E36EB0083A89E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0621A95B2C4E36EB0083A89E /* .gitignore */; };
+		0621A95E2C4E37CD0083A89E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A95D2C4E37CD0083A89E /* LoginViewController.swift */; };
+		0621A96B2C4E384B0083A89E /* BaseCollectioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */; };
+		0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */; };
+		0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9692C4E384B0083A89E /* BaseView.swift */; };
+		0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A96A2C4E384B0083A89E /* BaseViewController.swift */; };
+		0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A96F2C4E38650083A89E /* Obsearvable.swift */; };
+		0621A9732C4E39D00083A89E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9722C4E39D00083A89E /* SnapKit */; };
+		0621A9762C4E39DA0083A89E /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9752C4E39DA0083A89E /* IQKeyboardManagerSwift */; };
+		0621A9792C4E39E30083A89E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9782C4E39E30083A89E /* Alamofire */; };
+		0621A97C2C4E39EA0083A89E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97B2C4E39EA0083A89E /* Then */; };
+		0621A97F2C4E39FF0083A89E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; };
+		0621A9822C4E3A0A0083A89E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9812C4E3A0A0083A89E /* Kingfisher */; };
+		0621A9852C4E3A1F0083A89E /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9842C4E3A1F0083A89E /* Toast */; };
+		0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9862C4E3B560083A89E /* ReuseIdentifier+.swift */; };
+		0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9882C4E3BE20083A89E /* APIKey.swift */; };
+		0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98A2C4E3D100083A89E /* TabBarController.swift */; };
+		0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98C2C4E42930083A89E /* OnboardingViewController.swift */; };
+		0621A98F2C4E4B150083A89E /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A98E2C4E4B150083A89E /* StartButton.swift */; };
+		0621A9912C4E4B5A0083A89E /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9902C4E4B5A0083A89E /* Color+.swift */; };
+		0621A9932C4E4BCF0083A89E /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9922C4E4BCF0083A89E /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +42,19 @@
 		0621A9532C4E36730083A89E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0621A9552C4E36730083A89E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0621A95B2C4E36EB0083A89E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0621A95D2C4E37CD0083A89E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectioViewCell.swift; sourceTree = "<group>"; };
+		0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		0621A9692C4E384B0083A89E /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		0621A96A2C4E384B0083A89E /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		0621A96F2C4E38650083A89E /* Obsearvable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obsearvable.swift; sourceTree = "<group>"; };
+		0621A9862C4E3B560083A89E /* ReuseIdentifier+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReuseIdentifier+.swift"; sourceTree = "<group>"; };
+		0621A9882C4E3BE20083A89E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		0621A98A2C4E3D100083A89E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		0621A98C2C4E42930083A89E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		0621A98E2C4E4B150083A89E /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		0621A9902C4E4B5A0083A89E /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		0621A9922C4E4BCF0083A89E /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +62,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0621A9822C4E3A0A0083A89E /* Kingfisher in Frameworks */,
+				0621A9792C4E39E30083A89E /* Alamofire in Frameworks */,
+				0621A9732C4E39D00083A89E /* SnapKit in Frameworks */,
+				0621A9762C4E39DA0083A89E /* IQKeyboardManagerSwift in Frameworks */,
+				0621A97F2C4E39FF0083A89E /* RealmSwift in Frameworks */,
+				0621A9852C4E3A1F0083A89E /* Toast in Frameworks */,
+				0621A97C2C4E39EA0083A89E /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,11 +97,88 @@
 			children = (
 				0621A9472C4E36720083A89E /* AppDelegate.swift */,
 				0621A9492C4E36720083A89E /* SceneDelegate.swift */,
+				0621A9642C4E381C0083A89E /* Enum */,
+				0621A9632C4E38110083A89E /* Service */,
+				0621A9622C4E37F20083A89E /* Extension+ */,
+				0621A9612C4E37EE0083A89E /* Model */,
+				0621A9602C4E37E70083A89E /* ViewModel */,
+				0621A95F2C4E37D60083A89E /* ViewControllers */,
 				0621A9502C4E36730083A89E /* Assets.xcassets */,
 				0621A9522C4E36730083A89E /* LaunchScreen.storyboard */,
 				0621A9552C4E36730083A89E /* Info.plist */,
 			);
 			path = PolaroidProject;
+			sourceTree = "<group>";
+		};
+		0621A95F2C4E37D60083A89E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0621A98A2C4E3D100083A89E /* TabBarController.swift */,
+				0621A9662C4E382D0083A89E /* Base */,
+				0621A9652C4E38200083A89E /* CustomView */,
+				0621A95D2C4E37CD0083A89E /* LoginViewController.swift */,
+				0621A98C2C4E42930083A89E /* OnboardingViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0621A9602C4E37E70083A89E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0621A9612C4E37EE0083A89E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0621A9622C4E37F20083A89E /* Extension+ */ = {
+			isa = PBXGroup;
+			children = (
+				0621A9862C4E3B560083A89E /* ReuseIdentifier+.swift */,
+				0621A9902C4E4B5A0083A89E /* Color+.swift */,
+			);
+			path = "Extension+";
+			sourceTree = "<group>";
+		};
+		0621A9632C4E38110083A89E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0621A9882C4E3BE20083A89E /* APIKey.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		0621A9642C4E381C0083A89E /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				0621A9922C4E4BCF0083A89E /* Setting.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		0621A9652C4E38200083A89E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				0621A98E2C4E4B150083A89E /* StartButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		0621A9662C4E382D0083A89E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0621A96A2C4E384B0083A89E /* BaseViewController.swift */,
+				0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */,
+				0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */,
+				0621A9692C4E384B0083A89E /* BaseView.swift */,
+				0621A96F2C4E38650083A89E /* Obsearvable.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +197,15 @@
 			dependencies = (
 			);
 			name = PolaroidProject;
+			packageProductDependencies = (
+				0621A9722C4E39D00083A89E /* SnapKit */,
+				0621A9752C4E39DA0083A89E /* IQKeyboardManagerSwift */,
+				0621A9782C4E39E30083A89E /* Alamofire */,
+				0621A97B2C4E39EA0083A89E /* Then */,
+				0621A97E2C4E39FF0083A89E /* RealmSwift */,
+				0621A9812C4E3A0A0083A89E /* Kingfisher */,
+				0621A9842C4E3A1F0083A89E /* Toast */,
+			);
 			productName = PolaroidProject;
 			productReference = 0621A9442C4E36720083A89E /* PolaroidProject.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +234,15 @@
 				Base,
 			);
 			mainGroup = 0621A93B2C4E36710083A89E;
+			packageReferences = (
+				0621A9712C4E39D00083A89E /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0621A9742C4E39DA0083A89E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				0621A9772C4E39E30083A89E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0621A97A2C4E39EA0083A89E /* XCRemoteSwiftPackageReference "Then" */,
+				0621A97D2C4E39FF0083A89E /* XCRemoteSwiftPackageReference "realm-swift" */,
+				0621A9802C4E3A0A0083A89E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0621A9832C4E3A1F0083A89E /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 0621A9452C4E36720083A89E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -135,7 +270,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0621A98F2C4E4B150083A89E /* StartButton.swift in Sources */,
+				0621A95E2C4E37CD0083A89E /* LoginViewController.swift in Sources */,
 				0621A9482C4E36720083A89E /* AppDelegate.swift in Sources */,
+				0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */,
+				0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */,
+				0621A9932C4E4BCF0083A89E /* Setting.swift in Sources */,
+				0621A96B2C4E384B0083A89E /* BaseCollectioViewCell.swift in Sources */,
+				0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */,
+				0621A9912C4E4B5A0083A89E /* Color+.swift in Sources */,
+				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,
+				0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */,
+				0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */,
+				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
+				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +509,103 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0621A9712C4E39D00083A89E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		0621A9742C4E39DA0083A89E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
+		0621A9772C4E39E30083A89E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		0621A97A2C4E39EA0083A89E /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		0621A97D2C4E39FF0083A89E /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		0621A9802C4E3A0A0083A89E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		0621A9832C4E3A1F0083A89E /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0621A9722C4E39D00083A89E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A9712C4E39D00083A89E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		0621A9752C4E39DA0083A89E /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A9742C4E39DA0083A89E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		0621A9782C4E39E30083A89E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A9772C4E39E30083A89E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0621A97B2C4E39EA0083A89E /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A97A2C4E39EA0083A89E /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		0621A97E2C4E39FF0083A89E /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A97D2C4E39FF0083A89E /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		0621A9812C4E3A0A0083A89E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A9802C4E3A0A0083A89E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		0621A9842C4E3A1F0083A89E /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0621A9832C4E3A1F0083A89E /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0621A93C2C4E36710083A89E /* Project object */;
 }
