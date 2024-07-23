@@ -12,6 +12,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cWhite
+        self.navigationController?.navigationBar.topItem?.title = ""
         setUpHierarchy()
         setUpView()
         setUpLayout()

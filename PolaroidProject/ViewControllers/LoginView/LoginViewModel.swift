@@ -10,7 +10,7 @@ import Foundation
 
 final class LoginViewModel {
     var settingType: Setting?
-    private lazy var builder = UserBuilder(self.settingType!)
+    private var builder = UserBuilder()
     private let user = UserModelManager.shared
     var inputViewDidLoade: Obsearvable<Void?> = Obsearvable(nil)
     var inputSetProfile: Obsearvable<String?> = Obsearvable(nil)
@@ -18,11 +18,12 @@ final class LoginViewModel {
     var inputMBTIButton: Obsearvable<(Int,Int)?> = Obsearvable(nil)
     var inputSaveUserData: Obsearvable<String> = Obsearvable("")
     
-    lazy private(set) var outputProfileImage: Obsearvable<String?> = Obsearvable(nil)
+    private(set) var outputProfileImage: Obsearvable<String?> = Obsearvable(nil)
     private(set) var outputFilterTitle: Obsearvable<NickNameFilter> = Obsearvable(.start)
     private(set) var outputFilterBool = Obsearvable(false)
     private(set) var outputMBTICheck: Obsearvable<[Bool?]> = Obsearvable([Bool?]())
-    
+    // MARK: - 하나의 빌더로 output을 줄일 수 있을거 같긴한데 흠??
+    //lazy private(set) var outputUser: Obsearvable<UserBuilder?> = Obsearvable(nil)
     init() {
         inputViewDidLoade.bind { [weak self] _ in
             guard let self else { return }

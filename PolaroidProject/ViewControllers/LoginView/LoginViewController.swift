@@ -17,6 +17,7 @@ final class LoginViewController: BaseViewController {
     
     private let mbtiLabel = UILabel()
     
+    
     private let mbtiEIButton = MBTIButtonView(frame: .zero, top: "E", bottom: "I", buttonIndex: 0)
     private let mbtiSNButton = MBTIButtonView(frame: .zero, top: "S", bottom: "N", buttonIndex: 1)
     private let mbtiTFButton = MBTIButtonView(frame: .zero, top: "T", bottom: "F", buttonIndex: 2)
@@ -25,10 +26,6 @@ final class LoginViewController: BaseViewController {
     private var successButton = SuccessButton("완료", bool: false)
     private let resetButton = UIButton()
     
-    
-    
-    
-    
     let vm = LoginViewModel()
     
     
@@ -36,6 +33,7 @@ final class LoginViewController: BaseViewController {
         super.viewDidLoad()
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -46,6 +44,7 @@ final class LoginViewController: BaseViewController {
         vm.outputProfileImage.bind { [weak self] image in
             guard let self, let image else { return }
             self.profileImage.changeProfile(image)
+            self.navigationItem.title = vm.settingType?.navTitle
         }
         vm.outputFilterTitle.bind { [weak self] result in
             guard let self else { return }
@@ -64,13 +63,6 @@ final class LoginViewController: BaseViewController {
             self.mbtiTFButton.buttonChange(bools[2])
             self.mbtiJPButton.buttonChange(bools[3])
         }
-        //        vm.outputProfileImage.bind { image in
-        //            self.profileImage.changeImage(image)
-        //        }
-        //        vm.outputFilterTitle.bind { data in
-        //            self.nicknameFilterLabel.text = data.rawValue
-        //            self.nicknameFilterLabel.textColor = data.color
-        //        }
         
     }
     // MARK: - connect 부분
@@ -90,7 +82,6 @@ final class LoginViewController: BaseViewController {
         
         //델리게이트
         nicknameTextField.delegate = self
-        
         successButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         let tap = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
@@ -161,16 +152,6 @@ final class LoginViewController: BaseViewController {
     // MARK: - UI 세팅 부분
     override func setUpView() {
         navigationController?.navigationBar.tintColor = .cBlack
-        //        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
-        //        navigationItem.leftBarButtonItem = backButton
-        //        guard let type = vm.settingType else { return }
-        //        if type == .setting{
-        //            let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
-        //            navigationItem.rightBarButtonItem = saveButton
-        //            okButton.isHidden = true
-        //        }
-        //navigationItem.title = profileSetType.rawValue
-        navigationItem.title = vm.settingType?.navTitle
         successButton.isHidden = true
         resetButton.isHidden = true
         
@@ -220,7 +201,6 @@ final class LoginViewController: BaseViewController {
     }
     @objc func startButtonTapped() {
         vm.inputSaveUserData.value = self.nicknameTextField.text!
-        
         if vm.settingType == .onboarding {
             nextView()
         }else{

@@ -10,10 +10,10 @@ import UIKit
 final class UserModelManager {
     static let shared = UserModelManager()
     
-    @UserDefault(key: "userProfile", defaultValue: "profile_0", storage: .standard)
+    @UserDefault(key: "userProfile", defaultValue: ProfileImage.randomImage, storage: .standard)
     var userProfile: String
     
-    @UserDefault(key: "userNickname", defaultValue: "손님", storage: .standard)
+    @UserDefault(key: "userNickname", defaultValue: "", storage: .standard)
     var userNickname: String
     
     @UserDefault(key: "userJoinDate", defaultValue: "언제죠?", storage: .standard)

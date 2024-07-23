@@ -24,4 +24,8 @@ enum ProfileImage: Int, CaseIterable, Codable {
     var image: String {
         return String(describing: self)
     }
+    static var randomImage: String {
+        guard let image =  Self.allCases.randomElement()?.image else {return self.profile_0.image}
+        return image
+    }
 }
