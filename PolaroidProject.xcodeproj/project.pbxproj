@@ -54,6 +54,11 @@
 		0655B2AB2C510E9000FF38C4 /* SearchPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2AA2C510E9000FF38C4 /* SearchPhotoViewModel.swift */; };
 		0655B2AD2C5114AC00FF38C4 /* LikePhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2AC2C5114AC00FF38C4 /* LikePhotoViewCell.swift */; };
 		0655B2AF2C5114B300FF38C4 /* LikePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2AE2C5114B300FF38C4 /* LikePhotoViewModel.swift */; };
+		0655B2B12C5115B700FF38C4 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2B02C5115B700FF38C4 /* DetailViewModel.swift */; };
+		0655B2B32C51399000FF38C4 /* TopicDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2B22C51399000FF38C4 /* TopicDataType.swift */; };
+		0655B2B52C513AAE00FF38C4 /* TopicNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2B42C513AAE00FF38C4 /* TopicNetworkManager.swift */; };
+		0655B2B92C514E6300FF38C4 /* SearchNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2B82C514E6300FF38C4 /* SearchNetworkManager.swift */; };
+		0655B2BB2C514E6C00FF38C4 /* SearchDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2BA2C514E6C00FF38C4 /* SearchDataType.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -101,6 +106,11 @@
 		0655B2AA2C510E9000FF38C4 /* SearchPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewModel.swift; sourceTree = "<group>"; };
 		0655B2AC2C5114AC00FF38C4 /* LikePhotoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePhotoViewCell.swift; sourceTree = "<group>"; };
 		0655B2AE2C5114B300FF38C4 /* LikePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePhotoViewModel.swift; sourceTree = "<group>"; };
+		0655B2B02C5115B700FF38C4 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		0655B2B22C51399000FF38C4 /* TopicDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDataType.swift; sourceTree = "<group>"; };
+		0655B2B42C513AAE00FF38C4 /* TopicNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicNetworkManager.swift; sourceTree = "<group>"; };
+		0655B2B82C514E6300FF38C4 /* SearchNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkManager.swift; sourceTree = "<group>"; };
+		0655B2BA2C514E6C00FF38C4 /* SearchDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataType.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +204,8 @@
 		0621A9632C4E38110083A89E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				0655B2B72C51477000FF38C4 /* Search */,
+				0655B2B62C51476600FF38C4 /* Topic */,
 				0621A9882C4E3BE20083A89E /* APIKey.swift */,
 			);
 			path = Service;
@@ -276,8 +288,27 @@
 			isa = PBXGroup;
 			children = (
 				0655B2A62C510AC200FF38C4 /* DetailViewController.swift */,
+				0655B2B02C5115B700FF38C4 /* DetailViewModel.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		0655B2B62C51476600FF38C4 /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				0655B2B42C513AAE00FF38C4 /* TopicNetworkManager.swift */,
+				0655B2B22C51399000FF38C4 /* TopicDataType.swift */,
+			);
+			path = Topic;
+			sourceTree = "<group>";
+		};
+		0655B2B72C51477000FF38C4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				0655B2B82C514E6300FF38C4 /* SearchNetworkManager.swift */,
+				0655B2BA2C514E6C00FF38C4 /* SearchDataType.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		06E049622C4EC7BA003F1397 /* TopicView */ = {
@@ -399,8 +430,10 @@
 				0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */,
 				0655B2772C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift in Sources */,
 				0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */,
+				0655B2BB2C514E6C00FF38C4 /* SearchDataType.swift in Sources */,
 				0621A9962C4E5DF70083A89E /* LoginViewModel.swift in Sources */,
 				0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */,
+				0655B2B92C514E6300FF38C4 /* SearchNetworkManager.swift in Sources */,
 				0655B2732C4FFDF700FF38C4 /* Image+.swift in Sources */,
 				0621A99B2C4E61E60083A89E /* UserModelManager.swift in Sources */,
 				0621A9932C4E4BCF0083A89E /* Setting.swift in Sources */,
@@ -413,12 +446,14 @@
 				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,
 				0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */,
 				0621A99F2C4E723A0083A89E /* UserBuilder.swift in Sources */,
+				0655B2B12C5115B700FF38C4 /* DetailViewModel.swift in Sources */,
 				0621A9A12C4E72D40083A89E /* ProfileImageView.swift in Sources */,
 				0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */,
 				0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */,
 				0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */,
 				0655B2AB2C510E9000FF38C4 /* SearchPhotoViewModel.swift in Sources */,
 				0655B2AF2C5114B300FF38C4 /* LikePhotoViewModel.swift in Sources */,
+				0655B2B32C51399000FF38C4 /* TopicDataType.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0655B2A42C50F96B00FF38C4 /* LikePhotoViewController.swift in Sources */,
 				0655B2A72C510AC200FF38C4 /* DetailViewController.swift in Sources */,
@@ -426,6 +461,7 @@
 				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
+				0655B2B52C513AAE00FF38C4 /* TopicNetworkManager.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 				0655B2752C5017BC00FF38C4 /* TopicCollectionViewCell.swift in Sources */,
 				06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import Then
 final class DetailViewController: BaseViewController {
     
     override func viewDidLoad() {
