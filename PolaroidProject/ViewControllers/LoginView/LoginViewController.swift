@@ -33,6 +33,7 @@ final class LoginViewController: BaseViewController {
         super.viewDidLoad()
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
+        
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     override func viewDidLayoutSubviews() {
@@ -257,5 +258,5 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         self.vm.inputNickname.value = textField.text
     }
-
+    
 }

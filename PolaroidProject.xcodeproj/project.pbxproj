@@ -46,6 +46,8 @@
 		0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */; };
 		0655B2712C4FFD2300FF38C4 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2702C4FFD2300FF38C4 /* TopicViewModel.swift */; };
 		0655B2732C4FFDF700FF38C4 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2722C4FFDF700FF38C4 /* Image+.swift */; };
+		0655B2752C5017BC00FF38C4 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2742C5017BC00FF38C4 /* TopicCollectionViewCell.swift */; };
+		0655B2772C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2762C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewConterol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewConterol.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -85,6 +87,8 @@
 		0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButtonView.swift; sourceTree = "<group>"; };
 		0655B2702C4FFD2300FF38C4 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		0655B2722C4FFDF700FF38C4 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
+		0655B2742C5017BC00FF38C4 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
+		0655B2762C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewConterol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewConterol.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -248,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				06E049662C4EC804003F1397 /* TopicViewController.swift */,
+				0655B2742C5017BC00FF38C4 /* TopicCollectionViewCell.swift */,
+				0655B2762C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift */,
 				0655B2702C4FFD2300FF38C4 /* TopicViewModel.swift */,
 			);
 			path = TopicView;
@@ -356,6 +362,7 @@
 				0621A9482C4E36720083A89E /* AppDelegate.swift in Sources */,
 				0655B2712C4FFD2300FF38C4 /* TopicViewModel.swift in Sources */,
 				0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */,
+				0655B2772C5022B200FF38C4 /* TopicSectionHeaderReusableView.swift in Sources */,
 				0621A98B2C4E3D100083A89E /* TabBarController.swift in Sources */,
 				0621A9962C4E5DF70083A89E /* LoginViewModel.swift in Sources */,
 				0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */,
@@ -380,6 +387,7 @@
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
+				0655B2752C5017BC00FF38C4 /* TopicCollectionViewCell.swift in Sources */,
 				06E049642C4EC7D7003F1397 /* SearchPhotoViewConterol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
