@@ -16,14 +16,18 @@ final class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = .cGray
         
         let nav1VC = TopicViewController()
-        let nav2VC = SearchPhotoViewConterol()
+        let nav2VC = SearchPhotoViewController()
+        let nav3VC = LikePhotoViewController()
         
         let nav1 = UINavigationController(rootViewController: nav1VC)
-        nav1.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        nav1.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_trend"), tag: 0)
         
         let nav2 = UINavigationController(rootViewController: nav2VC)
-        nav2.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person"), tag: 1)
+        nav2.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_search"), tag: 1)
         
-        setViewControllers([nav1, nav2], animated: false)
+        let nav3 = UINavigationController(rootViewController: nav3VC)
+        nav3.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_like"), tag: 1)
+        
+        setViewControllers([nav1, nav2, nav3], animated: false)
     }
 }

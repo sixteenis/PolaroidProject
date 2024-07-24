@@ -14,6 +14,10 @@ enum Section: String,CaseIterable {
     case second = "비즈니스 및 업무"
     case thride = "건축 및 인테리어"
 }
+
+// TODO: 프로필을 변경 후에 네비 프로필 이미지 다시 세팅해주는 로직 작성
+// TODO: 서버 통신 ㄱㄱ
+// TODO: cell 뷰 만들기
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section,Int>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Int>
@@ -22,7 +26,7 @@ final class TopicViewController: BaseViewController {
     private lazy var navRightBar = SelcetProfileImageView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private let test = TopicSectionHeaderReusableView()
-    var dataSource:DataSource!
+    private var dataSource:DataSource!
     
     private let vm = TopicViewModel()
     
@@ -65,6 +69,7 @@ final class TopicViewController: BaseViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(navrightButtonTapped))
         navRightBar.addGestureRecognizer(tap)
         
+        collectionView.delegate = self
         collectionView.register(TopicSectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TopicSectionHeaderReusableView.id)
     }
 }
@@ -144,5 +149,13 @@ private extension TopicViewController {
             cell.updateUI(itemIdentifier)
         }
         return result
+    }
+}
+// MARK: - collectionView 델리게이트 부분
+extension TopicViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = dataSource.itemIdentifier(for: indexPath)
+        let vc = DetailViewController()
+        print(data!)
     }
 }

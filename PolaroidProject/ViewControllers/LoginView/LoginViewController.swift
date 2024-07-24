@@ -33,8 +33,15 @@ final class LoginViewController: BaseViewController {
         super.viewDidLoad()
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
-        
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -142,7 +149,11 @@ final class LoginViewController: BaseViewController {
             make.width.equalTo(50)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
-        
+        resetButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
+            make.height.equalTo(45)
+        }
         successButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
@@ -184,6 +195,8 @@ final class LoginViewController: BaseViewController {
         mbtiLabel.font = .heavy20
         mbtiLabel.textColor = .cBlack
         
+        resetButton.setTitle("회원탈퇴", for: .normal)
+        resetButton.setTitleColor(.cBlue, for: .normal)
         
     }
     // MARK: - 버튼 함수 부분
@@ -214,16 +227,20 @@ final class LoginViewController: BaseViewController {
         for key in UserDefaults.standard.dictionaryRepresentation().keys {
             UserDefaults.standard.removeObject(forKey: key.description)
         }
+        nextView()
+        
     }
     // MARK: - 다음뷰로 이동하는 부분
     private func nextView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        //let navigationController = UINavigationController(rootViewController: TabBarController())
-        
-        sceneDelegate?.window?.rootViewController = TabBarController()
-        sceneDelegate?.window?.makeKeyAndVisible()
+        if vm.settingType == .onboarding {
+            sceneDelegate?.window?.rootViewController = TabBarController()
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }else if vm.settingType == .setting {
+            sceneDelegate?.window?.rootViewController = OnboardingViewController()
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
     }
     
     // MARK: - mbti 버튼 인덱스값 클로저로 받아오는 함수 부분
