@@ -65,6 +65,7 @@
 		0655B2F72C525B9100FF38C4 /* Orderby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2F62C525B9100FF38C4 /* Orderby.swift */; };
 		0655B2F92C52600C00FF38C4 /* SearchColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2F82C52600C00FF38C4 /* SearchColor.swift */; };
 		0655B2FB2C52947100FF38C4 /* TypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FA2C52947100FF38C4 /* TypeProtocol.swift */; };
+		0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FC2C529AE600FF38C4 /* APIError.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -123,6 +124,7 @@
 		0655B2F62C525B9100FF38C4 /* Orderby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orderby.swift; sourceTree = "<group>"; };
 		0655B2F82C52600C00FF38C4 /* SearchColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColor.swift; sourceTree = "<group>"; };
 		0655B2FA2C52947100FF38C4 /* TypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProtocol.swift; sourceTree = "<group>"; };
+		0655B2FC2C529AE600FF38C4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				0621A9882C4E3BE20083A89E /* APIKey.swift */,
+				0655B2FC2C529AE600FF38C4 /* APIError.swift */,
 				0655B2EC2C5246CD00FF38C4 /* TargetType.swift */,
 				0655B2E32C52429400FF38C4 /* UnsplashRouter.swift */,
 				0655B2F02C524B4700FF38C4 /* TopicDTO.swift */,
@@ -459,6 +462,7 @@
 				0621A96B2C4E384B0083A89E /* BaseCollectioViewCell.swift in Sources */,
 				0621A9A62C4E90760083A89E /* SelectProfileViewModel.swift in Sources */,
 				0655B2A92C510E5900FF38C4 /* SearchPhotoViewCell.swift in Sources */,
+				0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */,
 				0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */,
 				0621A99D2C4E62750083A89E /* ProfileImage.swift in Sources */,
 				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,

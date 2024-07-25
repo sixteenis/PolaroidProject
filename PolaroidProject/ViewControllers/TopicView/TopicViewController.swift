@@ -9,11 +9,7 @@ import UIKit
 
 import SnapKit
 
-enum Section: String,CaseIterable {
-    case firest = "골든 아워"
-    case second = "비즈니스 및 업무"
-    case thride = "건축 및 인테리어"
-}
+
 
 // TODO: 프로필을 변경 후에 네비 프로필 이미지 다시 세팅해주는 로직 작성
 // TODO: 서버 통신 ㄱㄱ

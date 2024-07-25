@@ -7,26 +7,43 @@
 
 import Foundation
 
-struct TopicDTO: Decodable {
+struct TopicDTO: Decodable, Hashable {
+    
+    
     let id: String
-    let created_at: String
+    let createdAt: String
     let width: Int
     let height: Int
     let urls: PhotoURLs
     let likes: Int
     let user: User
+    
+    enum CodingKeys: String, CodingKey {
+            case id
+            case createdAt = "created_at"
+            case width
+            case height
+            case urls
+            case likes
+            case user
+        }
 }
 
-struct PhotoURLs: Decodable {
+struct PhotoURLs: Decodable, Hashable {
     let small: String
     let regular: String
     let raw: String
 }
 
-struct User: Decodable {
+struct User: Decodable, Hashable {
     let name: String
-    let profile_image: UserProfile
+    let profileImage: UserProfile
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case profileImage = "profile_image"
+    }
 }
-struct UserProfile: Decodable {
+struct UserProfile: Decodable, Hashable {
     let medium: String
 }
