@@ -10,10 +10,6 @@ import UIKit
 import SnapKit
 
 
-
-// TODO: 프로필을 변경 후에 네비 프로필 이미지 다시 세팅해주는 로직 작성
-// TODO: 서버 통신 ㄱㄱ
-// TODO: cell 뷰 만들기
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicDTO>
     typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicDTO>
@@ -37,7 +33,7 @@ final class TopicViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "OUR TOPIC"
-        
+        vm.inputCheckProfile.value = ()
     }
     override func bindData() {
         vm.outputGetProfileImage.bind { [weak self] image in

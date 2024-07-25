@@ -9,7 +9,9 @@ import Foundation
 
 final class TopicViewModel {
     let networkMnager = NetworkManager.shard
+    
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
+    var inputCheckProfile: Obsearvable<Void?> = Obsearvable(nil)
     
     var outputGetProfileImage: Obsearvable<String?> = Obsearvable(nil)
     var outputTopicList = Obsearvable([TopicModel]())
@@ -19,28 +21,39 @@ final class TopicViewModel {
             self.getProfileImage()
             self.getTopicData()
         }
+        inputCheckProfile.bind { _ in
+            self.checkProfileImage()
+        }
     }
     
     
     
 }
+// MARK: - 프로필 관련
 private extension TopicViewModel {
     func getProfileImage() {
         outputGetProfileImage.value = UserModelManager.shared.userProfile
     }
+    func checkProfileImage() {
+        guard let profile = outputGetProfileImage.value else {return}
+        if UserModelManager.shared.userProfile != profile {
+            outputGetProfileImage.value = UserModelManager.shared.userProfile
+        }
+    }
+}
+// MARK: - collectionView 관련
+private extension TopicViewModel {
     func getTopicSection() -> [TopicSection]{
         let section = Array(TopicSection.allCases.shuffled().prefix(3))
-        print(section)
         return section
     }
-    
     func getTopicData() {
         let sections = getTopicSection()
         let group = DispatchGroup()
         var items = [TopicModel]()
         for section in sections {
             group.enter()
-            let num = Int.random(in: 0...100)
+            let num = Int.random(in: 0...1000)
             // TODO: 다른 주제여도 중복이 넘많다.. page를 설정해줘야됨.. 나중에 중복안되는 page 구현하기
             networkMnager.requestTopic(type: section,page: num) { respone in
                 switch respone {
