@@ -15,9 +15,9 @@ import SnapKit
 // TODO: 서버 통신 ㄱㄱ
 // TODO: cell 뷰 만들기
 final class TopicViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,Int>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, Int>
-    typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, Int>
+    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicDTO>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicDTO>
+    typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, TopicDTO>
     
     private lazy var navRightBar = SelcetProfileImageView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -29,8 +29,8 @@ final class TopicViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         vm.inputViewDidLoad.value = ()
-        setUpDataSource()
-        upDateSnapshot()
+        
+    
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,6 +43,11 @@ final class TopicViewController: BaseViewController {
         vm.outputGetProfileImage.bind { [weak self] image in
             guard let self, let image else { return }
             navRightBar.changeProfile(image)
+        }
+        vm.outputTopicList.bind { topicModel in
+            self.setUpDataSource()
+            self.upDateSnapshot(topics: topicModel)
+            
         }
     }
     
@@ -116,23 +121,20 @@ private extension TopicViewController {
 }
 // MARK: - DataSource 관련 코드
 private extension TopicViewController {
-    func upDateSnapshot() {
+    func upDateSnapshot(topics: [TopicModel]) {
         var snapshot = Snapshot()
-        let temp = Array(TopicSection.allCases.shuffled().prefix(3))
-        
-        snapshot.appendSections(temp)
-        for i in 0...2 {
-            
-            snapshot.appendItems([i], toSection: temp[i])
+        snapshot.appendSections(topics.map{$0.section})
+        topics.forEach { topic in
+            snapshot.appendItems(topic.data, toSection: topic.section)
         }
         
-        
-//        snapshot.appendItems([4,5], toSection: .second)
-//        snapshot.appendItems([6,7,8], toSection: .thride)
+
         dataSource.apply(snapshot)
+        
     }
+    
     func setUpDataSource() {
-        let using = phtoCellRegistration()
+        let using = TopicCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
             //여기다 cell부분 넣으면 됨 ㅇㅇ
@@ -147,7 +149,7 @@ private extension TopicViewController {
             return view
         }
     }
-    func phtoCellRegistration() -> Registration {
+    func TopicCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier)
         }

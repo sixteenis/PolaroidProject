@@ -13,15 +13,15 @@ final class NetworkManager {
     static let shard = NetworkManager()
     private init() {}
     
-    func requestTopic(type: TopicSection, completion: @escaping (Result<[TopicDTO],APIError>) -> Void) {
+    func requestTopic(type: TopicSection,page: Int, completion: @escaping (Result<TopicModel,APIError>) -> Void) {
         do {
-            let request = try UnsplashRouter.topic(params: type).asURLRequest()
+            let request = try UnsplashRouter.topic(params: type, page: page).asURLRequest()
 
             AF.request(request)
                 .responseDecodable(of: [TopicDTO].self ) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(.success(data))
+                        completion(.success(TopicModel(section: type, data: data)))
                     case .failure(let error):
                         print(error)
                         switch response.response?.statusCode {

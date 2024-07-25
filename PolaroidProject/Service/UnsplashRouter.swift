@@ -10,16 +10,17 @@ import Foundation
 import Alamofire
 
 enum UnsplashRouter: URLRequestConvertible {
-    case topic(params: TopicSection)
+    case topic(params: TopicSection, page: Int)
     case search(params: SearchParams)
 }
 
 extension UnsplashRouter: TargetType {
     var parameters: [String : Any]? {
         switch self {
-        case .topic(let params):
+        case .topic(let params, let page):
             let result = [
                 "topics": params.rawValue,
+                "page": "\(page)",
                 "client_id": APIKey.key
             ]
             return result
