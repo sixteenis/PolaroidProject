@@ -19,8 +19,8 @@ enum Section: String,CaseIterable {
 // TODO: 서버 통신 ㄱㄱ
 // TODO: cell 뷰 만들기
 final class TopicViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<Section,Int>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Int>
+    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,Int>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, Int>
     typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, Int>
     
     private lazy var navRightBar = SelcetProfileImageView()
@@ -41,10 +41,7 @@ final class TopicViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "OUR TOPIC"
-//        let a = TopicSection.allCases
-//        UnsplashNetworkManager.shard.requestTopic(type: a[0])
-        let a = SearchParams(query: "고양이", page: "1", orderby: .latest, color: nil)
-        UnsplashNetworkManager.shard.requestSearch(type: a)
+        
     }
     override func bindData() {
         vm.outputGetProfileImage.bind { [weak self] image in
@@ -125,10 +122,17 @@ private extension TopicViewController {
 private extension TopicViewController {
     func upDateSnapshot() {
         var snapshot = Snapshot()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([1,2,3], toSection: .firest)
-        snapshot.appendItems([4,5], toSection: .second)
-        snapshot.appendItems([6,7,8], toSection: .thride)
+        let temp = Array(TopicSection.allCases.shuffled().prefix(3))
+        
+        snapshot.appendSections(temp)
+        for i in 0...2 {
+            
+            snapshot.appendItems([i], toSection: temp[i])
+        }
+        
+        
+//        snapshot.appendItems([4,5], toSection: .second)
+//        snapshot.appendItems([6,7,8], toSection: .thride)
         dataSource.apply(snapshot)
     }
     func setUpDataSource() {
@@ -143,7 +147,7 @@ private extension TopicViewController {
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TopicSectionHeaderReusableView.id, for: indexPath) as! TopicSectionHeaderReusableView
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            view.titleLabel.text = section.rawValue
+            view.titleLabel.text = section.setionTitle
             return view
         }
     }

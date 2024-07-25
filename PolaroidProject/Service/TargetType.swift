@@ -13,7 +13,7 @@ protocol TargetType: URLRequestConvertible {
     var method: HTTPMethod { get }
     var path: String { get }
     var header: [String: String] { get }
-    var parameters: [String:String]? { get }
+    var parameters: [String:Any]? { get }
     var queryItmes: [URLQueryItem]? { get }
     var body: Data? { get }
 }

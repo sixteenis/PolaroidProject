@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct SearchParams {
+struct SearchParams: ParamsType {
     let query: String
-    let page: String
+    let page: Int
     let per_page = "20"
     let orderby: Orderby
     let color: SearchColor?

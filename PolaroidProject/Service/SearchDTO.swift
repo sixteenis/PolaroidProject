@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct SearchDTO: Decodable {
+    let total: Int
+    let total_pages: Int
+    let results: [TopicDTO]
+}

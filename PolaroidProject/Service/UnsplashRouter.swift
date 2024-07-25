@@ -15,7 +15,7 @@ enum UnsplashRouter: URLRequestConvertible {
 }
 
 extension UnsplashRouter: TargetType {
-    var parameters: [String : String]? {
+    var parameters: [String : Any]? {
         switch self {
         case .topic(let params):
             let result = [
@@ -26,7 +26,7 @@ extension UnsplashRouter: TargetType {
         case .search(let params):
             var result = [
                 "query": params.query,
-                "page": params.page,
+                "page": "params.page",
                 "per_page": params.per_page,
                 "order_by": params.orderby.rawValue,
                 "client_id": APIKey.key
