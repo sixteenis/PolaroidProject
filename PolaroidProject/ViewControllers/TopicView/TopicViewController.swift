@@ -41,7 +41,10 @@ final class TopicViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "OUR TOPIC"
-        
+//        let a = TopicSection.allCases
+//        UnsplashNetworkManager.shard.requestTopic(type: a[0])
+        let a = SearchParams(query: "고양이", page: "1", orderby: .latest, color: nil)
+        UnsplashNetworkManager.shard.requestSearch(type: a)
     }
     override func bindData() {
         vm.outputGetProfileImage.bind { [weak self] image in
