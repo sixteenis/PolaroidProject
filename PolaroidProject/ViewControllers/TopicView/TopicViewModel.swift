@@ -15,7 +15,8 @@ final class TopicViewModel {
     
     var outputGetProfileImage: Obsearvable<String?> = Obsearvable(nil)
     var outputTopicList = Obsearvable([TopicModel]())
-    
+    var outputLoadingSet = Obsearvable(false)
+    var outputErrorTitle: Obsearvable<String> = Obsearvable("")
     init() {
         inputViewDidLoad.bind { _ in
             self.getProfileImage()
@@ -51,6 +52,7 @@ private extension TopicViewModel {
         let sections = getTopicSection()
         let group = DispatchGroup()
         var items = [TopicModel]()
+        outputLoadingSet.value = false
         for section in sections {
             group.enter()
             let num = Int.random(in: 0...1000)
@@ -60,13 +62,15 @@ private extension TopicViewModel {
                 case .success(let success):
                     items.append(success)
                 case .failure(let failure):
-                    print(failure)
+                    self.outputErrorTitle.value = failure.rawValue
+                    
                 }
                 group.leave()
             }
             
         }
         group.notify(queue: .main) {
+            self.outputLoadingSet.value = true
             self.outputTopicList.value = items
         }
     }

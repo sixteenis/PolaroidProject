@@ -8,13 +8,15 @@
 import UIKit
 
 import SnapKit
-
+import Then
 
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicDTO>
     typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicDTO>
     typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, TopicDTO>
     
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
+    private let errorView = ErrorView(frame: .zero)
     private lazy var navRightBar = SelcetProfileImageView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private let test = TopicSectionHeaderReusableView()
@@ -25,8 +27,6 @@ final class TopicViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         vm.inputViewDidLoad.value = ()
-        
-    
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,6 +36,13 @@ final class TopicViewController: BaseViewController {
         vm.inputCheckProfile.value = ()
     }
     override func bindData() {
+        vm.outputErrorTitle.bind { err in
+            self.errorView.isHidden = false
+            self.errorView.getErrorText(err)
+        }
+        vm.outputLoadingSet.bind(true) { bool in
+            bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
+        }
         vm.outputGetProfileImage.bind { [weak self] image in
             guard let self, let image else { return }
             navRightBar.changeProfile(image)
@@ -51,6 +58,7 @@ final class TopicViewController: BaseViewController {
         view.addSubview(navRightBar)
         view.addSubview(collectionView)
         view.addSubview(test)
+        view.addSubview(errorView)
     }
     override func setUpLayout() {
         navRightBar.snp.makeConstraints { make in
@@ -59,12 +67,16 @@ final class TopicViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        errorView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     override func setUpView() {
         let navright = UIBarButtonItem(customView: navRightBar)
         navigationItem.rightBarButtonItem = navright
         let tap = UITapGestureRecognizer(target: self, action: #selector(navrightButtonTapped))
         navRightBar.addGestureRecognizer(tap)
+        errorView.isHidden = true
         
         collectionView.delegate = self
         collectionView.register(TopicSectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TopicSectionHeaderReusableView.id)
@@ -152,6 +164,19 @@ private extension TopicViewController {
         return result
     }
 }
+// MARK: - 리로딩 뷰 관련 코드
+private extension TopicViewController {
+    private func showLoadingIndicator() {
+        loadingIndicator.startAnimating()
+        loadingIndicator.center = view.center
+        view.addSubview(loadingIndicator)
+    }
+    
+    private func hideLoadingIndicator() {
+        loadingIndicator.stopAnimating()
+        loadingIndicator.removeFromSuperview()
+    }
+}
 // MARK: - collectionView 델리게이트 부분
 extension TopicViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -160,3 +185,4 @@ extension TopicViewController: UICollectionViewDelegate {
         print(data!)
     }
 }
+

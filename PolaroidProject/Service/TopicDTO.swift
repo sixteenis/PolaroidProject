@@ -8,8 +8,6 @@
 import Foundation
 
 struct TopicDTO: Decodable, Hashable {
-    
-    
     let id: String
     let createdAt: String
     let width: Int
