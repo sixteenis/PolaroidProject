@@ -84,9 +84,7 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         case .search:
             likeButton.isHidden = false
             likesCount.isHidden = false
-        case .likeList:
-            likeButton.isHidden = false
-            likesCount.isHidden = true
+            
         }
         checkLike(data.imageId)
         
@@ -99,6 +97,13 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         )
         
         likesCount.text = data.likes.formatted()
+    }
+    func updateUIWithRelam(_ data: LikeList) {
+        likeButton.isHidden = false
+        likesCount.isHidden = true
+        checkLike(data.imageId)
+        profileImage.image = LikeRepository.shard.getImage(data.imageId)
+        
     }
     func checkLike(_ id: String) {
         let result = LikeRepository.shard.checklist(id)

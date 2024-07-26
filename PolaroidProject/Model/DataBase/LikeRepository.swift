@@ -17,6 +17,12 @@ final class LikeRepository {
         let data = Array(realm.objects(LikeList.self))
         return data
     }
+    func getImage(_ id: String) -> UIImage? {
+        let image = self.loadImageToDocument(filename: id)
+        return image
+        
+    
+    }
     func toggleLike(_ item: ImageDTO) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?
         //true이면 좋아요 눌렸던거 -> 지워줘야죠?

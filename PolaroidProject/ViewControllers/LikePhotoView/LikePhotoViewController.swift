@@ -13,9 +13,9 @@ enum LikePhotoSection: CaseIterable {
     case firest
 }
 final class LikePhotoViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<LikePhotoSection,ImageDTO>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<LikePhotoSection, ImageDTO>
-    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageDTO>
+    typealias DataSource = UICollectionViewDiffableDataSource<LikePhotoSection,LikeList>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<LikePhotoSection, LikeList>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, LikeList>
     
     private let sortingButton = UIButton().then {
         $0.setTitle("정렬", for: .normal)
@@ -87,15 +87,15 @@ extension LikePhotoViewController: UICollectionViewDelegate {
 // MARK: - collectionView 레이아웃 부분
 private extension LikePhotoViewController {
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(200))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(5)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
+        section.interGroupSpacing = 5
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -107,7 +107,7 @@ private extension LikePhotoViewController {
     func upDateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections(LikePhotoSection.allCases)
-//        /snapshot.appendItems([1,2,3,4,5,6,7,8,9,10], toSection: .firest)
+        snapshot.appendItems(LikeRepository.shard.getLikeList(), toSection: .firest)
         
         dataSource.apply(snapshot)
     }
@@ -123,7 +123,12 @@ private extension LikePhotoViewController {
     }
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
-            cell.updateUI(itemIdentifier, style: .likeList)
+            cell.updateUIWithRelam(itemIdentifier)
+            // TODO: 좋아요 기능 구현
+//            cell.completion = {
+//                LikeRepository.shard.toggleLike(itemIdentifier.)
+//                cell.checkLike(itemIdentifier.imageId)
+//            }
         }
         return result
     }

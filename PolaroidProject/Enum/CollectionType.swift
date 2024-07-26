@@ -11,5 +11,4 @@ import Foundation
 enum CollectionType {
     case topic
     case search
-    case likeList
 }
