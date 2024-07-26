@@ -9,7 +9,7 @@ import Foundation
 
 struct SearchParams {
     let query: String
-    let page: Int
+    var page: Int
     let per_page = "20"
     let orderby: Orderby
     let color: SearchColor?

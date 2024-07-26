@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TopicModel: Hashable,Identifiable {
+struct ImageModel: Hashable,Identifiable {
     let id = UUID()
     let data: ImageDTO
 }

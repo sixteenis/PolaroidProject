@@ -9,5 +9,5 @@ import Foundation
 
 struct TopicSeciontModel: Hashable {
     let section: TopicSection
-    let topicList: [TopicModel]
+    let topicList: [ImageModel]
 }

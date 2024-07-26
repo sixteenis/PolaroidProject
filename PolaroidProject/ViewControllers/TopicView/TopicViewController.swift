@@ -11,9 +11,9 @@ import SnapKit
 import Then
 
 final class TopicViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicModel>
-    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, TopicModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,ImageModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, ImageModel>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageModel>
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let errorView = ErrorView(frame: .zero)

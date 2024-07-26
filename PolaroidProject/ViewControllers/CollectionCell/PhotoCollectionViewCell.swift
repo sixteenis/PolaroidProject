@@ -69,7 +69,7 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
             make.centerY.equalToSuperview()
         }
         likeButton.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview().inset(15)
+            make.trailing.bottom.equalToSuperview().inset(8)
         }
         
     }
@@ -78,11 +78,16 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         case .topic:
             profileImage.layer.cornerRadius = 15
             likeButton.isHidden = true
+            likesCount.isHidden = false
         case .search:
-            break
+            likeButton.isHidden = false
+            likesCount.isHidden = false
         case .likeList:
+            likeButton.isHidden = false
             likesCount.isHidden = true
         }
+        likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
+        
         profileImage.kf.indicatorType = .activity
         guard let url = URL(string: data.urls.small) else { return }
         profileImage.kf.setImage(

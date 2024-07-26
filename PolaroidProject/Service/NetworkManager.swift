@@ -21,7 +21,7 @@ final class NetworkManager {
                 .responseDecodable(of: [ImageDTO].self ) { response in
                     switch response.result {
                     case .success(let data):
-                        let result = data.map {TopicModel(data: $0)}
+                        let result = data.map {ImageModel(data: $0)}
                         let results = TopicSeciontModel(section: type, topicList: result)
                         completion(.success(results))
                     case .failure(let error):
@@ -45,7 +45,7 @@ final class NetworkManager {
         }
     }
     
-    func requestSearch(type: SearchParams, completion: @escaping (Result<SearchDTO, APIError>) -> Void) {
+    func requestSearch(type: SearchParams, completion: @escaping (Result<SearchsModel, APIError>) -> Void) {
         do {
             let request = try UnsplashRouter.search(params: type).asURLRequest()
 
@@ -53,7 +53,9 @@ final class NetworkManager {
                 .responseDecodable(of: SearchDTO.self ) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(.success(data))
+                        let result = data.results.map { ImageModel(data: $0)}
+                        let results = SearchsModel(total: data.total_pages, Images: result)
+                        completion(.success(results))
                     case .failure(let error):
                         print(error)
                         switch response.response?.statusCode {

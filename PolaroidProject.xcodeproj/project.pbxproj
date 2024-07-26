@@ -66,8 +66,9 @@
 		0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FC2C529AE600FF38C4 /* APIError.swift */; };
 		0655B2FF2C52B46600FF38C4 /* TopicsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */; };
 		06579BA62C52C46000CEEF79 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA52C52C46000CEEF79 /* ErrorView.swift */; };
-		06579BA82C538CD100CEEF79 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA72C538CD100CEEF79 /* TopicModel.swift */; };
+		06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA72C538CD100CEEF79 /* ImageModel.swift */; };
 		06D068ED2C53B46500B8787A /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EC2C53B46500B8787A /* CollectionType.swift */; };
+		06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EF2C53D55100B8787A /* SearchsModel.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -127,8 +128,9 @@
 		0655B2FC2C529AE600FF38C4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsModel.swift; sourceTree = "<group>"; };
 		06579BA52C52C46000CEEF79 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		06579BA72C538CD100CEEF79 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
+		06579BA72C538CD100CEEF79 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		06D068EC2C53B46500B8787A /* CollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
+		06D068EF2C53D55100B8787A /* SearchsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchsModel.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -325,7 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */,
-				06579BA72C538CD100CEEF79 /* TopicModel.swift */,
+				06579BA72C538CD100CEEF79 /* ImageModel.swift */,
+				06D068EF2C53D55100B8787A /* SearchsModel.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -490,7 +493,7 @@
 				0655B2AB2C510E9000FF38C4 /* SearchPhotoViewModel.swift in Sources */,
 				0655B2AF2C5114B300FF38C4 /* LikePhotoViewModel.swift in Sources */,
 				0655B2E92C52432100FF38C4 /* TopicSection.swift in Sources */,
-				06579BA82C538CD100CEEF79 /* TopicModel.swift in Sources */,
+				06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0655B2A42C50F96B00FF38C4 /* LikePhotoViewController.swift in Sources */,
 				0655B2A72C510AC200FF38C4 /* DetailViewController.swift in Sources */,
@@ -499,6 +502,7 @@
 				0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */,
 				0655B2ED2C5246CD00FF38C4 /* TargetType.swift in Sources */,
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
+				06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 				0655B2F32C524D6900FF38C4 /* SearchDTO.swift in Sources */,

@@ -13,12 +13,12 @@ enum SearchSection: CaseIterable {
     case firest
 }
 final class SearchPhotoViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageDTO>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageDTO>
-    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageDTO>
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageModel>
     
     
-    
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let sortingButton = UIButton().then {
         $0.setTitle("정렬", for: .normal)
         $0.setTitleColor(.cBlack, for: .normal)
@@ -37,12 +37,16 @@ final class SearchPhotoViewController: BaseViewController {
     let vm = SearchPhotoViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setUpDataSource()
 
     }
     override func bindData() {
         vm.outputImageList.bind { data in
-            self.setUpDataSource()
+                
             self.upDateSnapshot(items: data)
+        }
+        vm.outputLoadingSet.bind { bool in
+            bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
         }
     }
     override func setUpHierarchy() {
@@ -54,6 +58,7 @@ final class SearchPhotoViewController: BaseViewController {
         searchBar.delegate = self
         sortingButton.addTarget(self, action: #selector(sortingButtonTapped), for: .touchUpInside)
         collectionView.delegate = self
+        collectionView.prefetchDataSource = self
         
     }
     override func setUpLayout() {
@@ -107,6 +112,17 @@ extension SearchPhotoViewController: UISearchBarDelegate {
         vm.inputStartNetworking.value = searchBar.text!
     }
 }
+// MARK: - 페이지네이션 부분
+extension SearchPhotoViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        //if indexPaths
+        if indexPaths[0].item == vm.outputImageList.value.count - 4 {
+            vm.inputPage.value = indexPaths[0].item
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+    }
+}
 // MARK: - collectionView 레이아웃 부분
 private extension SearchPhotoViewController {
     func createLayout() -> UICollectionViewLayout {
@@ -127,11 +143,10 @@ private extension SearchPhotoViewController {
 }
 // MARK: - DataSource 관련 코드
 private extension SearchPhotoViewController {
-    func upDateSnapshot(items: [ImageDTO]) {
+    func upDateSnapshot(items: [ImageModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections(SearchSection.allCases)
         snapshot.appendItems(items, toSection: .firest)
-        
         dataSource.apply(snapshot)
     }
     func setUpDataSource() {
@@ -145,9 +160,23 @@ private extension SearchPhotoViewController {
     }
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
-            cell.updateUI(itemIdentifier, style: .search)
+            cell.updateUI(itemIdentifier.data, style: .search)
         }
         return result
     }
 }
 
+
+// MARK: - 리로딩 뷰 관련 코드
+private extension SearchPhotoViewController {
+    private func showLoadingIndicator() {
+        loadingIndicator.startAnimating()
+        loadingIndicator.center = view.center
+        view.addSubview(loadingIndicator)
+    }
+    
+    private func hideLoadingIndicator() {
+        loadingIndicator.stopAnimating()
+        loadingIndicator.removeFromSuperview()
+    }
+}
