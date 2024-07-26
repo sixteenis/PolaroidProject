@@ -8,7 +8,7 @@
 import Foundation
 
 struct TopicDTO: Decodable, Hashable {
-    let id: String
+    let imageId: String
     let createdAt: String
     let width: Int
     let height: Int
@@ -17,7 +17,7 @@ struct TopicDTO: Decodable, Hashable {
     let user: User
     
     enum CodingKeys: String, CodingKey {
-            case id
+            case imageId = "id"
             case createdAt = "created_at"
             case width
             case height

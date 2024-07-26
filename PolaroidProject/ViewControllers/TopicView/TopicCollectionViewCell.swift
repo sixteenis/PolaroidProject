@@ -31,7 +31,7 @@ class TopicCollectionViewCell: BaseCollectioViewCell {
         $0.textColor = .cWhite
         $0.numberOfLines = 1
         $0.font = UIFont.systemFont(ofSize: 11)
-        $0.textAlignment = .right
+        $0.textAlignment = .center
     }
     
     override init(frame: CGRect) {
@@ -65,16 +65,16 @@ class TopicCollectionViewCell: BaseCollectioViewCell {
         }
         
     }
-    func updateUI(_ data: TopicDTO) {
+    func updateUI(_ data: TopicModel) {
         
         profileImage.kf.indicatorType = .activity
-        guard let url = URL(string: data.urls.small) else { return }
+        guard let url = URL(string: data.data.urls.small) else { return }
         profileImage.kf.setImage(
         with: url,
         placeholder: nil,
         options: [.transition(.fade(1.2))]
         )
         
-        likesCount.text = data.likes.formatted()
+        likesCount.text = data.data.likes.formatted()
     }
 }

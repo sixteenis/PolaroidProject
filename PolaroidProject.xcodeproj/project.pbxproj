@@ -66,8 +66,9 @@
 		0655B2F92C52600C00FF38C4 /* SearchColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2F82C52600C00FF38C4 /* SearchColor.swift */; };
 		0655B2FB2C52947100FF38C4 /* TypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FA2C52947100FF38C4 /* TypeProtocol.swift */; };
 		0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FC2C529AE600FF38C4 /* APIError.swift */; };
-		0655B2FF2C52B46600FF38C4 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FE2C52B46600FF38C4 /* TopicModel.swift */; };
+		0655B2FF2C52B46600FF38C4 /* TopicsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */; };
 		06579BA62C52C46000CEEF79 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA52C52C46000CEEF79 /* ErrorView.swift */; };
+		06579BA82C538CD100CEEF79 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA72C538CD100CEEF79 /* TopicModel.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -127,8 +128,9 @@
 		0655B2F82C52600C00FF38C4 /* SearchColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColor.swift; sourceTree = "<group>"; };
 		0655B2FA2C52947100FF38C4 /* TypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProtocol.swift; sourceTree = "<group>"; };
 		0655B2FC2C529AE600FF38C4 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		0655B2FE2C52B46600FF38C4 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
+		0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsModel.swift; sourceTree = "<group>"; };
 		06579BA52C52C46000CEEF79 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		06579BA72C538CD100CEEF79 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -323,7 +325,8 @@
 		0655B2E22C52425900FF38C4 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				0655B2FE2C52B46600FF38C4 /* TopicModel.swift */,
+				0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */,
+				06579BA72C538CD100CEEF79 /* TopicModel.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				0655B2AB2C510E9000FF38C4 /* SearchPhotoViewModel.swift in Sources */,
 				0655B2AF2C5114B300FF38C4 /* LikePhotoViewModel.swift in Sources */,
 				0655B2E92C52432100FF38C4 /* TopicSection.swift in Sources */,
+				06579BA82C538CD100CEEF79 /* TopicModel.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0655B2A42C50F96B00FF38C4 /* LikePhotoViewController.swift in Sources */,
 				0655B2A72C510AC200FF38C4 /* DetailViewController.swift in Sources */,
@@ -496,7 +500,7 @@
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 				0655B2F32C524D6900FF38C4 /* SearchDTO.swift in Sources */,
 				0655B2F72C525B9100FF38C4 /* Orderby.swift in Sources */,
-				0655B2FF2C52B46600FF38C4 /* TopicModel.swift in Sources */,
+				0655B2FF2C52B46600FF38C4 /* TopicsModel.swift in Sources */,
 				0655B2EB2C52465100FF38C4 /* SearchParams.swift in Sources */,
 				0655B2752C5017BC00FF38C4 /* TopicCollectionViewCell.swift in Sources */,
 				0655B2EF2C5249F300FF38C4 /* NetworkManager.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TopicModel: Hashable,Identifiable {
-    let id = UUID()
-    let data: TopicDTO
+struct TopicSeciontModel: Hashable {
+    let section: TopicSection
+    let topicList: [TopicModel]
 }

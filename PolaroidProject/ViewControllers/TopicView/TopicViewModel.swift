@@ -14,7 +14,7 @@ final class TopicViewModel {
     var inputCheckProfile: Obsearvable<Void?> = Obsearvable(nil)
     
     var outputGetProfileImage: Obsearvable<String?> = Obsearvable(nil)
-    var outputTopicList = Obsearvable([TopicModel]())
+    var outputTopicList = Obsearvable([TopicSeciontModel]())
     var outputLoadingSet = Obsearvable(false)
     var outputErrorTitle: Obsearvable<String> = Obsearvable("")
     init() {
@@ -51,7 +51,7 @@ private extension TopicViewModel {
     func getTopicData() {
         let sections = getTopicSection()
         let group = DispatchGroup()
-        var items = [TopicModel]()
+        var items = [TopicSeciontModel]()
         outputLoadingSet.value = false
         for section in sections {
             group.enter()

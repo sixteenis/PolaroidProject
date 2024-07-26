@@ -11,9 +11,9 @@ import SnapKit
 import Then
 
 final class TopicViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicDTO>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicDTO>
-    typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, TopicDTO>
+    typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicModel>
+    typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, TopicModel>
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let errorView = ErrorView(frame: .zero)
@@ -95,12 +95,12 @@ private extension TopicViewController {
 // MARK: - collectionView 레이아웃 부분
 private extension TopicViewController {
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(200))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(220))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.4))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(30)
+        group.interItemSpacing = .fixed(10)
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
@@ -129,23 +129,19 @@ private extension TopicViewController {
 }
 // MARK: - DataSource 관련 코드
 private extension TopicViewController {
-    func upDateSnapshot(topics: [TopicModel]) {
+    func upDateSnapshot(topics: [TopicSeciontModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections(topics.map{$0.section})
         topics.forEach { topic in
-            snapshot.appendItems(topic.data, toSection: topic.section)
+            snapshot.appendItems(topic.topicList, toSection: topic.section)
         }
-        
-
         dataSource.apply(snapshot)
-        
     }
     
     func setUpDataSource() {
         let using = TopicCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
-            //여기다 cell부분 넣으면 됨 ㅇㅇ
             return cell
             
         }

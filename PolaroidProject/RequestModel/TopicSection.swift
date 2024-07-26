@@ -31,7 +31,7 @@ enum TopicSection: String,CaseIterable, ParamsType {
         case .renders3D:
             "3D 렌더링"
         case .travel:
-            "여행하다"
+            "여행"
         case .textures:
             "텍스쳐 및 패턴"
         case .street:
