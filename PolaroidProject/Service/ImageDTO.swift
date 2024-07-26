@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TopicDTO: Decodable, Hashable {
+struct ImageDTO: Decodable, Hashable {
     let imageId: String
     let createdAt: String
     let width: Int

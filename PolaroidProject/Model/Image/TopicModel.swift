@@ -9,5 +9,5 @@ import Foundation
 
 struct TopicModel: Hashable,Identifiable {
     let id = UUID()
-    let data: TopicDTO
+    let data: ImageDTO
 }

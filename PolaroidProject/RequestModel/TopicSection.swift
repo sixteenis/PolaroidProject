@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum TopicSection: String,CaseIterable, ParamsType {
+enum TopicSection: String,CaseIterable {
     case architecture = "architecture-interior"
     case golden = "golden-hour"
     case wallpapers = "wallpapers"

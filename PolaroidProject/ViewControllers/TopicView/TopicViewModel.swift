@@ -8,7 +8,7 @@
 import Foundation
 
 final class TopicViewModel {
-    let networkMnager = NetworkManager.shard
+    let networkManager = NetworkManager.shard
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
     var inputCheckProfile: Obsearvable<Void?> = Obsearvable(nil)
@@ -57,7 +57,7 @@ private extension TopicViewModel {
             group.enter()
             let num = Int.random(in: 0...1000)
             // TODO: 다른 주제여도 중복이 넘많다.. page를 설정해줘야됨.. 나중에 중복안되는 page 구현하기
-            networkMnager.requestTopic(type: section,page: num) { respone in
+            networkManager.requestTopic(type: section,page: num) { respone in
                 switch respone {
                 case .success(let success):
                     items.append(success)

@@ -11,20 +11,23 @@ import SnapKit
 import Then
 import Kingfisher
 
-class TopicCollectionViewCell: BaseCollectioViewCell {
+class PhotoCollectionViewCell: BaseCollectioViewCell {
     let profileImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 15
     }
     let blackImage = UIView().then {
         $0.backgroundColor = .cKhaki
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 15
     }
+    let likeButton = UIButton().then {
+        $0.setTitle("", for: .normal)
+        $0.setTitleColor(.cBlack, for: .normal)
+    }
     let star = UIImageView().then {
         $0.image = UIImage(systemName: "star.fill")
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFit 
         $0.tintColor = .systemYellow
     }
     let likesCount = UILabel().then {
@@ -41,8 +44,10 @@ class TopicCollectionViewCell: BaseCollectioViewCell {
     override func setUpHierarchy() {
         contentView.addSubview(profileImage)
         contentView.addSubview(blackImage)
+        contentView.addSubview(likeButton)
         blackImage.addSubview(star)
         blackImage.addSubview(likesCount)
+        
     }
     override func setUpLayout() {
         profileImage.snp.makeConstraints { make in
@@ -63,18 +68,29 @@ class TopicCollectionViewCell: BaseCollectioViewCell {
             make.leading.equalTo(star.snp.trailing)
             make.centerY.equalToSuperview()
         }
+        likeButton.snp.makeConstraints { make in
+            make.trailing.bottom.equalToSuperview().inset(15)
+        }
         
     }
-    func updateUI(_ data: TopicModel) {
-        
+    func updateUI(_ data: ImageDTO, style: CollectionType) {
+        switch style {
+        case .topic:
+            profileImage.layer.cornerRadius = 15
+            likeButton.isHidden = true
+        case .search:
+            break
+        case .likeList:
+            likesCount.isHidden = true
+        }
         profileImage.kf.indicatorType = .activity
-        guard let url = URL(string: data.data.urls.small) else { return }
+        guard let url = URL(string: data.urls.small) else { return }
         profileImage.kf.setImage(
         with: url,
         placeholder: nil,
         options: [.transition(.fade(1.2))]
         )
         
-        likesCount.text = data.data.likes.formatted()
+        likesCount.text = data.likes.formatted()
     }
 }

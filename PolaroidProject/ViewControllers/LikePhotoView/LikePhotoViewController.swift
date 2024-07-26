@@ -13,9 +13,9 @@ enum LikePhotoSection: CaseIterable {
     case firest
 }
 final class LikePhotoViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<LikePhotoSection,Int>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<LikePhotoSection, Int>
-    typealias Registration = UICollectionView.CellRegistration<LikePhotoViewCell, Int>
+    typealias DataSource = UICollectionViewDiffableDataSource<LikePhotoSection,ImageDTO>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<LikePhotoSection, ImageDTO>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageDTO>
     
     private let sortingButton = UIButton().then {
         $0.setTitle("정렬", for: .normal)
@@ -107,7 +107,7 @@ private extension LikePhotoViewController {
     func upDateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections(LikePhotoSection.allCases)
-        snapshot.appendItems([1,2,3,4,5,6,7,8,9,10], toSection: .firest)
+//        /snapshot.appendItems([1,2,3,4,5,6,7,8,9,10], toSection: .firest)
         
         dataSource.apply(snapshot)
     }
@@ -123,7 +123,7 @@ private extension LikePhotoViewController {
     }
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
-            cell.updateUI(itemIdentifier)
+            cell.updateUI(itemIdentifier, style: .likeList)
         }
         return result
     }

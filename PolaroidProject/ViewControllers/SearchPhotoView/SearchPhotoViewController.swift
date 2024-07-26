@@ -13,9 +13,11 @@ enum SearchSection: CaseIterable {
     case firest
 }
 final class SearchPhotoViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,Int>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, Int>
-    typealias Registration = UICollectionView.CellRegistration<SearchPhotoViewCell, Int>
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageDTO>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageDTO>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageDTO>
+    
+    
     
     private let sortingButton = UIButton().then {
         $0.setTitle("정렬", for: .normal)
@@ -32,12 +34,16 @@ final class SearchPhotoViewController: BaseViewController {
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: DataSource!
     
-    
+    let vm = SearchPhotoViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpDataSource()
-        upDateSnapshot()
 
+    }
+    override func bindData() {
+        vm.outputImageList.bind { data in
+            self.setUpDataSource()
+            self.upDateSnapshot(items: data)
+        }
     }
     override func setUpHierarchy() {
         view.addSubview(searchBar)
@@ -97,20 +103,22 @@ extension SearchPhotoViewController: UICollectionViewDelegate {
 }
 // MARK: - 서치바 델리게이트 부분
 extension SearchPhotoViewController: UISearchBarDelegate {
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        vm.inputStartNetworking.value = searchBar.text!
+    }
 }
 // MARK: - collectionView 레이아웃 부분
 private extension SearchPhotoViewController {
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(200))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(5)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
+        section.interGroupSpacing = 5
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -119,10 +127,10 @@ private extension SearchPhotoViewController {
 }
 // MARK: - DataSource 관련 코드
 private extension SearchPhotoViewController {
-    func upDateSnapshot() {
+    func upDateSnapshot(items: [ImageDTO]) {
         var snapshot = Snapshot()
         snapshot.appendSections(SearchSection.allCases)
-        snapshot.appendItems([1,2,3,4,5,6,7,8,9,10], toSection: .firest)
+        snapshot.appendItems(items, toSection: .firest)
         
         dataSource.apply(snapshot)
     }
@@ -130,7 +138,6 @@ private extension SearchPhotoViewController {
         let using = phtoCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
-            //여기다 cell부분 넣으면 됨 ㅇㅇ
             return cell
             
         }
@@ -138,7 +145,7 @@ private extension SearchPhotoViewController {
     }
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
-            cell.updateUI(itemIdentifier)
+            cell.updateUI(itemIdentifier, style: .search)
         }
         return result
     }

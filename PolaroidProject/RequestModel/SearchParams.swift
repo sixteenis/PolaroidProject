@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchParams: ParamsType {
+struct SearchParams {
     let query: String
     let page: Int
     let per_page = "20"

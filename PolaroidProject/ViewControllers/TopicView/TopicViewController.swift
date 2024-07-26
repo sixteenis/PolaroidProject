@@ -13,7 +13,7 @@ import Then
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,TopicModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, TopicModel>
-    typealias Registration = UICollectionView.CellRegistration<TopicCollectionViewCell, TopicModel>
+    typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, TopicModel>
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let errorView = ErrorView(frame: .zero)
@@ -155,7 +155,7 @@ private extension TopicViewController {
     }
     func TopicCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
-            cell.updateUI(itemIdentifier)
+            cell.updateUI(itemIdentifier.data, style: .topic)
         }
         return result
     }

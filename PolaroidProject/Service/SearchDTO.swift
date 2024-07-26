@@ -10,5 +10,5 @@ import Foundation
 struct SearchDTO: Decodable, Hashable {
     let total: Int
     let total_pages: Int
-    let results: [TopicDTO]
+    let results: [ImageDTO]
 }
