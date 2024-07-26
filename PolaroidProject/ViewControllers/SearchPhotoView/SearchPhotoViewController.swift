@@ -9,9 +9,14 @@ import UIKit
 
 import SnapKit
 import Then
+import Toast
+
 enum SearchSection: CaseIterable {
     case firest
 }
+// TODO:  오류화면 만들기
+// TODO: 필터버튼 구현
+// TODO: 정렬 버튼 구현
 final class SearchPhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
@@ -45,7 +50,7 @@ final class SearchPhotoViewController: BaseViewController {
                 
             self.upDateSnapshot(items: data)
         }
-        vm.outputLoadingSet.bind { bool in
+        vm.outputLoadingSet.bind(true) { bool in
             bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
         }
     }
@@ -109,13 +114,17 @@ extension SearchPhotoViewController: UICollectionViewDelegate {
 // MARK: - 서치바 델리게이트 부분
 extension SearchPhotoViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        vm.inputStartNetworking.value = searchBar.text!
+        if vm.inputStartNetworking.value != searchBar.text! {
+            vm.inputStartNetworking.value = searchBar.text!
+        }
+        searchBar.resignFirstResponder()
     }
+    
 }
 // MARK: - 페이지네이션 부분
 extension SearchPhotoViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        //if indexPaths
+        // TODO: vm으로 뺄까 고민해보자
         if indexPaths[0].item == vm.outputImageList.value.count - 4 {
             vm.inputPage.value = indexPaths[0].item
         }
@@ -161,6 +170,10 @@ private extension SearchPhotoViewController {
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier.data, style: .search)
+            cell.completion = {
+                LikeRepository.shard.toggleLike(itemIdentifier.data)
+                cell.checkLike(itemIdentifier.data.imageId)
+            }
         }
         return result
     }

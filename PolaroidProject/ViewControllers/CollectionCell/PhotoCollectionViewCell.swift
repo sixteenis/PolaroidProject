@@ -36,7 +36,7 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         $0.font = UIFont.systemFont(ofSize: 11)
         $0.textAlignment = .center
     }
-    
+    var completion: (() -> ())?
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -47,6 +47,8 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         contentView.addSubview(likeButton)
         blackImage.addSubview(star)
         blackImage.addSubview(likesCount)
+        
+        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         
     }
     override func setUpLayout() {
@@ -86,7 +88,7 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
             likeButton.isHidden = false
             likesCount.isHidden = true
         }
-        likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
+        checkLike(data.imageId)
         
         profileImage.kf.indicatorType = .activity
         guard let url = URL(string: data.urls.small) else { return }
@@ -97,5 +99,18 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         )
         
         likesCount.text = data.likes.formatted()
+    }
+    func checkLike(_ id: String) {
+        let result = LikeRepository.shard.checklist(id)
+        if result {
+            likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
+        }else{
+            
+            likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
+        }
+    }
+    @objc func likeButtonTapped() {
+        self.completion?()
+        
     }
 }

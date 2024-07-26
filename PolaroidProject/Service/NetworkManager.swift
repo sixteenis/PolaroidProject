@@ -44,7 +44,7 @@ final class NetworkManager {
             print("에러 발생!")
         }
     }
-    
+    // MARK: - page값만 Int로 바꾸면 Topic이랑 모델을 합칠 수 있을거 같은데...
     func requestSearch(type: SearchParams, completion: @escaping (Result<SearchsModel, APIError>) -> Void) {
         do {
             let request = try UnsplashRouter.search(params: type).asURLRequest()

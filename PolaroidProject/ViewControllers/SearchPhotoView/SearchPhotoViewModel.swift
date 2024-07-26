@@ -56,6 +56,7 @@ private extension SearchPhotoViewModel {
         let type = params
         self.outputLoadingset.value = false
         networkManager.requestSearch(type: type) { respon in
+            self.outputLoadingset.value = true
             switch respon {
             case .success(let success):
                 if params.page == 1{
@@ -67,7 +68,7 @@ private extension SearchPhotoViewModel {
             case .failure(let failure):
                 print(failure)
             }
-            self.outputLoadingset.value = true
+            
             
         }
     }

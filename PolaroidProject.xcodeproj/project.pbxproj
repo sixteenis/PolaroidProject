@@ -22,7 +22,7 @@
 		0621A9762C4E39DA0083A89E /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9752C4E39DA0083A89E /* IQKeyboardManagerSwift */; };
 		0621A9792C4E39E30083A89E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9782C4E39E30083A89E /* Alamofire */; };
 		0621A97C2C4E39EA0083A89E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97B2C4E39EA0083A89E /* Then */; };
-		0621A97F2C4E39FF0083A89E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; };
+		0621A97F2C4E39FF0083A89E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0621A9822C4E3A0A0083A89E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9812C4E3A0A0083A89E /* Kingfisher */; };
 		0621A9852C4E3A1F0083A89E /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0621A9842C4E3A1F0083A89E /* Toast */; };
 		0621A9872C4E3B560083A89E /* ReuseIdentifier+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9862C4E3B560083A89E /* ReuseIdentifier+.swift */; };
@@ -69,9 +69,26 @@
 		06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA72C538CD100CEEF79 /* ImageModel.swift */; };
 		06D068ED2C53B46500B8787A /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EC2C53B46500B8787A /* CollectionType.swift */; };
 		06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EF2C53D55100B8787A /* SearchsModel.swift */; };
+		06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F22C53EF9C00B8787A /* LikeList.swift */; };
+		06D068F52C53F6E700B8787A /* LikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F42C53F6E700B8787A /* LikeRepository.swift */; };
+		06D068F62C5400D100B8787A /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		06D068F72C5400D100B8787A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				06D068F62C5400D100B8787A /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0621A9442C4E36720083A89E /* PolaroidProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolaroidProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +148,8 @@
 		06579BA72C538CD100CEEF79 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		06D068EC2C53B46500B8787A /* CollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
 		06D068EF2C53D55100B8787A /* SearchsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchsModel.swift; sourceTree = "<group>"; };
+		06D068F22C53EF9C00B8787A /* LikeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeList.swift; sourceTree = "<group>"; };
+		06D068F42C53F6E700B8787A /* LikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRepository.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +227,7 @@
 		0621A9612C4E37EE0083A89E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				06D068F12C53EF8A00B8787A /* DataBase */,
 				0655B2E22C52425900FF38C4 /* Image */,
 				0621A9992C4E61B00083A89E /* User */,
 			);
@@ -351,6 +371,15 @@
 			path = CollectionCell;
 			sourceTree = "<group>";
 		};
+		06D068F12C53EF8A00B8787A /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				06D068F22C53EF9C00B8787A /* LikeList.swift */,
+				06D068F42C53F6E700B8787A /* LikeRepository.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		06E049622C4EC7BA003F1397 /* TopicView */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +409,7 @@
 				0621A9402C4E36720083A89E /* Sources */,
 				0621A9412C4E36720083A89E /* Frameworks */,
 				0621A9422C4E36720083A89E /* Resources */,
+				06D068F72C5400D100B8787A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,6 +509,7 @@
 				0621A9A62C4E90760083A89E /* SelectProfileViewModel.swift in Sources */,
 				0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */,
 				0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */,
+				06D068F52C53F6E700B8787A /* LikeRepository.swift in Sources */,
 				0621A99D2C4E62750083A89E /* ProfileImage.swift in Sources */,
 				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,
 				0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */,
@@ -504,6 +535,7 @@
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
+				06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */,
 				0621A94A2C4E36720083A89E /* SceneDelegate.swift in Sources */,
 				0655B2F32C524D6900FF38C4 /* SearchDTO.swift in Sources */,
 				0655B2F72C525B9100FF38C4 /* Orderby.swift in Sources */,

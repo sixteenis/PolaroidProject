@@ -33,14 +33,18 @@ final class LoginViewController: BaseViewController {
         super.viewDidLoad()
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
-        navigationController?.navigationBar.prefersLargeTitles = false
+        // TODO: 세팅일때는 닉네임으로 바꿔놓기~
+//        if vm.settingType == .setting {
+//            nicknameTextField.text = "asdasdasd"
+//        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
     override func viewDidLayoutSubviews() {

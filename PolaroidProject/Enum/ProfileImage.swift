@@ -8,7 +8,7 @@
 import Foundation
 
 enum ProfileImage: Int, CaseIterable, Codable {
-    case profile_0 = 0
+    case profile_0
     case profile_1
     case profile_2
     case profile_3
