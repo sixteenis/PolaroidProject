@@ -80,10 +80,10 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         case .topic:
             profileImage.layer.cornerRadius = 15
             likeButton.isHidden = true
-            likesCount.isHidden = false
+            blackImage.isHidden = false
         case .search:
             likeButton.isHidden = false
-            likesCount.isHidden = false
+            blackImage.isHidden = false
             
         }
         checkLike(data.imageId)
@@ -100,8 +100,9 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
     }
     func updateUIWithRelam(_ data: LikeList) {
         likeButton.isHidden = false
-        likesCount.isHidden = true
+        blackImage.isHidden = true
         checkLike(data.imageId)
+        
         profileImage.image = LikeRepository.shard.getImage(data.imageId)
         
     }

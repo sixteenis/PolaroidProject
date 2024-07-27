@@ -20,8 +20,21 @@ final class LikeRepository {
     func getImage(_ id: String) -> UIImage? {
         let image = self.loadImageToDocument(filename: id)
         return image
+    }
+    func toggleLike(_ item: LikeList) {
         
-    
+        if checklist(item.imageId) {
+            let data = realm.objects(LikeList.self).where {
+                $0.imageId == item.imageId
+            }
+            try! realm.write {
+                //삭제
+                removeImageFromDocument(filename: item.imageId)
+                removeImageFromDocument(filename: item.imageId + item.createdAt)
+                realm.delete(data)
+            }
+        }
+        
     }
     func toggleLike(_ item: ImageDTO) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?

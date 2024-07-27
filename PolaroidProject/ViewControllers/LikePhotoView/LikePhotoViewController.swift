@@ -27,13 +27,21 @@ final class LikePhotoViewController: BaseViewController {
     }
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: DataSource!
-    
+    private var vm = LikePhotoViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpDataSource()
-        upDateSnapshot()
-
+        vm.inputViewDidLoad.value = ()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        vm.inputViewWillAppear.value = ()
+    }
+    override func bindData() {
+        vm.outputGetLikeList.bind { list in
+            self.setUpDataSource()
+            self.upDateSnapshot(list)
+        }
     }
     override func setUpHierarchy() {
         view.addSubview(line)
@@ -104,10 +112,10 @@ private extension LikePhotoViewController {
 }
 // MARK: - DataSource 관련 코드
 private extension LikePhotoViewController {
-    func upDateSnapshot() {
+    func upDateSnapshot(_ items: [LikeList]) {
         var snapshot = Snapshot()
         snapshot.appendSections(LikePhotoSection.allCases)
-        snapshot.appendItems(LikeRepository.shard.getLikeList(), toSection: .firest)
+        snapshot.appendItems(items, toSection: .firest)
         
         dataSource.apply(snapshot)
     }
@@ -125,10 +133,11 @@ private extension LikePhotoViewController {
         let result = Registration { cell, indexPath, itemIdentifier in
             cell.updateUIWithRelam(itemIdentifier)
             // TODO: 좋아요 기능 구현
-//            cell.completion = {
-//                LikeRepository.shard.toggleLike(itemIdentifier.)
+            cell.completion = {
+                self.vm.inputLikeButtonTap.value = itemIdentifier
+//                LikeRepository.shard.toggleLike(itemIdentifier)
 //                cell.checkLike(itemIdentifier.imageId)
-//            }
+            }
         }
         return result
     }

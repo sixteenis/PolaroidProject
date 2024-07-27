@@ -43,10 +43,14 @@ final class LoginViewController: BaseViewController {
         self.tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        
+//    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
