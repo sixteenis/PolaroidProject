@@ -33,10 +33,15 @@ final class LikeRepository {
                 removeImageFromDocument(filename: item.imageId + item.createdAt)
                 realm.delete(data)
             }
+        }else{
+            try! realm.write {
+                realm.add(item)
+            }
         }
         
     }
-    func toggleLike(_ item: ImageDTO) {
+    
+    func toggleLike(_ item: ImageDTO, completion: @escaping (Bool) -> ()) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?
         //true이면 좋아요 눌렸던거 -> 지워줘야죠?
         if checklist(item.imageId) {
@@ -48,29 +53,41 @@ final class LikeRepository {
                 removeImageFromDocument(filename: item.imageId)
                 removeImageFromDocument(filename: item.imageId + item.createdAt)
                 realm.delete(data)
-                
+                completion(false)
             }
         }else{
-            let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, userProfileImage: item.user.profileImage.medium)
-            try! realm.write {
-                //저장
-                realm.add(result)
-                if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
-                    downloadImage(from: url) { image in
-                        if let image {
-                            self.saveImageToDocument(image: image, filename: item.imageId)
-                            print("성공!!!!!!")
-                        }
+            completion(true)
+            NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
+                switch respon {
+                case .success(let success):
+                    let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
+                    try! self.realm.write {
+                        self.realm.add(result)
+                        
                     }
-                    downloadImage(from: userURL) { image in
-                        if let image {
-                            self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
-                            print("성공!")
+                    if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
+                        self.downloadImage(from: url) { image in
+                            if let image {
+                                self.saveImageToDocument(image: image, filename: item.imageId)
+                                print("성공!!!!!!")
+                            }
                         }
+                        self.downloadImage(from: userURL) { image in
+                            if let image {
+                                self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
+                                print("성공!")
+                            }
+                        }
+                        
+                        
                     }
+                    
+                case .failure(let failure):
+                    print("램 데이터로 전환 실패!!!!")
                 }
                 
             }
+            
         }
     }
     
@@ -121,7 +138,7 @@ private extension LikeRepository {
         guard let documentDirectory = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask).first else { return }
-
+        
         let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
         
         if FileManager.default.fileExists(atPath: fileURL.path) {
@@ -138,16 +155,16 @@ private extension LikeRepository {
         
     }
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data, error == nil else {
-                    print("Image download error: \(String(describing: error))")
-                    completion(nil)
-                    return
-                }
-                let image = UIImage(data: data)
-                completion(image)
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Image download error: \(String(describing: error))")
+                completion(nil)
+                return
             }
-            task.resume()
+            let image = UIImage(data: data)
+            completion(image)
         }
+        task.resume()
+    }
     
 }

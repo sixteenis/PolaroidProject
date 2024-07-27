@@ -172,9 +172,10 @@ private extension SearchPhotoViewController {
         let result = Registration { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier.data, style: .search)
             cell.completion = {
-                LikeRepository.shard.toggleLike(itemIdentifier.data)
-                cell.checkLike(itemIdentifier.data.imageId)
+                self.vm.inputLikeButton.value = itemIdentifier.data
+                cell.toggleButton(self.vm.outputButtonToggle.value)
             }
+            
         }
         return result
     }

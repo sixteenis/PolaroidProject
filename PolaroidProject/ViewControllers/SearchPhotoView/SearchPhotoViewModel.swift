@@ -11,10 +11,12 @@ final class SearchPhotoViewModel {
     let networkManager = NetworkManager.shard
     var totalPage = 1
     var model: SearchParams!
+    var likeRepository = LikeRepository.shard
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
     var inputStartNetworking: Obsearvable<String> = Obsearvable("")
     var inputPage = Obsearvable(0)
+    var inputLikeButton: Obsearvable<ImageDTO?> = Obsearvable(nil)
     
     var outputOrderby = Obsearvable(Orderby.latest)
     var outputSearchColor: Obsearvable<SearchColor?> = Obsearvable(nil)
@@ -22,6 +24,7 @@ final class SearchPhotoViewModel {
     
     var outputImageList = Obsearvable([ImageModel]())
     var outputLoadingset = Obsearvable(false)
+    var outputButtonToggle = Obsearvable(false)
     //var outputPageCount = Obsearvable(0)
     
     init() {
@@ -34,6 +37,10 @@ final class SearchPhotoViewModel {
         }
         inputPage.bind { index in
             self.pagenation(index)
+        }
+        inputLikeButton.bind { data in
+            guard let data else {return}
+            self.changeLikeDate(data)
         }
     }
     
@@ -71,5 +78,15 @@ private extension SearchPhotoViewModel {
             
             
         }
+    }
+}
+
+private extension SearchPhotoViewModel {
+    func changeLikeDate(_ data: ImageDTO) {
+        likeRepository.toggleLike(data) { bool in
+            self.outputButtonToggle.value = bool
+        }
+            
+        
     }
 }
