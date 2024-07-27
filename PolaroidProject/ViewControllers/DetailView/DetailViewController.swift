@@ -13,7 +13,6 @@ final class DetailViewController: BaseViewController {
     let userProfile = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = $0.frame.width / 2
     }
     let userName = UILabel().then {
         $0.font = .systemFont(ofSize: 12)
@@ -61,14 +60,28 @@ final class DetailViewController: BaseViewController {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.userProfile.layer.cornerRadius = self.userProfile.frame.width / 2
+    }
     override func bindData() {
         vm.outputlikeBool.bind(true) { bool in
             guard let bool else { return }
             bool ? self.likeButton.setImage(UIImage(named: "like_circle"), for: .normal) : self.likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
         }
-        vm.outputSetModel.bind { model in
+        vm.outputSetModel.bind(true) { model in
             guard let model else { return }
             self.setUpModel(model)
+        }
+        vm.outputImage.bind { data in
+            self.setUpImage(data)
+        }
+        vm.outputUserprofile.bind { data in
+            self.setUpUserprofile(data)
+        }
+        vm.outputID.bind(true) { [weak self] ids in
+            guard let self,let id = ids.0, let userid = ids.1 else {return}
+            self.setUpWithRealm(id, userId: userid)
         }
     }
     override func setUpHierarchy() {
@@ -100,7 +113,7 @@ final class DetailViewController: BaseViewController {
             make.size.equalTo(35)
         }
         image.snp.makeConstraints { make in
-            make.top.equalTo(userProfile.snp.bottom)
+            make.top.equalTo(userProfile.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(180)
         }
@@ -127,16 +140,6 @@ final class DetailViewController: BaseViewController {
             make.height.equalTo(20)
         }
     }
-    func testSetup() {
-        userProfile.image = UIImage(systemName: "star")
-        userName.text = "감자 고구마"
-        DateLabel.text = "2024년 7월 30일 게시됨"
-        likeButton.setImage(UIImage(systemName: "star"), for: .normal)
-        image.image = UIImage(systemName: "star")
-        sizeLabel.setUpMaintitle("3098X3000")
-        hitsLabel.setUpMaintitle("1,231,23,123,1")
-        downloadedLabel.setUpMaintitle("3030393298")
-    }
 }
 
 private extension DetailViewController {
@@ -149,5 +152,22 @@ private extension DetailViewController {
         sizeLabel.setUpMaintitle(model.size)
         hitsLabel.setUpMaintitle(model.hits)
         downloadedLabel.setUpMaintitle(model.download)
+    }
+    func setUpImage(_ imageURL: String?) {
+        if let imageURL {
+            let url = URL(string: imageURL)!
+            self.image.kf.setImage(with: url)
+        }
+    }
+    func setUpUserprofile(_ imageURL: String?) {
+        if let imageURL {
+            let url = URL(string: imageURL)!
+            self.userProfile.kf.setImage(with: url)
+        }
+    }
+    
+    func setUpWithRealm(_ id: String, userId: String) {
+        self.image.image = LikeRepository.shard.getImage(id)
+        self.userProfile.image = LikeRepository.shard.getImage(userId)
     }
 }

@@ -88,6 +88,7 @@ private extension LikePhotoViewController {
 extension LikePhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = dataSource.itemIdentifier(for: indexPath)
+        guard let data else { return }
         let vc = DetailViewController()
         vc.vm.inputpushRelamVC.value = data
         navigationController?.pushViewController(vc, animated: true)

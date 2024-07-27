@@ -82,7 +82,23 @@ final class TopicViewController: BaseViewController {
         collectionView.register(TopicSectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TopicSectionHeaderReusableView.id)
     }
 }
-
+// MARK: - collectionView 델리게이트 부분, 다음 화면으로 이동하는 부분
+extension TopicViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = dataSource.itemIdentifier(for: indexPath)
+        guard let data else {return}
+        let likeBool = LikeRepository.shard.checklist(data.data.imageId)
+        let vc = DetailViewController()
+        if likeBool {
+            let item = LikeRepository.shard.getLikeList(data.data.imageId)
+            vc.vm.inputpushRelamVC.value = item
+        }else{
+            vc.vm.inputpushVC.value = data.data
+        }
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+}
 // MARK: - 버튼 기능 부분
 private extension TopicViewController {
     @objc func navrightButtonTapped() {
@@ -171,15 +187,6 @@ private extension TopicViewController {
     private func hideLoadingIndicator() {
         loadingIndicator.stopAnimating()
         loadingIndicator.removeFromSuperview()
-    }
-}
-// MARK: - collectionView 델리게이트 부분
-extension TopicViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = dataSource.itemIdentifier(for: indexPath)
-        let vc = DetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
-        print(data!)
     }
 }
 
