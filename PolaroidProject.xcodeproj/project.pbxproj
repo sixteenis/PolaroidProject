@@ -72,6 +72,7 @@
 		06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F22C53EF9C00B8787A /* LikeList.swift */; };
 		06D068F52C53F6E700B8787A /* LikeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F42C53F6E700B8787A /* LikeRepository.swift */; };
 		06D068F62C5400D100B8787A /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		06D068F92C55268200B8787A /* InformationLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F82C55268200B8787A /* InformationLabelView.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -150,6 +151,7 @@
 		06D068EF2C53D55100B8787A /* SearchsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchsModel.swift; sourceTree = "<group>"; };
 		06D068F22C53EF9C00B8787A /* LikeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeList.swift; sourceTree = "<group>"; };
 		06D068F42C53F6E700B8787A /* LikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRepository.swift; sourceTree = "<group>"; };
+		06D068F82C55268200B8787A /* InformationLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationLabelView.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -279,6 +281,7 @@
 				0621A98E2C4E4B150083A89E /* SuccessButton.swift */,
 				0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */,
 				06579BA52C52C46000CEEF79 /* ErrorView.swift */,
+				06D068F82C55268200B8787A /* InformationLabelView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0655B2A42C50F96B00FF38C4 /* LikePhotoViewController.swift in Sources */,
+				06D068F92C55268200B8787A /* InformationLabelView.swift in Sources */,
 				0655B2A72C510AC200FF38C4 /* DetailViewController.swift in Sources */,
 				06579BA62C52C46000CEEF79 /* ErrorView.swift in Sources */,
 				06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */,

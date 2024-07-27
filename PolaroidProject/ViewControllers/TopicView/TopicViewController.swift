@@ -178,6 +178,7 @@ extension TopicViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = dataSource.itemIdentifier(for: indexPath)
         let vc = DetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
         print(data!)
     }
 }

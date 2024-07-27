@@ -135,8 +135,6 @@ private extension LikePhotoViewController {
             // TODO: 좋아요 기능 구현
             cell.completion = {
                 self.vm.inputLikeButtonTap.value = itemIdentifier
-//                LikeRepository.shard.toggleLike(itemIdentifier)
-//                cell.checkLike(itemIdentifier.imageId)
             }
         }
         return result

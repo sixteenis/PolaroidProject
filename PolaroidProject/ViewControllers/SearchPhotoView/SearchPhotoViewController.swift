@@ -17,6 +17,7 @@ enum SearchSection: CaseIterable {
 // TODO:  오류화면 만들기
 // TODO: 필터버튼 구현
 // TODO: 정렬 버튼 구현
+// TODO: 다시 검색 시 맨앞으로 로딩해주기!
 final class SearchPhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
