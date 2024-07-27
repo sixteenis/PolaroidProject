@@ -47,9 +47,10 @@ final class DetailViewController: BaseViewController {
     let hitsLabel = InformationLabelView(frame: .zero, title: "조회수")
     let downloadedLabel = InformationLabelView(frame: .zero, title: "다운로드")
     
+    let vm = DetailViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        testSetup()
+        //testSetup()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,6 +60,16 @@ final class DetailViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
+    }
+    override func bindData() {
+        vm.outputlikeBool.bind(true) { bool in
+            guard let bool else { return }
+            bool ? self.likeButton.setImage(UIImage(named: "like_circle"), for: .normal) : self.likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
+        }
+        vm.outputSetModel.bind { model in
+            guard let model else { return }
+            self.setUpModel(model)
+        }
     }
     override func setUpHierarchy() {
         view.addSubview(userProfile)
@@ -131,5 +142,12 @@ final class DetailViewController: BaseViewController {
 private extension DetailViewController {
     @objc func likeButtonTapped() {
         
+    }
+    func setUpModel(_ model: DetailSettingModel) {
+        userName.text = model.userName
+        DateLabel.text = model.date
+        sizeLabel.setUpMaintitle(model.size)
+        hitsLabel.setUpMaintitle(model.hits)
+        downloadedLabel.setUpMaintitle(model.download)
     }
 }

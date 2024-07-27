@@ -89,7 +89,8 @@ extension LikePhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = dataSource.itemIdentifier(for: indexPath)
         let vc = DetailViewController()
-        print(data!)
+        vc.vm.inputpushRelamVC.value = data
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 // MARK: - collectionView 레이아웃 부분

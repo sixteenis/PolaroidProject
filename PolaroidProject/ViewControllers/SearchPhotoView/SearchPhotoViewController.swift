@@ -104,12 +104,20 @@ private extension SearchPhotoViewController {
         print(#function)
     }
 }
-// MARK: - collectionView 델리게이트 부분
+// MARK: - collectionView 델리게이트 부분, 다음 뷰로 이동 부분
 extension SearchPhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = dataSource.itemIdentifier(for: indexPath)
+        guard let data else {return}
+        let likeBool = LikeRepository.shard.checklist(data.data.imageId)
         let vc = DetailViewController()
-        print(data!)
+        if likeBool {
+            let item = LikeRepository.shard.getLikeList(data.data.imageId)
+            vc.vm.inputpushRelamVC.value = item
+        }else{
+            vc.vm.inputpushVC.value = data.data
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 // MARK: - 서치바 델리게이트 부분

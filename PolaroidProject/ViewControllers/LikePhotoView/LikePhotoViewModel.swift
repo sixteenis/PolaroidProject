@@ -20,7 +20,7 @@ final class LikePhotoViewModel {
             self.fetchLikeList()
         }
         inputViewWillAppear.bind { _ in
-            if self.outputGetLikeList.value != self.repository.getLikeList() {
+            if self.outputGetLikeList.value != self.repository.getLikeLists() {
                 self.fetchLikeList()
             }
         }
@@ -34,6 +34,6 @@ final class LikePhotoViewModel {
 
 private extension LikePhotoViewModel {
     func fetchLikeList() {
-        self.outputGetLikeList.value = self.repository.getLikeList()
+        self.outputGetLikeList.value = self.repository.getLikeLists()
     }
 }

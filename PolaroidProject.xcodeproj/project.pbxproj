@@ -74,6 +74,7 @@
 		06D068F62C5400D100B8787A /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 0621A97E2C4E39FF0083A89E /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		06D068F92C55268200B8787A /* InformationLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F82C55268200B8787A /* InformationLabelView.swift */; };
 		06D068FB2C55327500B8787A /* StatisticsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068FA2C55327500B8787A /* StatisticsDTO.swift */; };
+		06D068FD2C5559EF00B8787A /* DetailSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068FC2C5559EF00B8787A /* DetailSettingModel.swift */; };
 		06E049642C4EC7D7003F1397 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */; };
 		06E049672C4EC804003F1397 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E049662C4EC804003F1397 /* TopicViewController.swift */; };
 /* End PBXBuildFile section */
@@ -154,6 +155,7 @@
 		06D068F42C53F6E700B8787A /* LikeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRepository.swift; sourceTree = "<group>"; };
 		06D068F82C55268200B8787A /* InformationLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationLabelView.swift; sourceTree = "<group>"; };
 		06D068FA2C55327500B8787A /* StatisticsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDTO.swift; sourceTree = "<group>"; };
+		06D068FC2C5559EF00B8787A /* DetailSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingModel.swift; sourceTree = "<group>"; };
 		06E049632C4EC7D7003F1397 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		06E049662C4EC804003F1397 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +236,7 @@
 				06D068F12C53EF8A00B8787A /* DataBase */,
 				0655B2E22C52425900FF38C4 /* Image */,
 				0621A9992C4E61B00083A89E /* User */,
+				06D068FC2C5559EF00B8787A /* DetailSettingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				06D068F52C53F6E700B8787A /* LikeRepository.swift in Sources */,
 				0621A99D2C4E62750083A89E /* ProfileImage.swift in Sources */,
 				0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */,
+				06D068FD2C5559EF00B8787A /* DetailSettingModel.swift in Sources */,
 				0621A9A82C4E91FB0083A89E /* SelectProfileCollectionViewCell.swift in Sources */,
 				06D068ED2C53B46500B8787A /* CollectionType.swift in Sources */,
 				0621A99F2C4E723A0083A89E /* UserBuilder.swift in Sources */,

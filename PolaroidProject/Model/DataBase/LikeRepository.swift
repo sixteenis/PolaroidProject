@@ -13,10 +13,18 @@ final class LikeRepository {
     private var realm = try! Realm()
     static let shard = LikeRepository()
     private init() {}
-    func getLikeList() -> [LikeList] {
+    func getLikeLists() -> [LikeList] {
         let data = Array(realm.objects(LikeList.self))
         return data
     }
+    func getLikeList(_ id: String) -> LikeList {
+        let data = realm.objects(LikeList.self).where {
+            $0.imageId == id
+        }
+        guard let result = data.first else {return LikeList()}
+        return result
+    }
+
     func getImage(_ id: String) -> UIImage? {
         let image = self.loadImageToDocument(filename: id)
         return image
@@ -40,7 +48,38 @@ final class LikeRepository {
         }
         
     }
-    
+    func saveLike(_ item: ImageDTO) {
+        NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
+            switch respon {
+            case .success(let success):
+                let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
+                try! self.realm.write {
+                    self.realm.add(result)
+                    
+                }
+                if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
+                    self.downloadImage(from: url) { image in
+                        if let image {
+                            self.saveImageToDocument(image: image, filename: item.imageId)
+                            print("성공!!!!!!")
+                        }
+                    }
+                    self.downloadImage(from: userURL) { image in
+                        if let image {
+                            self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
+                            print("성공!")
+                        }
+                    }
+                    
+                    
+                }
+                
+            case .failure(_):
+                print("램 데이터로 전환 실패!!!!")
+            }
+            
+        }
+    }
     func toggleLike(_ item: ImageDTO, completion: @escaping (Bool) -> ()) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?
         //true이면 좋아요 눌렸던거 -> 지워줘야죠?
@@ -57,37 +96,7 @@ final class LikeRepository {
             }
         }else{
             completion(true)
-            NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
-                switch respon {
-                case .success(let success):
-                    let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
-                    try! self.realm.write {
-                        self.realm.add(result)
-                        
-                    }
-                    if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
-                        self.downloadImage(from: url) { image in
-                            if let image {
-                                self.saveImageToDocument(image: image, filename: item.imageId)
-                                print("성공!!!!!!")
-                            }
-                        }
-                        self.downloadImage(from: userURL) { image in
-                            if let image {
-                                self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
-                                print("성공!")
-                            }
-                        }
-                        
-                        
-                    }
-                    
-                case .failure(let failure):
-                    print("램 데이터로 전환 실패!!!!")
-                }
-                
-            }
-            
+            saveLike(item)
         }
     }
     
