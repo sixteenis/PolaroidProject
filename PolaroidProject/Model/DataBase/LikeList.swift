@@ -11,7 +11,7 @@ import RealmSwift
 class LikeList: Object {
     @Persisted(primaryKey: true) var imageId: String
     @Persisted var filterColor: Int?
-    @Persisted var filterday: Int?
+    @Persisted var filterday: Date = Date()
     @Persisted var createdAt: String
     @Persisted var width: Int
     @Persisted var height: Int
@@ -20,11 +20,11 @@ class LikeList: Object {
     @Persisted var viewsTotal: Int
     @Persisted var downloadTotal: Int
     
-    convenience init(imageId: String, filterColor: Int? = nil, filterday: Int? = nil, createdAt: String, width: Int, height: Int, userName: String, viewsTotal: Int, downloadTotal: Int) {
+    convenience init(imageId: String, filterColor: Int? = nil, createdAt: String, width: Int, height: Int, userName: String, viewsTotal: Int, downloadTotal: Int) {
         self.init()
         self.imageId = imageId
         self.filterColor = filterColor
-        self.filterday = filterday
+
         self.createdAt = createdAt
         self.width = width
         self.height = height

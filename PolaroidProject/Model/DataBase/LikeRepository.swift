@@ -24,11 +24,12 @@ final class LikeRepository {
         guard let result = data.first else {return LikeList()}
         return result
     }
-
+    
     func getImage(_ id: String) -> UIImage? {
         let image = self.loadImageToDocument(filename: id)
         return image
     }
+    
     func toggleLike(_ item: LikeList) {
         
         if checklist(item.imageId) {
@@ -37,8 +38,9 @@ final class LikeRepository {
             }
             try! realm.write {
                 //삭제
-                removeImageFromDocument(filename: item.imageId)
-                removeImageFromDocument(filename: item.imageId + item.createdAt)
+                self.removeImageFromDocument(filename: item.imageId)
+                self.removeImageFromDocument(filename: item.imageId + item.createdAt)
+                
                 realm.delete(data)
             }
         }else{
@@ -49,31 +51,32 @@ final class LikeRepository {
         
     }
     func saveLike(_ item: ImageDTO) {
-        NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
+        NetworkManager.shard.requestStatistics(id: item.imageId) { [weak self] respon in
             switch respon {
             case .success(let success):
                 let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
-                try! self.realm.write {
-                    self.realm.add(result)
+                try! self?.realm.write {
+                    self?.realm.add(result)
                     
                 }
-                if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
-                    self.downloadImage(from: url) { image in
-                        if let image {
-                            self.saveImageToDocument(image: image, filename: item.imageId)
-                            print("성공!!!!!!")
+                DispatchQueue.global().async {
+                    if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
+                        self?.downloadImage(from: url) { image in
+                            if let image {
+                                self?.saveImageToDocument(image: image, filename: item.imageId)
+                                print("성공!!!!!!")
+                            }
                         }
-                    }
-                    self.downloadImage(from: userURL) { image in
-                        if let image {
-                            self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
-                            print("성공!")
+                        self?.downloadImage(from: userURL) { image in
+                            if let image {
+                                self?.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
+                                print("성공!")
+                            }
                         }
+                        
+                        
                     }
-                    
-                    
                 }
-                
             case .failure(_):
                 print("램 데이터로 전환 실패!!!!")
             }
@@ -108,6 +111,12 @@ final class LikeRepository {
             return false
         }else{
             return true
+        }
+    }
+    func resetAll() {
+        try! realm.write {
+            realm.deleteAll()
+            removeAllFilesInDocumentDirectory()
         }
     }
     
@@ -175,5 +184,20 @@ private extension LikeRepository {
         }
         task.resume()
     }
+    func removeAllFilesInDocumentDirectory() {
+            guard let documentDirectory = FileManager.default.urls(
+                for: .documentDirectory,
+                in: .userDomainMask).first else { return }
+
+            do {
+                let fileURLs = try FileManager.default.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
+                for fileURL in fileURLs {
+                    try FileManager.default.removeItem(at: fileURL)
+                }
+                print("모든 파일이 삭제되었습니다.")
+            } catch {
+                print("전체 파일 삭제 중 오류 발생: \(error)")
+            }
+        }
     
 }

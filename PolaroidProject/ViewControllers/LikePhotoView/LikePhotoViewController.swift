@@ -18,9 +18,14 @@ final class LikePhotoViewController: BaseViewController {
     typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, LikeList>
     
     private let sortingButton = UIButton().then {
-        $0.setTitle("정렬", for: .normal)
         $0.setTitleColor(.cBlack, for: .normal)
+        $0.setImage(UIImage(named: "sort"), for: .normal)
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         $0.backgroundColor = .cWhite
+        $0.layer.masksToBounds = true
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.cGray.cgColor
+        $0.layer.cornerRadius = 15
     }
     private let line = UIView().then {
         $0.backgroundColor = .cGray
@@ -35,12 +40,16 @@ final class LikePhotoViewController: BaseViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.title = "MY POLAROID"
         vm.inputViewWillAppear.value = ()
     }
     override func bindData() {
         vm.outputGetLikeList.bind { list in
             self.setUpDataSource()
             self.upDateSnapshot(list)
+        }
+        vm.outputFilterType.bind(true) { type in
+            self.sortingButton.setTitle(" \(type.rawValue) ", for: .normal)
         }
     }
     override func setUpHierarchy() {
@@ -60,7 +69,7 @@ final class LikePhotoViewController: BaseViewController {
         }
         sortingButton.snp.makeConstraints { make in
             make.top.equalTo(line.snp.bottom).offset(10)
-            make.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(5)
             make.height.equalTo(33)
         }
         collectionView.snp.makeConstraints { make in
@@ -68,9 +77,7 @@ final class LikePhotoViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    override func setUpView() {
-        navigationItem.title = "MY POLAROID"
-    }
+    
     
 }
 // MARK: - 버튼 기능 부분
@@ -81,7 +88,7 @@ private extension LikePhotoViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func sortingButtonTapped() {
-        print(#function)
+        vm.inputFilterButtonTapped.value = ()
     }
 }
 // MARK: - collectionView 델리게이트 부분
@@ -125,7 +132,6 @@ private extension LikePhotoViewController {
         let using = phtoCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
-            //여기다 cell부분 넣으면 됨 ㅇㅇ
             return cell
             
         }

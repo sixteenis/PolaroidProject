@@ -18,6 +18,7 @@ enum SearchSection: CaseIterable {
 // TODO: 필터버튼 구현
 // TODO: 정렬 버튼 구현
 // TODO: 다시 검색 시 맨앞으로 로딩해주기!
+// MARK: - 먼가 좋아요 갱신이 되면서도 안됨... 네트워킹 완료전에 다시 화면으로 들오면 적용이 안되는 듯....
 final class SearchPhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
@@ -26,9 +27,14 @@ final class SearchPhotoViewController: BaseViewController {
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let sortingButton = UIButton().then {
-        $0.setTitle("정렬", for: .normal)
         $0.setTitleColor(.cBlack, for: .normal)
+        $0.setImage(UIImage(named: "sort"), for: .normal)
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         $0.backgroundColor = .cWhite
+        $0.layer.masksToBounds = true
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.cGray.cgColor
+        $0.layer.cornerRadius = 15
     }
     private let line = UIView().then {
         $0.backgroundColor = .cGray
@@ -46,13 +52,26 @@ final class SearchPhotoViewController: BaseViewController {
         self.setUpDataSource()
 
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.title = "SEARCH PHOTO"
+        self.vm.inputViewDidAppear.value = ()
+    }
     override func bindData() {
         vm.outputImageList.bind { data in
-                
             self.upDateSnapshot(items: data)
         }
         vm.outputLoadingSet.bind(true) { bool in
             bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
+        }
+    
+        vm.outputSaveImageList.bind { data in
+            self.setUpDataSource()
+            self.upDateSnapshot(items: data)
+        }
+        vm.outputOrderby.bind(true) { type in
+            self.sortingButton.setTitle(" \(type.title) ", for: .normal)
         }
     }
     override func setUpHierarchy() {
@@ -88,9 +107,6 @@ final class SearchPhotoViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    override func setUpView() {
-        navigationItem.title = "SEARCH PHOTO"
-    }
     
 }
 // MARK: - 버튼 기능 부분
@@ -101,7 +117,7 @@ private extension SearchPhotoViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func sortingButtonTapped() {
-        print(#function)
+        vm.inputFilterButtonTapped.value = ()
     }
 }
 // MARK: - collectionView 델리게이트 부분, 다음 뷰로 이동 부분

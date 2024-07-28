@@ -28,6 +28,6 @@ final class TabBarController: UITabBarController {
         let nav3 = UINavigationController(rootViewController: nav3VC)
         nav3.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tab_like"), tag: 1)
         
-        setViewControllers([nav1, nav2, nav3], animated: false)
+        setViewControllers([nav1,nav2, nav3], animated: false)
     }
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class LoginViewController: BaseViewController {
     
     private var profileImage = MainProfileImageView()
@@ -34,23 +35,22 @@ final class LoginViewController: BaseViewController {
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
         // TODO: 세팅일때는 닉네임으로 바꿔놓기~
-//        if vm.settingType == .setting {
-//            nicknameTextField.text = "asdasdasd"
-//        }
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        if vm.settingType == .setting {
+            nicknameTextField.text = UserModelManager.shared.userNickname
+            vm.inputNickname.value = nicknameTextField.text
+        }
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        
-//    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
@@ -71,6 +71,8 @@ final class LoginViewController: BaseViewController {
             guard let self else {return}
             self.successButton.toggleColor(bool)
             self.successButton.isEnabled = bool
+            self.navigationItem.rightBarButtonItem?.isEnabled = bool
+            
         }
         vm.outputMBTICheck.bind { [weak self] bools in
             guard let self else { return }
@@ -232,10 +234,7 @@ final class LoginViewController: BaseViewController {
     }
     // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
     @objc func resetButtonTapped() {
-        for key in UserDefaults.standard.dictionaryRepresentation().keys {
-            UserDefaults.standard.removeObject(forKey: key.description)
-        }
-        nextView()
+        alert()
         
     }
     // MARK: - 다음뷰로 이동하는 부분
@@ -246,7 +245,9 @@ final class LoginViewController: BaseViewController {
             sceneDelegate?.window?.rootViewController = TabBarController()
             sceneDelegate?.window?.makeKeyAndVisible()
         }else if vm.settingType == .setting {
-            sceneDelegate?.window?.rootViewController = OnboardingViewController()
+            let vc = OnboardingViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            sceneDelegate?.window?.rootViewController = nav
             sceneDelegate?.window?.makeKeyAndVisible()
         }
     }
@@ -284,4 +285,32 @@ extension LoginViewController: UITextFieldDelegate {
         self.vm.inputNickname.value = textField.text
     }
     
+}
+
+private extension LoginViewController {
+    //1.
+    func alert() {
+        let alert = UIAlertController(
+            title: "탈퇴하기",
+            message: "정말 탈퇴하시겠습니까?",
+            preferredStyle: .alert
+        )
+        //2.
+        
+        let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
+            print(1)
+            for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                UserDefaults.standard.removeObject(forKey: key.description)
+            }
+            LikeRepository.shard.resetAll()
+            self.nextView()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        //3.
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        //4
+        present(alert, animated: true)
+    }
 }

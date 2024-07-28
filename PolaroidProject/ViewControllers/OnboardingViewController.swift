@@ -65,7 +65,9 @@ final class OnboardingViewController: BaseViewController {
     @objc func startButtonTapped() {
         let vc = LoginViewController()
         vc.vm.settingType = .onboarding
+        print("11")
         navigationController?.pushViewController(vc, animated: true)
+        
     }
     private func animationImageView() {
         UIView.animate(withDuration: 1, delay: 0.5, options: .curveEaseInOut) {
