@@ -70,7 +70,7 @@ final class SelectProfileViewController: BaseViewController {
         
     }
     // MARK: - Collection 세팅 부분
-    func setUpCollectionView() {
+    private func setUpCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -80,8 +80,8 @@ final class SelectProfileViewController: BaseViewController {
         collectionView.reloadData()
     }
     // MARK: - 버튼 함수 부분
-    @objc func nvBackButtonTapped() {
-        // MARK: - 무조건 프로필이 있으니까 강제 ㄱㅊ겠지?
+    @objc private func nvBackButtonTapped() {
+        // 무조건 프로필이 있으니까 강제 ㄱㅊ겠지?
         self.completion?(vm.outputProfileImage.value!)
         navigationController?.popViewController(animated: true)
     }

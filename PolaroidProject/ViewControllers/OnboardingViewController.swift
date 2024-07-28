@@ -62,10 +62,9 @@ final class OnboardingViewController: BaseViewController {
     }
     
     // MARK: - 시작 버튼 함수
-    @objc func startButtonTapped() {
+    @objc private func startButtonTapped() {
         let vc = LoginViewController()
         vc.vm.settingType = .onboarding
-        print("11")
         navigationController?.pushViewController(vc, animated: true)
         
     }

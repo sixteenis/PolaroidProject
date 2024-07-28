@@ -34,8 +34,6 @@ final class LoginViewController: BaseViewController {
         super.viewDidLoad()
         mbtiCompletionSet()
         vm.inputViewDidLoade.value = ()
-        // TODO: 세팅일때는 닉네임으로 바꿔놓기~
-
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,7 +48,7 @@ final class LoginViewController: BaseViewController {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
@@ -209,34 +207,6 @@ final class LoginViewController: BaseViewController {
         resetButton.setTitleColor(.cBlue, for: .normal)
         
     }
-    // MARK: - 버튼 함수 부분
-    @objc func nvBackButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    @objc func profileImageTapped() {
-        let vc = SelectProfileViewController()
-        vc.vm.outputProfileImage.value = vm.outputProfileImage.value
-        vc.navTitle = vm.settingType?.navTitle
-        vc.completion = { [weak self] image in
-            guard let self else { return }
-            self.vm.inputSetProfile.value = image
-        }
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    @objc func startButtonTapped() {
-        vm.inputSaveUserData.value = self.nicknameTextField.text!
-        if vm.settingType == .onboarding {
-            nextView()
-        }else{
-            navigationController?.popViewController(animated: true)
-        }
-        
-    }
-    // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
-    @objc func resetButtonTapped() {
-        alert()
-        
-    }
     // MARK: - 다음뷰로 이동하는 부분
     private func nextView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -272,12 +242,40 @@ final class LoginViewController: BaseViewController {
         }
     }
 }
-
+// MARK: - 버튼 관련 부분
+private extension LoginViewController {
+    @objc func nvBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    @objc func profileImageTapped() {
+        let vc = SelectProfileViewController()
+        vc.vm.outputProfileImage.value = vm.outputProfileImage.value
+        vc.navTitle = vm.settingType?.navTitle
+        vc.completion = { [weak self] image in
+            guard let self else { return }
+            self.vm.inputSetProfile.value = image
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func startButtonTapped() {
+        vm.inputSaveUserData.value = self.nicknameTextField.text!
+        if vm.settingType == .onboarding {
+            nextView()
+        }else{
+            navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
+    @objc func resetButtonTapped() {
+        alert()
+    }
+}
+// MARK: - 텍스트필드 관련
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //checkTextFiled()
         // TODO: 키보드에서 리턴키 눌렀을 때 확인하고 다음 화면으로 가는거 구현하기
-        print(#function)
         return true
     }
     //텍스트 필드 글자 필터링 하는 부분
@@ -288,14 +286,13 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 private extension LoginViewController {
-    //1.
     func alert() {
         let alert = UIAlertController(
             title: "탈퇴하기",
             message: "정말 탈퇴하시겠습니까?",
             preferredStyle: .alert
         )
-        //2.
+        
         
         let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
             print(1)
@@ -307,10 +304,10 @@ private extension LoginViewController {
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
-        //3.
+        
         alert.addAction(cancel)
         alert.addAction(ok)
-        //4
+        
         present(alert, animated: true)
     }
 }

@@ -17,11 +17,14 @@ class BaseViewController: UIViewController {
         setUpView()
         setUpLayout()
         bindData()
+        setUpNavLeft()
     }
     
     func setUpHierarchy() {}
     func setUpLayout() {}
     func setUpView() {}
     func bindData() {}
-    
+    func setUpNavLeft() {
+        navigationController?.navigationBar.tintColor = .cBlack
+    }
 }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Obsearvable<T> {
-    var closure: ((T) -> ())?
+final class Obsearvable<T> {
+    private var closure: ((T) -> ())?
     var value: T {
         didSet {
             closure?(value)

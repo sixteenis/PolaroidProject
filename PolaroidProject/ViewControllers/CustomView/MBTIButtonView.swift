@@ -6,11 +6,13 @@
 //
 
 import UIKit
+
 import SnapKit
+
 final class MBTIButtonView: BaseView {
     private let topButton = UIButton()
     private let bottomButton = UIButton()
-    var buttonIndex: Int = 0
+    private  var buttonIndex: Int = 0
     var completion: ((Int, Int) -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,8 +35,6 @@ final class MBTIButtonView: BaseView {
         bottomButton.layer.masksToBounds = false
         
     }
-    
-    
     override func setUpHierarchy() {
         addSubview(topButton)
         addSubview(bottomButton)
@@ -64,7 +64,7 @@ final class MBTIButtonView: BaseView {
         bottomButton.layer.borderWidth = 1
         
     }
-    @objc func buttonTapped(_ sender: UIButton) {
+    @objc private  func buttonTapped(_ sender: UIButton) {
         completion?(self.buttonIndex,sender.tag)
     }
     func buttonChange(_ bool: Bool?) {

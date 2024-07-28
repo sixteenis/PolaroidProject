@@ -9,6 +9,8 @@ import UIKit
 
 import SnapKit
 import Then
+import Toast
+
 enum LikePhotoSection: CaseIterable {
     case firest
 }
@@ -168,6 +170,7 @@ private extension LikePhotoViewController {
             // TODO: 좋아요 기능 구현
             cell.completion = {
                 self.vm.inputLikeButtonTap.value = itemIdentifier
+                self.view.makeToast("삭제 완료!")
             }
         }
         return result

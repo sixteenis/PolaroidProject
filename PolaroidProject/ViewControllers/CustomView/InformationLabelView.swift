@@ -8,13 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+
 final class InformationLabelView: BaseView {
-    let title = UILabel().then {
+    private let title = UILabel().then {
         $0.textColor = .cBlack
         $0.font = .boldSystemFont(ofSize: 16)
         $0.textAlignment = .left
     }
-    let mainTitle = UILabel().then {
+    private let mainTitle = UILabel().then {
         $0.textColor = .cBlack
         $0.font = .boldSystemFont(ofSize: 16)
         $0.numberOfLines = 1

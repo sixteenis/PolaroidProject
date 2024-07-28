@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
-
+import Toast
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, ImageModel>
@@ -111,10 +111,14 @@ private extension TopicViewController {
     }
     @objc func handleRefreshControl() {
         self.collectionView.refreshControl?.endRefreshing()
-        guard refreshCanBool else {return} //ture가 아니면 벗어남
+        guard refreshCanBool else {
+            self.view.makeToast("잠시 후 다시 시도해 주세요!")
+            return
+        } //ture가 아니면 벗어남
         
         
         self.vm.inputViewDidLoad.value = () //네트워킹 해주고
+        self.view.makeToast("TOPIC 리로드 완료!")
         self.refreshCanBool = false
         self.refreshTimer?.invalidate()
         self.refreshTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { [weak self] _ in
