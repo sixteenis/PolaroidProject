@@ -30,10 +30,12 @@ final class SearchPhotoViewModel {
     var outputLoadingset = Obsearvable(false)
     var outputButtonToggle = Obsearvable(false)
     var outputSaveImageList = Obsearvable([ImageModel]())
+    var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
+    var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
     
     init() {
         inputViewDidLoad.bind { _ in
-            self.setUpView()
+            self.setUpView("키워드를 검색해주세요!")
         }
         inputViewDidAppear.bind { _ in
             self.checkImageList()
@@ -56,10 +58,10 @@ final class SearchPhotoViewModel {
     }
     
 }
-
+// MARK: - 초기 세팅
 private extension SearchPhotoViewModel {
-    func setUpView() {
-        
+    func setUpView(_ title: String) {
+        self.outputSetTitle.value = title
     }
 }
 // MARK: - 통신 관련 부분
@@ -77,15 +79,20 @@ private extension SearchPhotoViewModel {
             self.outputLoadingset.value = true
             switch respon {
             case .success(let success):
-                if params.page == 1{
-                    self.outputImageList.value = success.Images
-                    self.totalPage = success.total
+                if success.Images.isEmpty {
+                    self.setUpView("검색 결과가 없습니다!")
                 }else{
-                    self.outputImageList.value.append(contentsOf: success.Images)
-                    
+                    if params.page == 1{
+                        self.outputImageList.value = success.Images
+                        self.totalPage = success.total
+                        self.outputScrollingTop.value = ()
+                    }else{
+                        self.outputImageList.value.append(contentsOf: success.Images)
+                        
+                    }
                 }
             case .failure(let failure):
-                print(failure)
+                self.setUpView(failure.rawValue)
             }
             
             
@@ -98,13 +105,15 @@ private extension SearchPhotoViewModel {
         }
     }
     func toggleFilterType() {
+        print(self.model)
+        
         if self.outputOrderby.value == .latest {
             self.outputOrderby.value = .relevant
         }else{
             self.outputOrderby.value = .latest
         }
-         
         if self.inputStartNetworking.value != "" {
+            self.model.page = 1
             self.model.orderby = self.outputOrderby.value
             self.getImageList(self.model)
         }

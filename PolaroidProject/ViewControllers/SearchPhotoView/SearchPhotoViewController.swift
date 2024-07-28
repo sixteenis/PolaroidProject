@@ -19,6 +19,7 @@ enum SearchSection: CaseIterable {
 // TODO: 정렬 버튼 구현
 // TODO: 다시 검색 시 맨앞으로 로딩해주기!
 // MARK: - 먼가 좋아요 갱신이 되면서도 안됨... 네트워킹 완료전에 다시 화면으로 들오면 적용이 안되는 듯....
+// TODO: - 좋아요를 눌르면 램에 저장되고 램에서 파일매니저에 저장하는 과정에서 딜레이가 있음.. 그 딜레이 때문에 좋아요가 늦게 적용되거나 반영이 안되는 경우가 생김... 나중에 수정하자.. 꼭!!!
 final class SearchPhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
@@ -43,6 +44,11 @@ final class SearchPhotoViewController: BaseViewController {
         $0.placeholder = PlaceholderEnum.searchBar
         $0.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
     }
+    private var settingLabel = UILabel().then {
+        $0.textColor = .cBlack
+        $0.textAlignment = .center
+        $0.isHidden = false
+    }
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: DataSource!
     
@@ -50,6 +56,7 @@ final class SearchPhotoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpDataSource()
+        self.vm.inputViewDidLoad.value = ()
 
     }
     
@@ -59,7 +66,14 @@ final class SearchPhotoViewController: BaseViewController {
         self.vm.inputViewDidAppear.value = ()
     }
     override func bindData() {
+        vm.outputSetTitle.bind(true) { title in
+            self.settingLabel.isHidden = false
+            self.collectionView.isHidden = true
+            self.settingLabel.text = title
+        }
         vm.outputImageList.bind { data in
+            self.settingLabel.isHidden = true
+            self.collectionView.isHidden = false
             self.upDateSnapshot(items: data)
         }
         vm.outputLoadingSet.bind(true) { bool in
@@ -67,11 +81,16 @@ final class SearchPhotoViewController: BaseViewController {
         }
     
         vm.outputSaveImageList.bind { data in
+            self.settingLabel.isHidden = true
+            self.collectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
         }
         vm.outputOrderby.bind(true) { type in
             self.sortingButton.setTitle(" \(type.title) ", for: .normal)
+        }
+        vm.outputScrollingTop.bind { _ in
+            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
     }
     override func setUpHierarchy() {
@@ -79,6 +98,7 @@ final class SearchPhotoViewController: BaseViewController {
         view.addSubview(line)
         view.addSubview(sortingButton)
         view.addSubview(collectionView)
+        view.addSubview(settingLabel)
         
         searchBar.delegate = self
         sortingButton.addTarget(self, action: #selector(sortingButtonTapped), for: .touchUpInside)
@@ -105,6 +125,9 @@ final class SearchPhotoViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(sortingButton.snp.bottom).offset(10)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        settingLabel.snp.makeConstraints { make in
+            make.center.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
