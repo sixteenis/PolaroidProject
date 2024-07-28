@@ -98,6 +98,7 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         
         likesCount.text = data.likes.formatted()
     }
+    
     func updateUIWithRelam(_ data: LikeList) {
         likeButton.isHidden = false
         blackImage.isHidden = true

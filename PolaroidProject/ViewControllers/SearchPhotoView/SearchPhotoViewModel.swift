@@ -17,7 +17,7 @@ final class SearchPhotoViewModel {
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
     var inputViewWillAppear: Obsearvable<Void?> = Obsearvable(nil)
-    var inputViewDidAppear: Obsearvable<Void?> = Obsearvable(nil)
+    
     var inputStartNetworking: Obsearvable<String> = Obsearvable("")
     var inputPage = Obsearvable(0)
     var inputLikeButton: Obsearvable<ImageDTO?> = Obsearvable(nil)
@@ -28,9 +28,10 @@ final class SearchPhotoViewModel {
     var outputLoadingSet = Obsearvable(true)
     
     var outputImageList = Obsearvable([ImageModel]())
+    var outputSaveImageList = Obsearvable([ImageModel]())
     var outputLoadingset = Obsearvable(false)
     var outputButtonToggle = Obsearvable(false)
-    var outputSaveImageList = Obsearvable([ImageModel]())
+    
     var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
     var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
     var outputCellRefresh: Obsearvable<[String]?> = Obsearvable(nil)
@@ -39,10 +40,6 @@ final class SearchPhotoViewModel {
             self.setUpView("키워드를 검색해주세요!")
         }
         inputViewWillAppear.bind { _ in
-            self.checkImageList()
-            self.cellRefresh()
-        }
-        inputViewDidAppear.bind { _ in
             self.checkImageList()
         }
         inputStartNetworking.bind { text in
@@ -68,9 +65,7 @@ private extension SearchPhotoViewModel {
     func setUpView(_ title: String) {
         self.outputSetTitle.value = title
     }
-    func cellRefresh() {
-        self.outputCellRefresh.value = likeRepository.getLikeLists().map {$0.imageId}
-    }
+    
 }
 // MARK: - 통신 관련 부분
 private extension SearchPhotoViewModel {
@@ -92,10 +87,12 @@ private extension SearchPhotoViewModel {
                 }else{
                     if params.page == 1{
                         self.outputImageList.value = success.Images
+                        self.ImageList = success.Images
                         self.totalPage = success.total
                         self.outputScrollingTop.value = ()
                     }else{
                         self.outputImageList.value.append(contentsOf: success.Images)
+                        self.ImageList.append(contentsOf: success.Images)
                         
                     }
                 }
@@ -107,13 +104,15 @@ private extension SearchPhotoViewModel {
         }
     }
     func checkImageList() {
-        if self.likeList != LikeRepository.shard.getLikeLists() {
-            self.likeList = LikeRepository.shard.getLikeLists()
-            self.outputSaveImageList.value = self.outputImageList.value
-            print(self.outputSaveImageList.value.count)
-            print(self.outputImageList.value.count)
-            
+        
+        //self.likeList = LikeRepository.shard.getLikeLists()
+        //self.outputImageList.value = self.ImageList
+        self.likeRepository.completion = {
+            self.outputSaveImageList.value = self.ImageList
+            print("되냐????????????")
         }
+        
+        
     }
     func toggleFilterType() {
         if self.outputOrderby.value == .latest {

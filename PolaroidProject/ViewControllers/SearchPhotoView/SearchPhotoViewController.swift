@@ -62,14 +62,13 @@ final class SearchPhotoViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "SEARCH PHOTO"
-        self.vm.inputViewDidAppear.value = ()
-        print("viewWill 로드")
+        self.vm.inputViewWillAppear.value = ()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.vm.inputViewDidAppear.value = ()
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        self.vm.inputViewDidAppear.value = ()
+//        
+//    }
     override func bindData() {
         vm.outputSetTitle.bind(true) { title in
             self.settingLabel.isHidden = false
@@ -80,18 +79,22 @@ final class SearchPhotoViewController: BaseViewController {
         vm.outputLoadingSet.bind(true) { bool in
             bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
         }
-        vm.outputImageList.bind { data in
+        //통신을 통해 얻은 데이터
+        vm.outputImageList.bind(true) { data in
             self.settingLabel.isHidden = true
             self.collectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
+            print("세팅중")
         }
-        vm.outputSaveImageList.bind { data in
+        //이미 가지고 있는 데이터
+        vm.outputSaveImageList.bind(true) { data in
             self.settingLabel.isHidden = true
             self.collectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
-            self.vm.outputImageList.value = data
+            //성공이 넘 느리게 출력된다....... 그전에 업로드해서 문제가 생긴다!
+            print("저장된거 다시 불러오기 ㅋㅋㅋㅋ")
         }
         vm.outputOrderby.bind(true) { type in
             self.sortingButton.setTitle(" \(type.title) ", for: .normal)

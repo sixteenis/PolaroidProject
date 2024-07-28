@@ -44,7 +44,7 @@ class DetailViewModel {
         inputLikeButton.bind { _ in
             self.outputlikeBool.value?.toggle()
         }
-        inputViewWillDisappear.bind { _ in
+        inputViewWillDisappear.bind(true) { _ in
             self.checkData()
         }
     }

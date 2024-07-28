@@ -23,7 +23,8 @@ final class TopicViewController: BaseViewController {
     private var dataSource:DataSource!
     
     private let vm = TopicViewModel()
-    
+    private var refreshTimer: Timer?
+    private var refreshCanBool = true
     override func viewDidLoad() {
         super.viewDidLoad()
         vm.inputViewDidLoad.value = ()
@@ -80,6 +81,8 @@ final class TopicViewController: BaseViewController {
         
         collectionView.delegate = self
         collectionView.register(TopicSectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TopicSectionHeaderReusableView.id)
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
 }
 // MARK: - collectionView 델리게이트 부분, 다음 화면으로 이동하는 부분
@@ -105,6 +108,20 @@ private extension TopicViewController {
         let vc = LoginViewController()
         vc.vm.settingType = .setting
         navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func handleRefreshControl() {
+        self.collectionView.refreshControl?.endRefreshing()
+        guard refreshCanBool else {return} //ture가 아니면 벗어남
+        
+        
+        self.vm.inputViewDidLoad.value = () //네트워킹 해주고
+        self.refreshCanBool = false
+        self.refreshTimer?.invalidate()
+        self.refreshTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { [weak self] _ in
+            self?.refreshCanBool = true
+        }
+        
+        
     }
 }
 

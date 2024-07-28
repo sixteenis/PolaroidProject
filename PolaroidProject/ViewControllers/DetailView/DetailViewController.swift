@@ -84,10 +84,6 @@ final class DetailViewController: BaseViewController {
             guard let self,let id = ids.0, let userid = ids.1 else {return}
             self.setUpWithRealm(id, userId: userid)
         }
-        vm.outputType.bind(true) { [weak self]  type in
-            print(type)
-            print(self?.vm.bool)
-        }
     }
     override func setUpHierarchy() {
         view.addSubview(userProfile)
@@ -153,7 +149,7 @@ private extension DetailViewController {
     }
     func setUpModel(_ model: DetailSettingModel) {
         userName.text = model.userName
-        DateLabel.text = model.date
+        DateLabel.text = model.filterDate
         sizeLabel.setUpMaintitle(model.size)
         hitsLabel.setUpMaintitle(model.hits)
         downloadedLabel.setUpMaintitle(model.download)

@@ -16,14 +16,15 @@ final class LikePhotoViewModel {
     
     var outputGetLikeList = Obsearvable([LikeList]())
     var outputFilterType = Obsearvable(LikePhotoFilterType.latest)
+    var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
     init() {
         inputViewDidLoad.bind { _ in
             self.fetchLikeList(type: self.outputFilterType.value)
         }
         inputViewWillAppear.bind { _ in
-            if self.outputGetLikeList.value != self.repository.getLikeLists() {
+            //if self.outputGetLikeList.value != self.repository.getLikeLists() {
                 self.fetchLikeList(type: self.outputFilterType.value)
-            }
+            //}
         }
         inputLikeButtonTap.bind { item in
             guard let item else {return}
@@ -53,6 +54,8 @@ private extension LikePhotoViewModel {
         }else{
             self.outputFilterType.value = .past
         }
+        outputScrollingTop.value = ()
         fetchLikeList(type: self.outputFilterType.value)
     }
+    
 }

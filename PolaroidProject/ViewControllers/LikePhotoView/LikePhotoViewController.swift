@@ -49,6 +49,10 @@ final class LikePhotoViewController: BaseViewController {
         navigationItem.title = "MY POLAROID"
         vm.inputViewWillAppear.value = ()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //vm.inputViewWillAppear.value = ()
+    }
     override func bindData() {
         vm.outputGetLikeList.bind { list in
             if list.isEmpty {
@@ -64,6 +68,10 @@ final class LikePhotoViewController: BaseViewController {
         }
         vm.outputFilterType.bind(true) { type in
             self.sortingButton.setTitle(" \(type.rawValue) ", for: .normal)
+            
+        }
+        vm.outputScrollingTop.bind { _ in
+            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
     }
     override func setUpHierarchy() {

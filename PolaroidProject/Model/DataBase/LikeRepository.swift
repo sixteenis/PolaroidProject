@@ -13,6 +13,7 @@ final class LikeRepository {
     private var realm = try! Realm()
     static let shard = LikeRepository()
     private init() {}
+    var completion: (() -> ())?
     func getLikeLists() -> [LikeList] {
         let data = Array(realm.objects(LikeList.self))
         return data
@@ -41,45 +42,50 @@ final class LikeRepository {
                 self.removeImageFromDocument(filename: item.imageId + item.createdAt)
                 
                 realm.delete(data)
+                self.completion?()
                 print(getLikeLists().count)
             }
         }else{
             try! realm.write {
                 realm.add(item)
+                self.completion?()
             }
         }
         
     }
     func saveLike(_ item: ImageDTO) {
-        NetworkManager.shard.requestStatistics(id: item.imageId) { [weak self] respon in
+        NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
             switch respon {
             case .success(let success):
                 let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
-                try! self?.realm.write {
-                    self?.realm.add(result)
-                    
+                try! self.realm.write {
+                    self.realm.add(result)
+                    self.completion?()
                 }
                 DispatchQueue.global().async {
                     if let url = URL(string: item.urls.small), let userURL =  URL(string: item.user.profileImage.medium){
-                        self?.downloadImage(from: url) { image in
+                        self.downloadImage(from: url) { image in
                             if let image {
-                                self?.saveImageToDocument(image: image, filename: item.imageId)
+                                self.saveImageToDocument(image: image, filename: item.imageId)
                                 print("성공!!!!!!")
                             }
                         }
-                        self?.downloadImage(from: userURL) { image in
+                        self.downloadImage(from: userURL) { image in
                             if let image {
-                                self?.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
+                                self.saveImageToDocument(image: image, filename: item.imageId + item.createdAt)
                                 print("성공!")
                             }
                         }
                         
                         
                     }
+                    
                 }
             case .failure(_):
                 print("램 데이터로 전환 실패!!!!")
             }
+            
+            
             
         }
     }
