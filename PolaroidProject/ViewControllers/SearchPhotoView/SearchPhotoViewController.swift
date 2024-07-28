@@ -14,12 +14,11 @@ import Toast
 enum SearchSection: CaseIterable {
     case firest
 }
-// TODO:  오류화면 만들기
-// TODO: 필터버튼 구현
-// TODO: 정렬 버튼 구현
-// TODO: 다시 검색 시 맨앞으로 로딩해주기!
+
 // MARK: - 먼가 좋아요 갱신이 되면서도 안됨... 네트워킹 완료전에 다시 화면으로 들오면 적용이 안되는 듯....
 // TODO: - 좋아요를 눌르면 램에 저장되고 램에서 파일매니저에 저장하는 과정에서 딜레이가 있음.. 그 딜레이 때문에 좋아요가 늦게 적용되거나 반영이 안되는 경우가 생김... 나중에 수정하자.. 꼭!!!
+
+// MARK: - 좋아요 갱신이 될때도 있구... 안될때두 있습니당...
 final class SearchPhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
@@ -53,16 +52,18 @@ final class SearchPhotoViewController: BaseViewController {
     private var dataSource: DataSource!
     
     let vm = SearchPhotoViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpDataSource()
         self.vm.inputViewDidLoad.value = ()
 
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "SEARCH PHOTO"
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationItem.title = "SEARCH PHOTO"
         self.vm.inputViewDidAppear.value = ()
     }
     override func bindData() {
@@ -71,20 +72,22 @@ final class SearchPhotoViewController: BaseViewController {
             self.collectionView.isHidden = true
             self.settingLabel.text = title
         }
-        vm.outputImageList.bind { data in
-            self.settingLabel.isHidden = true
-            self.collectionView.isHidden = false
-            self.upDateSnapshot(items: data)
-        }
+        
         vm.outputLoadingSet.bind(true) { bool in
             bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
         }
-    
+        vm.outputImageList.bind { data in
+            self.settingLabel.isHidden = true
+            self.collectionView.isHidden = false
+            self.setUpDataSource()
+            self.upDateSnapshot(items: data)
+        }
         vm.outputSaveImageList.bind { data in
             self.settingLabel.isHidden = true
             self.collectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
+            self.vm.outputImageList.value = data
         }
         vm.outputOrderby.bind(true) { type in
             self.sortingButton.setTitle(" \(type.title) ", for: .normal)

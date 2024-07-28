@@ -111,10 +111,10 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         if result {
             likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
         }else{
-            
             likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
         }
     }
+    
     func toggleButton(_ bool: Bool) {
         if bool {
             likeButton.setImage(UIImage(named: "like_circle"), for: .normal)

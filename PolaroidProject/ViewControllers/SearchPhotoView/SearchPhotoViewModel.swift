@@ -16,6 +16,7 @@ final class SearchPhotoViewModel {
     var ImageList = [ImageModel]()
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
+    var inputViewWillAppear: Obsearvable<Void?> = Obsearvable(nil)
     var inputViewDidAppear: Obsearvable<Void?> = Obsearvable(nil)
     var inputStartNetworking: Obsearvable<String> = Obsearvable("")
     var inputPage = Obsearvable(0)
@@ -32,10 +33,14 @@ final class SearchPhotoViewModel {
     var outputSaveImageList = Obsearvable([ImageModel]())
     var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
     var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
-    
+    var outputCellRefresh: Obsearvable<[String]?> = Obsearvable(nil)
     init() {
         inputViewDidLoad.bind { _ in
             self.setUpView("키워드를 검색해주세요!")
+        }
+        inputViewWillAppear.bind { _ in
+            self.checkImageList()
+            self.cellRefresh()
         }
         inputViewDidAppear.bind { _ in
             self.checkImageList()
@@ -62,6 +67,9 @@ final class SearchPhotoViewModel {
 private extension SearchPhotoViewModel {
     func setUpView(_ title: String) {
         self.outputSetTitle.value = title
+    }
+    func cellRefresh() {
+        self.outputCellRefresh.value = likeRepository.getLikeLists().map {$0.imageId}
     }
 }
 // MARK: - 통신 관련 부분
@@ -102,11 +110,12 @@ private extension SearchPhotoViewModel {
         if self.likeList != LikeRepository.shard.getLikeLists() {
             self.likeList = LikeRepository.shard.getLikeLists()
             self.outputSaveImageList.value = self.outputImageList.value
+            print(self.outputSaveImageList.value.count)
+            print(self.outputImageList.value.count)
+            
         }
     }
     func toggleFilterType() {
-        print(self.model)
-        
         if self.outputOrderby.value == .latest {
             self.outputOrderby.value = .relevant
         }else{

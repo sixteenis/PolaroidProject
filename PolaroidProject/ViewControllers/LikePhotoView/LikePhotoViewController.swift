@@ -30,6 +30,12 @@ final class LikePhotoViewController: BaseViewController {
     private let line = UIView().then {
         $0.backgroundColor = .cGray
     }
+    private let isEmptyLabel = UILabel().then {
+        $0.text = "저장된 사진이 없어요"
+        $0.font = .heavy20
+        $0.textColor = .cBlack
+        $0.textAlignment = .center
+    }
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var dataSource: DataSource!
     private var vm = LikePhotoViewModel()
@@ -45,8 +51,16 @@ final class LikePhotoViewController: BaseViewController {
     }
     override func bindData() {
         vm.outputGetLikeList.bind { list in
+            if list.isEmpty {
+                self.isEmptyLabel.isHidden = false
+                self.sortingButton.isHidden = true
+            }else{
+                self.isEmptyLabel.isHidden = true
+                self.sortingButton.isHidden = false
+            }
             self.setUpDataSource()
             self.upDateSnapshot(list)
+            
         }
         vm.outputFilterType.bind(true) { type in
             self.sortingButton.setTitle(" \(type.rawValue) ", for: .normal)
@@ -56,7 +70,7 @@ final class LikePhotoViewController: BaseViewController {
         view.addSubview(line)
         view.addSubview(sortingButton)
         view.addSubview(collectionView)
-        
+        view.addSubview(isEmptyLabel)
         sortingButton.addTarget(self, action: #selector(sortingButtonTapped), for: .touchUpInside)
         collectionView.delegate = self
         
@@ -75,6 +89,9 @@ final class LikePhotoViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(sortingButton.snp.bottom).offset(10)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        isEmptyLabel.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     

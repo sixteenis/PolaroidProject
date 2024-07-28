@@ -42,6 +42,7 @@ final class LikeRepository {
                 self.removeImageFromDocument(filename: item.imageId + item.createdAt)
                 
                 realm.delete(data)
+                print(getLikeLists().count)
             }
         }else{
             try! realm.write {
