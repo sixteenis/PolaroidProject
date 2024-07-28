@@ -58,13 +58,17 @@ final class SearchPhotoViewController: BaseViewController {
         self.vm.inputViewDidLoad.value = ()
 
     }
+    // MARK: - view가 뜨기전 뜨기직전에 둘다 저장된 값을 체크하는게 맞나...? 일단 작동은 하니 나중에 수정하자.!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "SEARCH PHOTO"
+        self.vm.inputViewDidAppear.value = ()
+        print("viewWill 로드")
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.vm.inputViewDidAppear.value = ()
+        
     }
     override func bindData() {
         vm.outputSetTitle.bind(true) { title in

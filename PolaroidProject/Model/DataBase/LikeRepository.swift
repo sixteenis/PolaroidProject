@@ -31,7 +31,6 @@ final class LikeRepository {
     }
     
     func toggleLike(_ item: LikeList) {
-        
         if checklist(item.imageId) {
             let data = realm.objects(LikeList.self).where {
                 $0.imageId == item.imageId
