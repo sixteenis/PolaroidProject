@@ -1,5 +1,5 @@
 //
-//  TopicCollectionViewCell.swift
+//  PhotoCollectionViewCell.swift
 //  PolaroidProject
 //
 //  Created by 박성민 on 7/24/24.
@@ -11,29 +11,29 @@ import SnapKit
 import Then
 import Kingfisher
 
-class PhotoCollectionViewCell: BaseCollectioViewCell {
-    let profileImage = UIImageView().then {
+final class PhotoCollectionViewCell: BaseCollectioViewCell {
+    private let profileImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
     }
-    let blackImage = UIView().then {
+    private let blackImage = UIView().then {
         $0.backgroundColor = .cKhaki
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 15
+        $0.layer.cornerRadius = .CG15
     }
-    let likeButton = UIButton().then {
+    private let likeButton = UIButton().then {
         $0.setTitle("", for: .normal)
         $0.setTitleColor(.cBlack, for: .normal)
     }
-    let star = UIImageView().then {
+    private let star = UIImageView().then {
         $0.image = UIImage(systemName: "star.fill")
         $0.contentMode = .scaleAspectFit 
         $0.tintColor = .systemYellow
     }
-    let likesCount = UILabel().then {
+    private let likesCount = UILabel().then {
         $0.textColor = .cWhite
         $0.numberOfLines = 1
-        $0.font = UIFont.systemFont(ofSize: 11)
+        $0.font = UIFont.regular12
         $0.textAlignment = .center
     }
     var completion: (() -> ())?
@@ -72,20 +72,21 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         }
         
     }
+    
     func updateUI(_ data: ImageDTO, style: CollectionType) {
         switch style {
         case .topic:
-            profileImage.layer.cornerRadius = 15
+            profileImage.layer.cornerRadius = .CG15
             likeButton.isHidden = true
             blackImage.isHidden = false
         case .search:
             likeButton.isHidden = false
             blackImage.isHidden = false
-            
         }
-        checkLike(data.imageId)
         
+        checkLike(data.imageId)
         profileImage.kf.indicatorType = .activity
+        
         guard let url = URL(string: data.urls.small) else { return }
         profileImage.kf.setImage(
         with: url,
@@ -104,26 +105,24 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         profileImage.image = LikeRepository.shard.getImage(data.imageId)
         
     }
-    func checkLike(_ id: String) {
-        let result = LikeRepository.shard.checklist(id)
-        if result {
-            likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
-        }else{
-            likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
-        }
-    }
     
     func toggleButton(_ bool: Bool) {
         if bool {
-            likeButton.setImage(UIImage(named: "like_circle"), for: .normal)
+            likeButton.setImage(UIImage.circlelikes, for: .normal)
         }else{
-            
-            likeButton.setImage(UIImage(named: "like_circle_inactive"), for: .normal)
+            likeButton.setImage(UIImage.unCirclelikes, for: .normal)
         }
-        
     }
-    @objc func likeButtonTapped() {
+    
+    @objc private func likeButtonTapped() {
         self.completion?()
-        
+    }
+    private func checkLike(_ id: String) {
+        let result = LikeRepository.shard.checklist(id)
+        if result {
+            likeButton.setImage(UIImage.circlelikes, for: .normal)
+        }else{
+            likeButton.setImage(UIImage.unCirclelikes, for: .normal)
+        }
     }
 }

@@ -2,7 +2,7 @@
 //  BaseCollectioViewCell.swift
 //  MeaningOutProject
 //
-//  Created by 박성민 on 7/10/24.
+//  Created by 박성민 on 7/23/24.
 //
 
 import UIKit

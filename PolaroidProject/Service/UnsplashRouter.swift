@@ -9,6 +9,7 @@ import Foundation
 
 import Alamofire
 
+@frozen
 enum UnsplashRouter: URLRequestConvertible {
     case topic(params: TopicSection, page: Int)
     case search(params: SearchParams)

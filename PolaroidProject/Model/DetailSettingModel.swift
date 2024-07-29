@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 struct DetailSettingModel {
     let userName: String
     let date: String

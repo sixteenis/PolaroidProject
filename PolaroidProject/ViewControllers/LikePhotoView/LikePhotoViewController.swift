@@ -11,7 +11,6 @@ import SnapKit
 import Then
 import Toast
 
-
 final class LikePhotoViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<DifferSection,LikeList>
     typealias Snapshot = NSDiffableDataSourceSnapshot<DifferSection, LikeList>
@@ -20,20 +19,22 @@ final class LikePhotoViewController: BaseViewController {
     typealias FilterDateSource = UICollectionViewDiffableDataSource<DifferSection, ColorModel>
     typealias FilterSnapshot = NSDiffableDataSourceSnapshot<DifferSection, ColorModel>
     typealias FilterRegistration = UICollectionView.CellRegistration<FilterButtonCollectioViewCell, ColorModel>
+    
     private var dataSource: DataSource!
     private var filterDateSource: FilterDateSource!
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createFilterLayout())
     
     private let sortingButton = UIButton().then {
         $0.setTitleColor(.cBlack, for: .normal)
-        $0.setImage(UIImage(named: "sort"), for: .normal)
-        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        $0.setImage(.sortImage, for: .normal)
+        $0.titleLabel?.font = UIFont.bold15
         $0.backgroundColor = .cWhite
         $0.layer.masksToBounds = true
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.cGray.cgColor
-        $0.layer.cornerRadius = 15
+        $0.layer.cornerRadius = .CG15
     }
     private let line = UIView().then {
         $0.backgroundColor = .cGray
@@ -45,8 +46,6 @@ final class LikePhotoViewController: BaseViewController {
         $0.textAlignment = .center
     }
     
-    
-    
     private var vm = LikePhotoViewModel()
     
     override func viewDidLoad() {
@@ -56,14 +55,12 @@ final class LikePhotoViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "MY POLAROID"
-        //vm.inputViewWillAppear.value = ()
+        vm.inputViewWillAppear.value = ()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //vm.inputViewWillAppear.value = ()
-    }
+
     override func bindData() {
-        vm.outputGetLikeList.bind(true) { list in
+        vm.outputGetLikeList.bind(true) { [weak self] list in
+            guard let self else { return }
             if list.isEmpty {
                 self.isEmptyLabel.isHidden = false
                 self.sortingButton.isHidden = true
@@ -73,18 +70,19 @@ final class LikePhotoViewController: BaseViewController {
             }
             self.setUpDataSource()
             self.upDateSnapshot(list)
-            
         }
-        vm.outputFilterType.bind(true) { type in
+        vm.outputFilterType.bind(true) { [weak self] type in
+            guard let self else { return }
             self.sortingButton.setTitle(" \(type.rawValue) ", for: .normal)
-            
         }
-        vm.outputScrollingTop.bind { _ in
+        vm.outputScrollingTop.bind { [weak self] _ in
+            guard let self else { return }
             if !self.vm.outputGetLikeList.value.isEmpty {
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
         }
-        vm.outputColors.bind { colors in
+        vm.outputColors.bind { [weak self] colors in
+            guard let self else { return }
             self.setUpFilterDataSource()
             self.upDateFilterSnapshot(colors)
         }
@@ -95,9 +93,9 @@ final class LikePhotoViewController: BaseViewController {
         view.addSubview(sortingButton)
         view.addSubview(collectionView)
         view.addSubview(isEmptyLabel)
+        
         sortingButton.addTarget(self, action: #selector(sortingButtonTapped), for: .touchUpInside)
         collectionView.delegate = self
-        
     }
     override func setUpLayout() {
         line.snp.makeConstraints { make in
@@ -123,8 +121,6 @@ final class LikePhotoViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-    
 }
 // MARK: - 버튼 기능 부분
 private extension LikePhotoViewController {
@@ -190,11 +186,11 @@ private extension LikePhotoViewController {
         
         dataSource.apply(snapshot)
     }
-    func upDateFilterSnapshot(_ colors: [ColorModel]) {//items: [SearchColor] _ item: [SearchColor]
+    func upDateFilterSnapshot(_ colors: [ColorModel]) {
         var snapshot = FilterSnapshot()
         snapshot.appendSections([DifferSection.filterButton])
         snapshot.appendItems(colors)
-        //모든 컬러 안에 먼가를 비교할 그거를...
+        
         filterDateSource.apply(snapshot)
     }
     func setUpDataSource() {
@@ -202,7 +198,6 @@ private extension LikePhotoViewController {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
             return cell
-            
         }
 
     }
@@ -217,7 +212,8 @@ private extension LikePhotoViewController {
         let result = Registration { cell, indexPath, itemIdentifier in
             cell.updateUIWithRelam(itemIdentifier)
             // TODO: 좋아요 기능 구현
-            cell.completion = {
+            cell.completion = { [weak self] in
+                guard let self else { return }
                 self.vm.inputLikeButtonTap.value = itemIdentifier
                 self.view.makeToast("삭제 완료!")
             }
@@ -227,12 +223,11 @@ private extension LikePhotoViewController {
     func filterCellRegistration() -> FilterRegistration {
         let result = FilterRegistration { cell, indexPath, itemIdentifier in
             cell.setUpButton(itemIdentifier)
-            cell.completion = {
+            cell.completion = { [weak self] in
+                guard let self else { return }
                 self.vm.inputColorButtonTap.value = itemIdentifier
                 print(itemIdentifier)
-                
             }
-            
         }
         return result
     }

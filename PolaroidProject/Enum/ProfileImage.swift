@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+@frozen
 enum ProfileImage: Int, CaseIterable, Codable {
     case profile_0
     case profile_1

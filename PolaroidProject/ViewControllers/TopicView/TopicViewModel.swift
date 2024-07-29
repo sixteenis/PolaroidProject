@@ -18,11 +18,13 @@ final class TopicViewModel {
     private(set) var outputLoadingSet = Obsearvable(false)
     private(set) var outputErrorTitle: Obsearvable<String> = Obsearvable("")
     init() {
-        inputViewDidLoad.bind { _ in
+        inputViewDidLoad.bind { [weak self] _ in
+            guard let self else { return }
             self.getProfileImage()
             self.getTopicData()
         }
-        inputCheckProfile.bind { _ in
+        inputCheckProfile.bind { [weak self] _ in
+            guard let self else { return }
             self.checkProfileImage()
         }
     }
@@ -45,6 +47,7 @@ private extension TopicViewModel {
         let section = Array(TopicSection.allCases.shuffled().prefix(3))
         return section
     }
+    //통신 부분
     func getTopicData() {
         let sections = getTopicSection()
         let group = DispatchGroup()
@@ -53,8 +56,8 @@ private extension TopicViewModel {
         for section in sections {
             group.enter()
             let num = Int.random(in: 0...1000)
-            // TODO: 다른 주제여도 중복이 넘많다.. page를 설정해줘야됨.. 나중에 중복안되는 page 구현하기
-            networkManager.requestTopic(type: section,page: num) { respone in
+            networkManager.requestTopic(type: section,page: num) { [weak self] respone in
+                guard let self else { return }
                 switch respone {
                 case .success(let success):
                     items.append(success)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@frozen
 enum LikePhotoFilterType: String,CaseIterable {
     case latest = "최신순"
     case past = "과거순"

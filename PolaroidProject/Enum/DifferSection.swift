@@ -7,6 +7,7 @@
 
 import Foundation
 
+@frozen
 enum DifferSection: CaseIterable {
     case filterButton
     case image

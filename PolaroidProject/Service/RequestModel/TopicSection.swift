@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@frozen
 enum TopicSection: String,CaseIterable {
     case architecture = "architecture-interior"
     case golden = "golden-hour"

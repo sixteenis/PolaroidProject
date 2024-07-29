@@ -9,19 +9,26 @@ import UIKit
 import SnapKit
 import Then
 
+fileprivate enum Information{
+    static let size = "크기"
+    static let hits = "조회수"
+    static let download = "다운로드"
+    static let infor = "정보"
+}
+
 final class DetailViewController: BaseViewController {
     private let userProfile = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
     }
     private let userName = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .regular12
         $0.textColor = .cBlack
         $0.numberOfLines = 1
         $0.textAlignment = .left
     }
     private let DateLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 12)
+        $0.font = .bold12
         $0.textColor = .cBlack
         $0.numberOfLines = 1
         $0.textAlignment = .left
@@ -37,16 +44,17 @@ final class DetailViewController: BaseViewController {
         $0.layer.masksToBounds = true
     }
     private let informationLabel = UILabel().then {
-        $0.text = "정보"
+        $0.text = Information.infor
         $0.textColor = .cBlack
         $0.font = .heavy20
         $0.textAlignment = .left
     }
-    private let sizeLabel = InformationLabelView(frame: .zero, title: "크기")
-    private let hitsLabel = InformationLabelView(frame: .zero, title: "조회수")
-    private let downloadedLabel = InformationLabelView(frame: .zero, title: "다운로드")
+    private let sizeLabel = InformationLabelView(frame: .zero, title: Information.size)
+    private let hitsLabel = InformationLabelView(frame: .zero, title: Information.hits)
+    private let downloadedLabel = InformationLabelView(frame: .zero, title: Information.download)
     
     let vm = DetailViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -58,7 +66,6 @@ final class DetailViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.vm.inputViewWillDisappear.value = ()
-
         self.tabBarController?.tabBar.isHidden = false
     }
     override func viewWillLayoutSubviews() {
@@ -67,18 +74,20 @@ final class DetailViewController: BaseViewController {
     }
     override func bindData() {
         vm.outputlikeBool.bind(true) { [weak self] bool in
-            guard let bool else { return }
-            bool ? self?.likeButton.setImage(UIImage(named: "like"), for: .normal) : self?.likeButton.setImage(UIImage(named: "like_inactive"), for: .normal)
+            guard let self, let bool else { return }
+            bool ? self.likeButton.setImage(UIImage.likes, for: .normal) : self.likeButton.setImage(UIImage.unlikes, for: .normal)
         }
         vm.outputSetModel.bind(true) { [weak self]  model in
-            guard let model else { return }
-            self?.setUpModel(model)
+            guard let self,let model else { return }
+            self.setUpModel(model)
         }
-        vm.outputImage.bind { [weak self]  data in
-            self?.setUpImage(data)
+        vm.outputImage.bind { [weak self] data in
+            guard let self else { return }
+            self.setUpImage(data)
         }
         vm.outputUserprofile.bind { [weak self] data in
-            self?.setUpUserprofile(data)
+            guard let self else { return }
+            self.setUpUserprofile(data)
         }
         vm.outputID.bind(true) { [weak self] ids in
             guard let self,let id = ids.0, let userid = ids.1 else {return}

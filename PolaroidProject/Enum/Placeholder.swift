@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+@frozen
 enum PlaceholderEnum {
     static let nickName = "닉네임을 입력해주세요 :)"
     static let searchBar = "키워드 검색"

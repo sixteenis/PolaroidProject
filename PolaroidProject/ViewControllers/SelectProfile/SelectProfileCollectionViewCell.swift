@@ -2,7 +2,7 @@
 //  SelectProfileCollectionViewCell.swift
 //  MeaningOutProject
 //
-//  Created by 박성민 on 6/14/24.
+//  Created by 박성민 on 7/22/24.
 //
 
 import UIKit

@@ -1,5 +1,5 @@
 //
-//  TopicModel.swift
+//  ImageModel.swift
 //  PolaroidProject
 //
 //  Created by 박성민 on 7/26/24.

@@ -7,6 +7,7 @@
 
 import UIKit
 
+@frozen
 enum SearchColor: String, CaseIterable {
     case black = "black"
     case white = "white"

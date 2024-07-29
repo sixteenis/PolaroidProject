@@ -12,7 +12,6 @@ import Alamofire
 final class NetworkManager {
     static let shard = NetworkManager()
     private init() {}
-    
     func requestTopic(type: TopicSection,page: Int, completion: @escaping (Result<TopicSeciontModel,APIError>) -> Void) {
         do {
             let request = try UnsplashRouter.topic(params: type, page: page).asURLRequest()

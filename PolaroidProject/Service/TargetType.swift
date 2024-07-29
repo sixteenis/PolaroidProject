@@ -18,7 +18,7 @@ protocol TargetType: URLRequestConvertible {
     var body: Data? { get }
 }
 
-extension TargetType { //AF.request를 줄임 ㅇㅇ
+extension TargetType {
     func asURLRequest() throws -> URLRequest {
         var url = try baseURL.asURL()
         url.appendPathComponent(path)

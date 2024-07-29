@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Then
 import Toast
+
 final class TopicViewController: BaseViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<TopicSection,ImageModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<TopicSection, ImageModel>
@@ -19,12 +20,14 @@ final class TopicViewController: BaseViewController {
     private let errorView = ErrorView(frame: .zero)
     private lazy var navRightBar = SelcetProfileImageView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-    private let test = TopicSectionHeaderReusableView()
+    
     private var dataSource:DataSource!
     
-    private let vm = TopicViewModel()
     private var refreshTimer: Timer?
-    private var refreshCanBool = true
+    private var refreshCanBool = true //vm 이동 리팩진행하자
+    
+    private let vm = TopicViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vm.inputViewDidLoad.value = ()
@@ -37,29 +40,31 @@ final class TopicViewController: BaseViewController {
         vm.inputCheckProfile.value = ()
     }
     override func bindData() {
-        vm.outputErrorTitle.bind { err in
+        vm.outputErrorTitle.bind { [weak self] err in
+            guard let self else { return }
             self.errorView.isHidden = false
             self.errorView.getErrorText(err)
         }
-        vm.outputLoadingSet.bind(true) { bool in
+        vm.outputLoadingSet.bind(true) { [weak self] bool in
+            guard let self else { return }
             bool ? self.hideLoadingIndicator() : self.showLoadingIndicator()
         }
         vm.outputGetProfileImage.bind { [weak self] image in
             guard let self, let image else { return }
             navRightBar.changeProfile(image)
         }
-        vm.outputTopicList.bind { topicModel in
+        vm.outputTopicList.bind { [weak self] topicModel in
+            guard let self else { return }
             self.setUpDataSource()
             self.upDateSnapshot(topics: topicModel)
             
         }
     }
-    
     override func setUpHierarchy() {
         view.addSubview(navRightBar)
         view.addSubview(collectionView)
-        view.addSubview(test)
         view.addSubview(errorView)
+        view.addSubview(loadingIndicator)
     }
     override func setUpLayout() {
         navRightBar.snp.makeConstraints { make in
@@ -121,9 +126,7 @@ private extension TopicViewController {
                 }
             }
             return
-        } //ture가 아니면 벗어남
-        
-        
+        }
         self.vm.inputViewDidLoad.value = () //네트워킹 해주고
         // TODO: 일단 여기 두고 나중에 vm에 넣어서 통신이 완료된! 시점에! 호출!
         DispatchQueue.global().async {
@@ -132,15 +135,11 @@ private extension TopicViewController {
                 self.view.makeToast("TOPIC 리로드 완료!")
             }
         }
-        
-        
         self.refreshCanBool = false
         self.refreshTimer?.invalidate()
         self.refreshTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { [weak self] _ in
             self?.refreshCanBool = true
         }
-        
-        
     }
 }
 
@@ -195,13 +194,12 @@ private extension TopicViewController {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
             return cell
-            
         }
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TopicSectionHeaderReusableView.id, for: indexPath) as! TopicSectionHeaderReusableView
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            view.titleLabel.text = section.setionTitle
+            view.setupTitle(section.setionTitle)
             return view
         }
     }
@@ -217,9 +215,7 @@ private extension TopicViewController {
     private func showLoadingIndicator() {
         loadingIndicator.startAnimating()
         loadingIndicator.center = view.center
-        view.addSubview(loadingIndicator)
     }
-    
     private func hideLoadingIndicator() {
         loadingIndicator.stopAnimating()
         loadingIndicator.removeFromSuperview()

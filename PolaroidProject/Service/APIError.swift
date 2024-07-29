@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@frozen
 enum APIError: String, Error {
     case badRequest400 = "필요한 입력값이 없어서 오류가 발생했습니다."
     case unauthorized401 = "잘못된 액세스 토큰입니다."

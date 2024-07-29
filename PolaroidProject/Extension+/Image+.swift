@@ -8,5 +8,11 @@
 import UIKit
 
 extension UIImage {
-    static let profile: UIImage = UIImage.profile9
+    static let likes = UIImage(named: "like")
+    static let unlikes = UIImage(named: "like_inactive")
+    
+    static let circlelikes = UIImage(named: "like_circle")
+    static let unCirclelikes = UIImage(named: "like_circle_inactive")
+    
+    static let sortImage = UIImage(named: "sort")
 }

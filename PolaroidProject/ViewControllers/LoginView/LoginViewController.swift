@@ -173,7 +173,7 @@ final class LoginViewController: BaseViewController {
     override func setUpView() {
         successButton.isHidden = true
         resetButton.isHidden = true
-        
+    
         switch vm.settingType {
         case .onboarding:
             successButton.isHidden = false
@@ -185,14 +185,11 @@ final class LoginViewController: BaseViewController {
             print("error")
         }
         
-        
         line.backgroundColor = .cGray
         nicknameTextField.placeholder = PlaceholderEnum.nickName
         nicknameTextField.textColor = .cBlack
         nicknameTextField.contentMode = .left
-        
         textLine.backgroundColor = .cGray
-        
         
         nicknameFilterLabel.textAlignment = .left
         nicknameFilterLabel.numberOfLines = 1
@@ -202,7 +199,10 @@ final class LoginViewController: BaseViewController {
         mbtiLabel.font = .heavy20
         mbtiLabel.textColor = .cBlack
         
-        resetButton.setTitle("회원탈퇴", for: .normal)
+        let title = "회원탈퇴"
+        let line = NSMutableAttributedString(string: title)
+        line.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: title.count))
+        resetButton.setAttributedTitle(line, for: .normal)
         resetButton.setTitleColor(.cBlue, for: .normal)
         
     }
@@ -220,7 +220,6 @@ final class LoginViewController: BaseViewController {
             sceneDelegate?.window?.makeKeyAndVisible()
         }
     }
-    
     // MARK: - mbti 버튼 인덱스값 클로저로 받아오는 함수 부분
     private func mbtiCompletionSet() {
         mbtiEIButton.completion = { [weak self] index, button in
@@ -265,7 +264,7 @@ private extension LoginViewController {
         }
         
     }
-    // MARK: - 리셋 버튼 나중에 램도 삭제해줘야됨!!!
+    //모든 데이터 삭제
     @objc func resetButtonTapped() {
         alert()
     }
@@ -283,7 +282,6 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
 }
-
 private extension LoginViewController {
     func alert() {
         let alert = UIAlertController(
@@ -291,10 +289,8 @@ private extension LoginViewController {
             message: "정말 탈퇴하시겠습니까?",
             preferredStyle: .alert
         )
-        
-        
-        let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
-            print(1)
+        let ok = UIAlertAction(title: "확인", style: .destructive) { [weak self] _ in
+            guard let self else { return }
             for key in UserDefaults.standard.dictionaryRepresentation().keys {
                 UserDefaults.standard.removeObject(forKey: key.description)
             }
@@ -302,7 +298,6 @@ private extension LoginViewController {
             self.nextView()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
-        
         
         alert.addAction(cancel)
         alert.addAction(ok)

@@ -14,7 +14,7 @@ final class SuccessButton: UIButton {
         setTitleColor(.cWhite, for: .normal)
         toggleColor(bool)
         contentMode = .center
-        layer.cornerRadius = 20
+        layer.cornerRadius = .CG20
     }
     func toggleColor(_ bool: Bool) {
         backgroundColor = bool ? .cBlue : .cGray

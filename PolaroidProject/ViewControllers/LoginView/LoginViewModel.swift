@@ -9,10 +9,10 @@ import Foundation
 
 
 final class LoginViewModel {
-    
-    var settingType: Setting?
     private var builder = UserBuilder()
     private let user = UserModelManager.shared
+    
+    var settingType: Setting?
     
     var inputViewDidLoade: Obsearvable<Void?> = Obsearvable(nil)
     var inputSetProfile: Obsearvable<String?> = Obsearvable(nil)
@@ -57,7 +57,6 @@ final class LoginViewModel {
             self.saveUserData(name)
         }
     }
-    
     private func mbitSetting(_ index: (Int,Int)) {
         let checkBool = index.1 == 1 ? true : false
         if outputMBTICheck.value[index.0] == checkBool {
@@ -108,9 +107,6 @@ final class LoginViewModel {
     }
     
     private func saveUserData(_ name: String) {
-        if self.settingType == .onboarding {
-            user.setUserJoinDate()
-        }
         user.userNickname = name
         user.userProfile = self.outputProfileImage.value!
         user.mbti = self.outputMBTICheck.value

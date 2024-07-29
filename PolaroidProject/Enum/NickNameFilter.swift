@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+@frozen
 enum NickNameFilter: String, Error {
     case start = ""
     case lineNumber = "2글자 이상 10글자 미만으로 설정 해주세요."

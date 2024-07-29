@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+@frozen
 enum Orderby: String {
     case latest = "latest"
     case relevant = "relevant"

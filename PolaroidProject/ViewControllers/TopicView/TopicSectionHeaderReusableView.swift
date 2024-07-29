@@ -10,7 +10,7 @@ import SnapKit
 
 final class TopicSectionHeaderReusableView: UICollectionReusableView {
     
-    lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         var label = UILabel()
         label.font = .heavy20
         label.textColor = .label
@@ -23,10 +23,12 @@ final class TopicSectionHeaderReusableView: UICollectionReusableView {
         super.init(frame: frame)
         backgroundColor = .cWhite
         addSubview(titleLabel)
-        
         titleLabel.snp.makeConstraints { make in
             make.leading.bottom.equalTo(self.safeAreaLayoutGuide)
         }
+    }
+    func setupTitle(_ title: String) {
+        self.titleLabel.text = title
     }
     
     required init?(coder: NSCoder) {

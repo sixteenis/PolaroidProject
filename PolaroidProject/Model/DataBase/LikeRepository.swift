@@ -4,6 +4,7 @@
 //
 //  Created by 박성민 on 7/27/24.
 //
+// TODO: 저장 실패할 경우 사용자에게 피드백 주기
 import UIKit
 
 import RealmSwift
@@ -13,7 +14,10 @@ final class LikeRepository {
     private var realm = try! Realm()
     static let shard = LikeRepository()
     private init() {}
+    
     var completion: (() -> ())?
+    
+    // TODO: 이 함수 리팩토링 하기!
     func getLikeLists() -> [LikeList] {
         let data = Array(realm.objects(LikeList.self))
         return data
@@ -31,30 +35,9 @@ final class LikeRepository {
         return image
     }
     
-    func toggleLike(_ item: LikeList) {
-        if checklist(item.imageId) {
-            let data = realm.objects(LikeList.self).where {
-                $0.imageId == item.imageId
-            }
-            try! realm.write {
-                //삭제
-                self.removeImageFromDocument(filename: item.imageId)
-                self.removeImageFromDocument(filename: item.imageId + item.createdAt)
-                
-                realm.delete(data)
-                self.completion?()
-                print(getLikeLists().count)
-            }
-        }else{
-            try! realm.write {
-                realm.add(item)
-                self.completion?()
-            }
-        }
-        
-    }
     func saveLike(_ item: ImageDTO, _ color: SearchColor? = nil) {
-        NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
+        NetworkManager.shard.requestStatistics(id: item.imageId) { [weak self] respon in
+            guard let self else { return }
             switch respon {
             case .success(let success):
                 let result = LikeList(imageId: item.imageId, filterColor: color?.colorIndex,createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
@@ -76,18 +59,35 @@ final class LikeRepository {
                                 print("성공!")
                             }
                         }
-                        
-                        
                     }
-                    
                 }
             case .failure(_):
                 print("램 데이터로 전환 실패!!!!")
+                self.completion?()
             }
-            
-            
-            
         }
+    }
+    
+    func toggleLike(_ item: LikeList) {
+        if checklist(item.imageId) {
+            let data = realm.objects(LikeList.self).where {
+                $0.imageId == item.imageId
+            }
+            try! realm.write {
+                //삭제
+                self.removeImageFromDocument(filename: item.imageId)
+                self.removeImageFromDocument(filename: item.imageId + item.createdAt)
+                
+                realm.delete(data)
+                self.completion?()
+            }
+        }else{
+            try! realm.write {
+                realm.add(item)
+                self.completion?()
+            }
+        }
+        
     }
     func toggleLike(_ item: ImageDTO, color: SearchColor?, completion: @escaping (Bool) -> ()) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?
@@ -119,13 +119,13 @@ final class LikeRepository {
             return true
         }
     }
+    
     func resetAll() {
         try! realm.write {
             realm.deleteAll()
             removeAllFilesInDocumentDirectory()
         }
     }
-    
 }
 
 // MARK: - 파일매니저 부분
@@ -200,7 +200,7 @@ private extension LikeRepository {
                 for fileURL in fileURLs {
                     try FileManager.default.removeItem(at: fileURL)
                 }
-                print("모든 파일이 삭제되었습니다.")
+                print("모든 파일이 삭제.")
             } catch {
                 print("전체 파일 삭제 중 오류 발생: \(error)")
             }

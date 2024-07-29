@@ -14,9 +14,9 @@ final class SelectProfileViewController: BaseViewController {
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     private static func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.width - 50 // 20 + 30
-        layout.itemSize = CGSize(width: width/4, height: width/4) //셀
-        layout.scrollDirection = .vertical // 가로, 세로 스크롤 설정
+        let width = UIScreen.main.bounds.width - 50
+        layout.itemSize = CGSize(width: width/4, height: width/4)
+        layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -26,11 +26,15 @@ final class SelectProfileViewController: BaseViewController {
     let vm = SelectProfileViewModel()
     var completion: ((String) -> Void)?
     var navTitle: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.completion?(vm.outputProfileImage.value!)
+    }
     override func bindData() {
         vm.outputProfileImage.bind(true) { [weak self] image in
             guard let image, let self else {return}
@@ -63,11 +67,7 @@ final class SelectProfileViewController: BaseViewController {
     // MARK: - UI 세팅 부분
     override func setUpView() {
         line.backgroundColor = .cGray
-        navigationController?.navigationBar.tintColor = .cBlack
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(nvBackButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
         navigationItem.title = navTitle
-        
     }
     // MARK: - Collection 세팅 부분
     private func setUpCollectionView() {
@@ -79,21 +79,14 @@ final class SelectProfileViewController: BaseViewController {
         
         collectionView.reloadData()
     }
-    // MARK: - 버튼 함수 부분
-    @objc private func nvBackButtonTapped() {
-        // 무조건 프로필이 있으니까 강제 ㄱㅊ겠지?
-        self.completion?(vm.outputProfileImage.value!)
-        navigationController?.popViewController(animated: true)
-    }
+    
 }
-
-
+// MARK: - collection 부분
 extension SelectProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ProfileImage.allCases.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectProfileCollectionViewCell.id, for: indexPath) as! SelectProfileCollectionViewCell
         let data = ProfileImage.allCases[indexPath.row].image
@@ -104,6 +97,5 @@ extension SelectProfileViewController: UICollectionViewDelegate, UICollectionVie
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         vm.inputSelectProfile.value = indexPath.row
-        //self.profileImage.changeImage(vm.outputChangeProfile.value)
     }
 }
