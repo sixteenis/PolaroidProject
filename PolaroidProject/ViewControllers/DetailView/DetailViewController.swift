@@ -6,8 +6,10 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
+import Toast
 
 fileprivate enum Information{
     static let size = "크기"
@@ -73,6 +75,11 @@ final class DetailViewController: BaseViewController {
         self.userProfile.layer.cornerRadius = self.userProfile.frame.width / 2
     }
     override func bindData() {
+        vm.outputAlert.bind { [weak self] _ in
+            guard let self else { return }
+            guard let bool = self.vm.outputlikeBool.value else { return }
+            bool ? view.makeToast(AlertMessage.save) : view.makeToast(AlertMessage.delecte)
+        }
         vm.outputlikeBool.bind(true) { [weak self] bool in
             guard let self, let bool else { return }
             bool ? self.likeButton.setImage(UIImage.likes, for: .normal) : self.likeButton.setImage(UIImage.unlikes, for: .normal)

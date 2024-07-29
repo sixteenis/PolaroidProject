@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 final class LikePhotoViewModel {
     private let repository = LikeRepository.shard
     private var colorList = [ColorModel]()

@@ -215,7 +215,7 @@ private extension LikePhotoViewController {
             cell.completion = { [weak self] in
                 guard let self else { return }
                 self.vm.inputLikeButtonTap.value = itemIdentifier
-                self.view.makeToast("삭제 완료!")
+                self.view.makeToast(AlertMessage.delecte)
             }
         }
         return result

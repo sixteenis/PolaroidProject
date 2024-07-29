@@ -4,7 +4,7 @@
 //
 //  Created by 박성민 on 7/22/24.
 //
-
+// TODO: (수정하는 경우) 프로필 이미지 선택 화면 이후 닉네임 사용자가 입력한걸로 나오게 리팩진행!
 import UIKit
 
 
@@ -186,7 +186,7 @@ final class LoginViewController: BaseViewController {
         }
         
         line.backgroundColor = .cGray
-        nicknameTextField.placeholder = PlaceholderEnum.nickName
+        nicknameTextField.placeholder = Placeholder.nickName
         nicknameTextField.textColor = .cBlack
         nicknameTextField.contentMode = .left
         textLine.backgroundColor = .cGray

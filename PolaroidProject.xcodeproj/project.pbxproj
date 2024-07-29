@@ -70,6 +70,7 @@
 		06C154842C575D16009EA917 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C154832C575D16009EA917 /* ColorModel.swift */; };
 		06C154862C576C68009EA917 /* DifferSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C154852C576C68009EA917 /* DifferSection.swift */; };
 		06C154892C5788AA009EA917 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C154882C5788AA009EA917 /* CGFloat+.swift */; };
+		06C1548B2C57B116009EA917 /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C1548A2C57B116009EA917 /* AlertMessage.swift */; };
 		06D068ED2C53B46500B8787A /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EC2C53B46500B8787A /* CollectionType.swift */; };
 		06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EF2C53D55100B8787A /* SearchsModel.swift */; };
 		06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F22C53EF9C00B8787A /* LikeList.swift */; };
@@ -157,6 +158,7 @@
 		06C154832C575D16009EA917 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		06C154852C576C68009EA917 /* DifferSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferSection.swift; sourceTree = "<group>"; };
 		06C154882C5788AA009EA917 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
+		06C1548A2C57B116009EA917 /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		06D068EC2C53B46500B8787A /* CollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
 		06D068EF2C53D55100B8787A /* SearchsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchsModel.swift; sourceTree = "<group>"; };
 		06D068F22C53EF9C00B8787A /* LikeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeList.swift; sourceTree = "<group>"; };
@@ -210,9 +212,9 @@
 			children = (
 				0621A9472C4E36720083A89E /* AppDelegate.swift */,
 				0621A9492C4E36720083A89E /* SceneDelegate.swift */,
+				0621A9622C4E37F20083A89E /* Extension+ */,
 				0621A9642C4E381C0083A89E /* Enum */,
 				0621A9632C4E38110083A89E /* Service */,
-				0621A9622C4E37F20083A89E /* Extension+ */,
 				0621A9612C4E37EE0083A89E /* Model */,
 				0621A95F2C4E37D60083A89E /* ViewControllers */,
 				0621A9502C4E36730083A89E /* Assets.xcassets */,
@@ -225,16 +227,16 @@
 		0621A95F2C4E37D60083A89E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0621A9662C4E382D0083A89E /* Base */,
+				0621A9652C4E38200083A89E /* CustomView */,
 				06D068EE2C53B81000B8787A /* CollectionCell */,
 				0655B2A52C510AA500FF38C4 /* DetailView */,
 				0655B2A22C50F95500FF38C4 /* LikePhotoView */,
 				06E049652C4EC7DC003F1397 /* SearchPhotoView */,
 				06E049622C4EC7BA003F1397 /* TopicView */,
-				0621A9652C4E38200083A89E /* CustomView */,
-				0621A9662C4E382D0083A89E /* Base */,
-				0621A98C2C4E42930083A89E /* OnboardingViewController.swift */,
 				0621A9A22C4E8FEC0083A89E /* SelectProfile */,
 				0621A9942C4E5DE70083A89E /* LoginView */,
+				0621A98C2C4E42930083A89E /* OnboardingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -265,12 +267,12 @@
 		0621A9632C4E38110083A89E /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				06C154872C5782AD009EA917 /* DTO */,
-				0655B2E52C5242C300FF38C4 /* RequestModel */,
 				0621A9882C4E3BE20083A89E /* APIKey.swift */,
 				0655B2FC2C529AE600FF38C4 /* APIError.swift */,
 				0655B2EC2C5246CD00FF38C4 /* TargetType.swift */,
 				0655B2E32C52429400FF38C4 /* UnsplashRouter.swift */,
+				06C154872C5782AD009EA917 /* DTO */,
+				0655B2E52C5242C300FF38C4 /* RequestModel */,
 				0655B2EE2C5249F300FF38C4 /* NetworkManager.swift */,
 			);
 			path = Service;
@@ -289,6 +291,7 @@
 				06D068FE2C556EE700B8787A /* DetailDataType.swift */,
 				06D069002C56336A00B8787A /* LikePhotoFilterType.swift */,
 				06C154852C576C68009EA917 /* DifferSection.swift */,
+				06C1548A2C57B116009EA917 /* AlertMessage.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				0655B2ED2C5246CD00FF38C4 /* TargetType.swift in Sources */,
 				0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */,
 				06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */,
+				06C1548B2C57B116009EA917 /* AlertMessage.swift in Sources */,
 				0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */,
 				06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */,
 				06D068FF2C556EE700B8787A /* DetailDataType.swift in Sources */,
@@ -736,7 +740,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -769,7 +773,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

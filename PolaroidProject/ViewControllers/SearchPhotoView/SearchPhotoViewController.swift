@@ -6,6 +6,7 @@
 //
 // TODO: Search, LikeView 하나로 합치는 리팩 진행하기.
 // TODO: DetailView에 선택한 필터컬러 적용하기.
+// TODO: 컬러 클릭했을 경우 검색에 텍스트가 있으면 다시 통신하기
 import UIKit
 
 import SnapKit
@@ -43,7 +44,7 @@ final class SearchPhotoViewController: BaseViewController {
         $0.backgroundColor = .cGray
     }
     private let searchBar = UISearchBar().then {
-        $0.placeholder = PlaceholderEnum.searchBar
+        $0.placeholder = Placeholder.searchBar
         $0.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
     }
     private var settingLabel = UILabel().then {
@@ -104,6 +105,10 @@ final class SearchPhotoViewController: BaseViewController {
             guard let self else { return }
             self.setUpFilterDataSource()
             self.upDateFilterSnapshot(colors)
+        }
+        vm.outputButtonToggle.bind { [weak self] bool in
+            guard let self else { return }
+            bool ? view.makeToast(AlertMessage.save) : view.makeToast(AlertMessage.delecte)
         }
     }
     override func setUpHierarchy() {

@@ -24,6 +24,7 @@ final class DetailViewModel {
     private(set) var outputUserprofile: Obsearvable<String?> = Obsearvable(nil)
     private(set) var outputID: Obsearvable<(String?,String?)> = Obsearvable((nil,nil))
     private(set) var outputType:Obsearvable<DetailDataType?> = Obsearvable(nil)
+    private(set) var outputAlert:Obsearvable<Void?> = Obsearvable(nil)
     
     init() {
         inputpushVC.bind { [weak self] data in
@@ -44,6 +45,7 @@ final class DetailViewModel {
         inputLikeButton.bind { [weak self] _ in
             guard let self else { return }
             self.outputlikeBool.value?.toggle()
+            self.outputAlert.value = ()
         }
         inputViewWillDisappear.bind(true) { [weak self] _ in
             guard let self else { return }

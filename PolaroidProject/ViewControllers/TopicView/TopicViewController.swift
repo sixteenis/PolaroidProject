@@ -4,7 +4,7 @@
 //
 //  Created by 박성민 on 7/23/24.
 //
-
+// TODO: 리로딩했을 때 스크롤 인덱스 0으로 만들어주기!
 import UIKit
 
 import SnapKit
@@ -57,7 +57,6 @@ final class TopicViewController: BaseViewController {
             guard let self else { return }
             self.setUpDataSource()
             self.upDateSnapshot(topics: topicModel)
-            
         }
     }
     override func setUpHierarchy() {

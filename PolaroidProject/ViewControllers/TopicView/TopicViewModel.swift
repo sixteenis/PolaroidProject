@@ -17,6 +17,7 @@ final class TopicViewModel {
     private(set) var outputTopicList = Obsearvable([TopicSeciontModel]())
     private(set) var outputLoadingSet = Obsearvable(false)
     private(set) var outputErrorTitle: Obsearvable<String> = Obsearvable("")
+
     init() {
         inputViewDidLoad.bind { [weak self] _ in
             guard let self else { return }
