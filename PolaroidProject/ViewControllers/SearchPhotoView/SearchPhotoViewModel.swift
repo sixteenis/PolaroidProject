@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// TODO: 필터 색을 지정하고 디테일 뷰로 들가서 좋아요를 누른 경우 그 필터색을 적용해서 램에 저장하기 구현하자!, 하는 김에 컬러버튼 누르면 재통신하는 거도 구현하자!
 final class SearchPhotoViewModel {
     private let networkManager = NetworkManager.shard
     private var totalPage = 1
@@ -14,6 +14,7 @@ final class SearchPhotoViewModel {
     private var likeRepository = LikeRepository.shard
     var likeList = LikeRepository.shard.getLikeLists()
     var ImageList = [ImageModel]()
+    var colorList = [ColorModel]()
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
     var inputViewWillAppear: Obsearvable<Void?> = Obsearvable(nil)
@@ -22,6 +23,8 @@ final class SearchPhotoViewModel {
     var inputPage = Obsearvable(0)
     var inputLikeButton: Obsearvable<ImageDTO?> = Obsearvable(nil)
     var inputFilterButtonTapped: Obsearvable<Void?> = Obsearvable(nil)
+    
+    var inputColorButtonTap: Obsearvable<ColorModel?> = Obsearvable(nil)
     
     private(set) var outputOrderby = Obsearvable(Orderby.latest)
     private(set) var outputSearchColor: Obsearvable<SearchColor?> = Obsearvable(nil)
@@ -35,6 +38,9 @@ final class SearchPhotoViewModel {
     private(set) var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
     private(set) var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
     private(set) var outputCellRefresh: Obsearvable<[String]?> = Obsearvable(nil)
+    
+    //private(set) var outputColorType: Obsearvable<SearchColor?> = Obsearvable(nil)
+    private(set) var outputColors = Obsearvable([ColorModel]())
     init() {
         inputViewDidLoad.bind { _ in
             self.setUpView("키워드를 검색해주세요!")
@@ -57,6 +63,10 @@ final class SearchPhotoViewModel {
             self.toggleFilterType()
             
         }
+        inputColorButtonTap.bind { color in
+            guard let color else { return }
+            self.upDateColor(color)
+        }
     }
     
 }
@@ -64,9 +74,35 @@ final class SearchPhotoViewModel {
 private extension SearchPhotoViewModel {
     func setUpView(_ title: String) {
         self.outputSetTitle.value = title
+        self.outputColors.value = SearchColor.allCases.map { color in
+            ColorModel(color: color)
+        }
+        self.colorList = self.outputColors.value
     }
     
 }
+// MARK: - 필터 컬러
+// TODO: 컬러도 바뀔때마다 통신을 해주면 너무 오바같음.... 아닌가
+private extension SearchPhotoViewModel {
+    func upDateColor(_ type: ColorModel) {
+        var result = [ColorModel]()
+        for i in colorList {
+            var tmp = i
+            if i.color == type.color && i.isSelect {
+                tmp.isSelect = false
+            }
+            else if i.color == type.color {
+                tmp.isSelect = true
+            }else{
+                tmp.isSelect = false
+            }
+            result.append(tmp)
+        }
+        self.outputColors.value = result
+        self.colorList = result
+    }
+}
+
 // MARK: - 통신 관련 부분
 private extension SearchPhotoViewModel {
     func pagenation(_ index: Int) {
@@ -76,7 +112,9 @@ private extension SearchPhotoViewModel {
         }
     }
     func getImageList(_ params: SearchParams) {
-        let type = params
+        var type = params
+        // MARK: - 일단 컬러는 통신할 때만 적용하는 걸로!
+        type.color = self.colorList.filter {$0.isSelect == true}.first?.color
         self.outputLoadingset.value = false
         networkManager.requestSearch(type: type) { respon in
             self.outputLoadingset.value = true
@@ -104,16 +142,11 @@ private extension SearchPhotoViewModel {
         }
     }
     func checkImageList() {
-        
-        //self.likeList = LikeRepository.shard.getLikeLists()
-        //self.outputImageList.value = self.ImageList
         self.likeRepository.completion = {
             self.outputSaveImageList.value = self.ImageList
-            print("되냐????????????")
         }
-        
-        
     }
+    // 필터 버튼 토글 함수
     func toggleFilterType() {
         if self.outputOrderby.value == .latest {
             self.outputOrderby.value = .relevant
@@ -131,7 +164,9 @@ private extension SearchPhotoViewModel {
 
 private extension SearchPhotoViewModel {
     func changeLikeDate(_ data: ImageDTO) {
-        likeRepository.toggleLike(data) { bool in
+        dump(data)
+        let filterColor = self.colorList.filter { $0.isSelect == true}.first?.color
+        likeRepository.toggleLike(data, color: filterColor) { bool in
             self.outputButtonToggle.value = bool
         }
     }

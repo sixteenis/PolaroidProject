@@ -11,23 +11,23 @@ import SnapKit
 import Then
 import Toast
 
-enum SearchSection: CaseIterable {
-    case filterButton
-    case image
-}
 
 // MARK: - 먼가 좋아요 갱신이 되면서도 안됨... 네트워킹 완료전에 다시 화면으로 들오면 적용이 안되는 듯....
 // TODO: - 좋아요를 눌르면 램에 저장되고 램에서 파일매니저에 저장하는 과정에서 딜레이가 있음.. 그 딜레이 때문에 좋아요가 늦게 적용되거나 반영이 안되는 경우가 생김... 나중에 수정하자.. 꼭!!!
 
 // MARK: - 좋아요 갱신이 될때도 있구... 안될때두 있습니당...
 final class SearchPhotoViewController: BaseViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection,ImageModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<DifferSection,ImageModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<DifferSection, ImageModel>
     typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageModel>
     
-    typealias FilterDateSource = UICollectionViewDiffableDataSource<SearchSection, SearchColor>
-    typealias FilterSnapshot = NSDiffableDataSourceSnapshot<SearchSection, SearchColor>
-    typealias FilterRegistration = UICollectionView.CellRegistration<FilterButtonCollectioViewCell, SearchColor>
+    typealias FilterDateSource = UICollectionViewDiffableDataSource<DifferSection, ColorModel>
+    typealias FilterSnapshot = NSDiffableDataSourceSnapshot<DifferSection, ColorModel>
+    typealias FilterRegistration = UICollectionView.CellRegistration<FilterButtonCollectioViewCell, ColorModel>
+    private var dataSource: DataSource!
+    private var filterDateSource: FilterDateSource!
+    private lazy var imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createImageLayout())
+    private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createFilterLayout())
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let sortingButton = UIButton().then {
@@ -52,19 +52,12 @@ final class SearchPhotoViewController: BaseViewController {
         $0.textAlignment = .center
         $0.isHidden = false
     }
-    private lazy var imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createImageLayout())
-    private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createFilterLayout())
-    private var dataSource: DataSource!
-    private var filterDateSource: FilterDateSource!
     
     let vm = SearchPhotoViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.vm.inputViewDidLoad.value = ()
-        setUpFilterDataSource()
-        upDateFilterSnapshot()
-        
     }
     // MARK: - view가 뜨기전 뜨기직전에 둘다 저장된 값을 체크하는게 맞나...? 일단 작동은 하니 나중에 수정하자.!
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +81,6 @@ final class SearchPhotoViewController: BaseViewController {
             self.imageCollectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
-            print("세팅중")
         }
         //이미 가지고 있는 데이터
         vm.outputSaveImageList.bind(true) { data in
@@ -96,14 +88,16 @@ final class SearchPhotoViewController: BaseViewController {
             self.imageCollectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
-            //성공이 넘 느리게 출력된다....... 그전에 업로드해서 문제가 생긴다!
-            print("저장된거 다시 불러오기 ㅋㅋㅋㅋ")
         }
         vm.outputOrderby.bind(true) { type in
             self.sortingButton.setTitle(" \(type.title) ", for: .normal)
         }
         vm.outputScrollingTop.bind { _ in
             self.imageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        }
+        vm.outputColors.bind { colors in
+            self.setUpFilterDataSource()
+            self.upDateFilterSnapshot(colors)
         }
     }
     override func setUpHierarchy() {
@@ -240,14 +234,15 @@ private extension SearchPhotoViewController {
 private extension SearchPhotoViewController {
     func upDateSnapshot(items: [ImageModel]) {
         var snapshot = Snapshot()
-        snapshot.appendSections([SearchSection.image])
+        snapshot.appendSections([DifferSection.image])
         snapshot.appendItems(items, toSection: .image)
         dataSource.apply(snapshot)
     }
-    func upDateFilterSnapshot() {//items: [SearchColor]
+    func upDateFilterSnapshot(_ colors: [ColorModel]) {//items: [SearchColor] _ item: [SearchColor]
         var snapshot = FilterSnapshot()
-        snapshot.appendSections([SearchSection.filterButton])
-        snapshot.appendItems(SearchColor.allCases)
+        snapshot.appendSections([DifferSection.filterButton])
+        snapshot.appendItems(colors)
+        //모든 컬러 안에 먼가를 비교할 그거를...
         filterDateSource.apply(snapshot)
     }
     
@@ -256,7 +251,6 @@ private extension SearchPhotoViewController {
         dataSource = UICollectionViewDiffableDataSource(collectionView: imageCollectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
             return cell
-            
         }
         
     }
@@ -281,10 +275,11 @@ private extension SearchPhotoViewController {
     func filterCellRegistration() -> FilterRegistration {
         let result = FilterRegistration { cell, indexPath, itemIdentifier in
             cell.setUpButton(itemIdentifier)
-            //            cell.completion = {
-            //                //self.vm.inputLikeButton.value = itemIdentifier.data
-            //                cell.toggleButton(self.vm.outputButtonToggle.value)
-            //            }
+            cell.completion = {
+                self.vm.inputColorButtonTap.value = itemIdentifier
+                print(itemIdentifier)
+                
+            }
             
         }
         return result

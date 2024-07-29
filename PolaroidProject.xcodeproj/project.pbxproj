@@ -67,6 +67,8 @@
 		0655B2FF2C52B46600FF38C4 /* TopicsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */; };
 		06579BA62C52C46000CEEF79 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA52C52C46000CEEF79 /* ErrorView.swift */; };
 		06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06579BA72C538CD100CEEF79 /* ImageModel.swift */; };
+		06C154842C575D16009EA917 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C154832C575D16009EA917 /* ColorModel.swift */; };
+		06C154862C576C68009EA917 /* DifferSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C154852C576C68009EA917 /* DifferSection.swift */; };
 		06D068ED2C53B46500B8787A /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EC2C53B46500B8787A /* CollectionType.swift */; };
 		06D068F02C53D55100B8787A /* SearchsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068EF2C53D55100B8787A /* SearchsModel.swift */; };
 		06D068F32C53EF9C00B8787A /* LikeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D068F22C53EF9C00B8787A /* LikeList.swift */; };
@@ -151,6 +153,8 @@
 		0655B2FE2C52B46600FF38C4 /* TopicsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsModel.swift; sourceTree = "<group>"; };
 		06579BA52C52C46000CEEF79 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		06579BA72C538CD100CEEF79 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		06C154832C575D16009EA917 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
+		06C154852C576C68009EA917 /* DifferSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferSection.swift; sourceTree = "<group>"; };
 		06D068EC2C53B46500B8787A /* CollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
 		06D068EF2C53D55100B8787A /* SearchsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchsModel.swift; sourceTree = "<group>"; };
 		06D068F22C53EF9C00B8787A /* LikeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeList.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 				0655B2E22C52425900FF38C4 /* Image */,
 				0621A9992C4E61B00083A89E /* User */,
 				06D068FC2C5559EF00B8787A /* DetailSettingModel.swift */,
+				06C154832C575D16009EA917 /* ColorModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				06D068EC2C53B46500B8787A /* CollectionType.swift */,
 				06D068FE2C556EE700B8787A /* DetailDataType.swift */,
 				06D069002C56336A00B8787A /* LikePhotoFilterType.swift */,
+				06C154852C576C68009EA917 /* DifferSection.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -543,6 +549,7 @@
 				06D068FB2C55327500B8787A /* StatisticsDTO.swift in Sources */,
 				0655B2E92C52432100FF38C4 /* TopicSection.swift in Sources */,
 				06579BA82C538CD100CEEF79 /* ImageModel.swift in Sources */,
+				06C154842C575D16009EA917 /* ColorModel.swift in Sources */,
 				0621A9AA2C4E9A460083A89E /* Placeholder.swift in Sources */,
 				0655B2A42C50F96B00FF38C4 /* LikePhotoViewController.swift in Sources */,
 				06D068F92C55268200B8787A /* InformationLabelView.swift in Sources */,
@@ -561,6 +568,7 @@
 				0655B2F72C525B9100FF38C4 /* Orderby.swift in Sources */,
 				0655B2FF2C52B46600FF38C4 /* TopicsModel.swift in Sources */,
 				0632E7242C53A21400B0EBF5 /* NetworkEnum.swift in Sources */,
+				06C154862C576C68009EA917 /* DifferSection.swift in Sources */,
 				0655B2EB2C52465100FF38C4 /* SearchParams.swift in Sources */,
 				0655B2752C5017BC00FF38C4 /* PhotoCollectionViewCell.swift in Sources */,
 				0655B2EF2C5249F300FF38C4 /* NetworkManager.swift in Sources */,

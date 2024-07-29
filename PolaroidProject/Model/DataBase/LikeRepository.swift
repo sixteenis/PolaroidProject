@@ -53,11 +53,11 @@ final class LikeRepository {
         }
         
     }
-    func saveLike(_ item: ImageDTO) {
+    func saveLike(_ item: ImageDTO, _ color: SearchColor? = nil) {
         NetworkManager.shard.requestStatistics(id: item.imageId) { respon in
             switch respon {
             case .success(let success):
-                let result = LikeList(imageId: item.imageId, createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
+                let result = LikeList(imageId: item.imageId, filterColor: color?.colorIndex,createdAt: item.createdAt, width: item.width, height: item.height, userName: item.user.name, viewsTotal: success.views.total, downloadTotal: success.downloads.total)
                 try! self.realm.write {
                     self.realm.add(result)
                     self.completion?()
@@ -89,7 +89,7 @@ final class LikeRepository {
             
         }
     }
-    func toggleLike(_ item: ImageDTO, completion: @escaping (Bool) -> ()) {
+    func toggleLike(_ item: ImageDTO, color: SearchColor?, completion: @escaping (Bool) -> ()) {
         //false이면 좋아요 안눌린거임! -> 추가해야죠?
         //true이면 좋아요 눌렸던거 -> 지워줘야죠?
         if checklist(item.imageId) {
@@ -105,7 +105,7 @@ final class LikeRepository {
             }
         }else{
             completion(true)
-            saveLike(item)
+            saveLike(item, color)
         }
     }
     

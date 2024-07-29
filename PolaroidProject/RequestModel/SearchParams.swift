@@ -12,5 +12,5 @@ struct SearchParams {
     var page: Int
     let per_page = "20"
     var orderby: Orderby
-    let color: SearchColor?
+    var color: SearchColor?
 }
