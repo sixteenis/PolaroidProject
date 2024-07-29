@@ -37,9 +37,6 @@ class PhotoCollectionViewCell: BaseCollectioViewCell {
         $0.textAlignment = .center
     }
     var completion: (() -> ())?
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
     
     override func setUpHierarchy() {
         contentView.addSubview(profileImage)

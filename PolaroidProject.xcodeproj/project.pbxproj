@@ -14,7 +14,6 @@
 		0621A95C2C4E36EB0083A89E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0621A95B2C4E36EB0083A89E /* .gitignore */; };
 		0621A95E2C4E37CD0083A89E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A95D2C4E37CD0083A89E /* LoginViewController.swift */; };
 		0621A96B2C4E384B0083A89E /* BaseCollectioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */; };
-		0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */; };
 		0621A96D2C4E384B0083A89E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9692C4E384B0083A89E /* BaseView.swift */; };
 		0621A96E2C4E384B0083A89E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A96A2C4E384B0083A89E /* BaseViewController.swift */; };
 		0621A9702C4E38650083A89E /* Obsearvable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A96F2C4E38650083A89E /* Obsearvable.swift */; };
@@ -44,6 +43,7 @@
 		0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */; };
 		0621A9AE2C4EA4D90083A89E /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9AD2C4EA4D90083A89E /* Font+.swift */; };
 		0621A9B22C4EA6AD0083A89E /* MBTIButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */; };
+		0627371B2C57184500602EAF /* FilterButtonCollectioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627371A2C57184500602EAF /* FilterButtonCollectioViewCell.swift */; };
 		0632E7242C53A21400B0EBF5 /* NetworkEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0632E7232C53A21400B0EBF5 /* NetworkEnum.swift */; };
 		0655B2712C4FFD2300FF38C4 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2702C4FFD2300FF38C4 /* TopicViewModel.swift */; };
 		0655B2732C4FFDF700FF38C4 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655B2722C4FFDF700FF38C4 /* Image+.swift */; };
@@ -105,7 +105,6 @@
 		0621A95B2C4E36EB0083A89E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		0621A95D2C4E37CD0083A89E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectioViewCell.swift; sourceTree = "<group>"; };
-		0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		0621A9692C4E384B0083A89E /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		0621A96A2C4E384B0083A89E /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0621A96F2C4E38650083A89E /* Obsearvable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obsearvable.swift; sourceTree = "<group>"; };
@@ -128,6 +127,7 @@
 		0621A9AB2C4E9DB50083A89E /* NickNameFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameFilter.swift; sourceTree = "<group>"; };
 		0621A9AD2C4EA4D90083A89E /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		0621A9B12C4EA6AD0083A89E /* MBTIButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButtonView.swift; sourceTree = "<group>"; };
+		0627371A2C57184500602EAF /* FilterButtonCollectioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonCollectioViewCell.swift; sourceTree = "<group>"; };
 		0632E7232C53A21400B0EBF5 /* NetworkEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEnum.swift; sourceTree = "<group>"; };
 		0655B2702C4FFD2300FF38C4 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		0655B2722C4FFDF700FF38C4 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
@@ -304,7 +304,6 @@
 				0621A98A2C4E3D100083A89E /* TabBarController.swift */,
 				0621A96A2C4E384B0083A89E /* BaseViewController.swift */,
 				0621A9672C4E384B0083A89E /* BaseCollectioViewCell.swift */,
-				0621A9682C4E384B0083A89E /* BaseTableViewCell.swift */,
 				0621A9692C4E384B0083A89E /* BaseView.swift */,
 				0621A96F2C4E38650083A89E /* Obsearvable.swift */,
 			);
@@ -382,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				0655B2742C5017BC00FF38C4 /* PhotoCollectionViewCell.swift */,
+				0627371A2C57184500602EAF /* FilterButtonCollectioViewCell.swift */,
 			);
 			path = CollectionCell;
 			sourceTree = "<group>";
@@ -521,6 +521,7 @@
 				0655B2F92C52600C00FF38C4 /* SearchColor.swift in Sources */,
 				0621A9982C4E61AA0083A89E /* UserDefault.swift in Sources */,
 				0621A96B2C4E384B0083A89E /* BaseCollectioViewCell.swift in Sources */,
+				0627371B2C57184500602EAF /* FilterButtonCollectioViewCell.swift in Sources */,
 				0621A9A62C4E90760083A89E /* SelectProfileViewModel.swift in Sources */,
 				0655B2FD2C529AE600FF38C4 /* APIError.swift in Sources */,
 				0621A9892C4E3BE20083A89E /* APIKey.swift in Sources */,
@@ -536,7 +537,6 @@
 				0621A9A12C4E72D40083A89E /* ProfileImageView.swift in Sources */,
 				0621A98D2C4E42930083A89E /* OnboardingViewController.swift in Sources */,
 				06D069012C56336A00B8787A /* LikePhotoFilterType.swift in Sources */,
-				0621A96C2C4E384B0083A89E /* BaseTableViewCell.swift in Sources */,
 				0621A9AC2C4E9DB60083A89E /* NickNameFilter.swift in Sources */,
 				0655B2AB2C510E9000FF38C4 /* SearchPhotoViewModel.swift in Sources */,
 				0655B2AF2C5114B300FF38C4 /* LikePhotoViewModel.swift in Sources */,

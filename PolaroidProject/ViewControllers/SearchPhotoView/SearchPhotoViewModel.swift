@@ -8,10 +8,10 @@
 import Foundation
 
 final class SearchPhotoViewModel {
-    let networkManager = NetworkManager.shard
-    var totalPage = 1
+    private let networkManager = NetworkManager.shard
+    private var totalPage = 1
     var model: SearchParams!
-    var likeRepository = LikeRepository.shard
+    private var likeRepository = LikeRepository.shard
     var likeList = LikeRepository.shard.getLikeLists()
     var ImageList = [ImageModel]()
     
@@ -23,18 +23,18 @@ final class SearchPhotoViewModel {
     var inputLikeButton: Obsearvable<ImageDTO?> = Obsearvable(nil)
     var inputFilterButtonTapped: Obsearvable<Void?> = Obsearvable(nil)
     
-    var outputOrderby = Obsearvable(Orderby.latest)
-    var outputSearchColor: Obsearvable<SearchColor?> = Obsearvable(nil)
-    var outputLoadingSet = Obsearvable(true)
+    private(set) var outputOrderby = Obsearvable(Orderby.latest)
+    private(set) var outputSearchColor: Obsearvable<SearchColor?> = Obsearvable(nil)
+    private(set) var outputLoadingSet = Obsearvable(true)
     
-    var outputImageList = Obsearvable([ImageModel]())
-    var outputSaveImageList = Obsearvable([ImageModel]())
-    var outputLoadingset = Obsearvable(false)
-    var outputButtonToggle = Obsearvable(false)
+    private(set) var outputImageList = Obsearvable([ImageModel]())
+    private(set) var outputSaveImageList = Obsearvable([ImageModel]())
+    private(set) var outputLoadingset = Obsearvable(false)
+    private(set) var outputButtonToggle = Obsearvable(false)
     
-    var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
-    var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
-    var outputCellRefresh: Obsearvable<[String]?> = Obsearvable(nil)
+    private(set) var outputSetTitle: Obsearvable<String?> = Obsearvable(nil)
+    private(set) var outputScrollingTop: Obsearvable<Void?> = Obsearvable(nil)
+    private(set) var outputCellRefresh: Obsearvable<[String]?> = Obsearvable(nil)
     init() {
         inputViewDidLoad.bind { _ in
             self.setUpView("키워드를 검색해주세요!")

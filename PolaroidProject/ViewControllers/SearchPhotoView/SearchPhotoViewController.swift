@@ -12,7 +12,8 @@ import Then
 import Toast
 
 enum SearchSection: CaseIterable {
-    case firest
+    case filterButton
+    case image
 }
 
 // MARK: - 먼가 좋아요 갱신이 되면서도 안됨... 네트워킹 완료전에 다시 화면으로 들오면 적용이 안되는 듯....
@@ -24,6 +25,9 @@ final class SearchPhotoViewController: BaseViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, ImageModel>
     typealias Registration = UICollectionView.CellRegistration<PhotoCollectionViewCell, ImageModel>
     
+    typealias FilterDateSource = UICollectionViewDiffableDataSource<SearchSection, SearchColor>
+    typealias FilterSnapshot = NSDiffableDataSourceSnapshot<SearchSection, SearchColor>
+    typealias FilterRegistration = UICollectionView.CellRegistration<FilterButtonCollectioViewCell, SearchColor>
     
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let sortingButton = UIButton().then {
@@ -48,15 +52,19 @@ final class SearchPhotoViewController: BaseViewController {
         $0.textAlignment = .center
         $0.isHidden = false
     }
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private lazy var imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createImageLayout())
+    private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createFilterLayout())
     private var dataSource: DataSource!
+    private var filterDateSource: FilterDateSource!
     
     let vm = SearchPhotoViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.vm.inputViewDidLoad.value = ()
-
+        setUpFilterDataSource()
+        upDateFilterSnapshot()
+        
     }
     // MARK: - view가 뜨기전 뜨기직전에 둘다 저장된 값을 체크하는게 맞나...? 일단 작동은 하니 나중에 수정하자.!
     override func viewWillAppear(_ animated: Bool) {
@@ -64,15 +72,10 @@ final class SearchPhotoViewController: BaseViewController {
         navigationItem.title = "SEARCH PHOTO"
         self.vm.inputViewWillAppear.value = ()
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        self.vm.inputViewDidAppear.value = ()
-//        
-//    }
     override func bindData() {
         vm.outputSetTitle.bind(true) { title in
             self.settingLabel.isHidden = false
-            self.collectionView.isHidden = true
+            self.imageCollectionView.isHidden = true
             self.settingLabel.text = title
         }
         
@@ -82,7 +85,7 @@ final class SearchPhotoViewController: BaseViewController {
         //통신을 통해 얻은 데이터
         vm.outputImageList.bind(true) { data in
             self.settingLabel.isHidden = true
-            self.collectionView.isHidden = false
+            self.imageCollectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
             print("세팅중")
@@ -90,7 +93,7 @@ final class SearchPhotoViewController: BaseViewController {
         //이미 가지고 있는 데이터
         vm.outputSaveImageList.bind(true) { data in
             self.settingLabel.isHidden = true
-            self.collectionView.isHidden = false
+            self.imageCollectionView.isHidden = false
             self.setUpDataSource()
             self.upDateSnapshot(items: data)
             //성공이 넘 느리게 출력된다....... 그전에 업로드해서 문제가 생긴다!
@@ -100,20 +103,21 @@ final class SearchPhotoViewController: BaseViewController {
             self.sortingButton.setTitle(" \(type.title) ", for: .normal)
         }
         vm.outputScrollingTop.bind { _ in
-            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            self.imageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
     }
     override func setUpHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(line)
+        view.addSubview(filterCollectionView)
         view.addSubview(sortingButton)
-        view.addSubview(collectionView)
+        view.addSubview(imageCollectionView)
         view.addSubview(settingLabel)
         
         searchBar.delegate = self
         sortingButton.addTarget(self, action: #selector(sortingButtonTapped), for: .touchUpInside)
-        collectionView.delegate = self
-        collectionView.prefetchDataSource = self
+        imageCollectionView.delegate = self
+        imageCollectionView.prefetchDataSource = self
         
     }
     override func setUpLayout() {
@@ -132,7 +136,12 @@ final class SearchPhotoViewController: BaseViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(33)
         }
-        collectionView.snp.makeConstraints { make in
+        filterCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(line.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(33)
+        }
+        imageCollectionView.snp.makeConstraints { make in
             make.top.equalTo(sortingButton.snp.bottom).offset(10)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -144,11 +153,11 @@ final class SearchPhotoViewController: BaseViewController {
 }
 // MARK: - 버튼 기능 부분
 private extension SearchPhotoViewController {
-    @objc func navrightButtonTapped() {
-        let vc = LoginViewController()
-        vc.vm.settingType = .setting
-        navigationController?.pushViewController(vc, animated: true)
-    }
+    //    @objc func navrightButtonTapped() {
+    //        let vc = LoginViewController()
+    //        vc.vm.settingType = .setting
+    //        navigationController?.pushViewController(vc, animated: true)
+    //    }
     @objc func sortingButtonTapped() {
         vm.inputFilterButtonTapped.value = ()
     }
@@ -183,6 +192,7 @@ extension SearchPhotoViewController: UISearchBarDelegate {
 extension SearchPhotoViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         // TODO: vm으로 뺄까 고민해보자
+        // TODO: imageColletion일때만 작동하게 ㅇㅇ
         if indexPaths[0].item == vm.outputImageList.value.count - 4 {
             vm.inputPage.value = indexPaths[0].item
         }
@@ -192,7 +202,7 @@ extension SearchPhotoViewController: UICollectionViewDataSourcePrefetching {
 }
 // MARK: - collectionView 레이아웃 부분
 private extension SearchPhotoViewController {
-    func createLayout() -> UICollectionViewLayout {
+    func createImageLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -206,24 +216,56 @@ private extension SearchPhotoViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    // MARK: - 여기부터 진행시켜!
+    func createFilterLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(10)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.interGroupSpacing = 10
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: -170)
+        
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
     
 }
 // MARK: - DataSource 관련 코드
 private extension SearchPhotoViewController {
     func upDateSnapshot(items: [ImageModel]) {
         var snapshot = Snapshot()
-        snapshot.appendSections(SearchSection.allCases)
-        snapshot.appendItems(items, toSection: .firest)
+        snapshot.appendSections([SearchSection.image])
+        snapshot.appendItems(items, toSection: .image)
         dataSource.apply(snapshot)
     }
+    func upDateFilterSnapshot() {//items: [SearchColor]
+        var snapshot = FilterSnapshot()
+        snapshot.appendSections([SearchSection.filterButton])
+        snapshot.appendItems(SearchColor.allCases)
+        filterDateSource.apply(snapshot)
+    }
+    
     func setUpDataSource() {
         let using = phtoCellRegistration()
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        dataSource = UICollectionViewDiffableDataSource(collectionView: imageCollectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
             return cell
             
         }
-
+        
+    }
+    func setUpFilterDataSource() {
+        let using = filterCellRegistration()
+        filterDateSource = UICollectionViewDiffableDataSource(collectionView: filterCollectionView) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: using, for: indexPath, item: itemIdentifier)
+            return cell
+        }
     }
     func phtoCellRegistration() -> Registration {
         let result = Registration { cell, indexPath, itemIdentifier in
@@ -236,6 +278,18 @@ private extension SearchPhotoViewController {
         }
         return result
     }
+    func filterCellRegistration() -> FilterRegistration {
+        let result = FilterRegistration { cell, indexPath, itemIdentifier in
+            cell.setUpButton(itemIdentifier)
+            //            cell.completion = {
+            //                //self.vm.inputLikeButton.value = itemIdentifier.data
+            //                cell.toggleButton(self.vm.outputButtonToggle.value)
+            //            }
+            
+        }
+        return result
+    }
+    
 }
 
 

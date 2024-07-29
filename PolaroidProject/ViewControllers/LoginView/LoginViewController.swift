@@ -171,7 +171,6 @@ final class LoginViewController: BaseViewController {
     
     // MARK: - UI 세팅 부분
     override func setUpView() {
-        navigationController?.navigationBar.tintColor = .cBlack
         successButton.isHidden = true
         resetButton.isHidden = true
         

@@ -8,15 +8,15 @@
 import Foundation
 
 final class TopicViewModel {
-    let networkManager = NetworkManager.shard
+    private let networkManager = NetworkManager.shard
     
     var inputViewDidLoad: Obsearvable<Void?> = Obsearvable(nil)
     var inputCheckProfile: Obsearvable<Void?> = Obsearvable(nil)
     
-    var outputGetProfileImage: Obsearvable<String?> = Obsearvable(nil)
-    var outputTopicList = Obsearvable([TopicSeciontModel]())
-    var outputLoadingSet = Obsearvable(false)
-    var outputErrorTitle: Obsearvable<String> = Obsearvable("")
+    private(set) var outputGetProfileImage: Obsearvable<String?> = Obsearvable(nil)
+    private(set) var outputTopicList = Obsearvable([TopicSeciontModel]())
+    private(set) var outputLoadingSet = Obsearvable(false)
+    private(set) var outputErrorTitle: Obsearvable<String> = Obsearvable("")
     init() {
         inputViewDidLoad.bind { _ in
             self.getProfileImage()
@@ -26,9 +26,6 @@ final class TopicViewModel {
             self.checkProfileImage()
         }
     }
-    
-    
-    
 }
 // MARK: - 프로필 관련
 private extension TopicViewModel {
@@ -63,18 +60,13 @@ private extension TopicViewModel {
                     items.append(success)
                 case .failure(let failure):
                     self.outputErrorTitle.value = failure.rawValue
-                    
                 }
                 group.leave()
             }
-            
         }
         group.notify(queue: .main) {
             self.outputLoadingSet.value = true
             self.outputTopicList.value = items
         }
     }
-    
-    
-    
 }

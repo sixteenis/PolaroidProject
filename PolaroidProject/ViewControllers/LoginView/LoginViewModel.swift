@@ -30,7 +30,12 @@ final class LoginViewModel {
     init() {
         inputViewDidLoade.bind { [weak self] _ in
             guard let self else { return }
-            self.outputProfileImage.value = builder.profile
+            if settingType == .onboarding {
+                let profile = ProfileImage.allCases.randomElement()!
+                self.outputProfileImage.value = profile.image
+            }else{
+                self.outputProfileImage.value = builder.profile
+            }
             self.outputMBTICheck.value = builder.mbti
         }
         inputSetProfile.bind { [weak self] image in

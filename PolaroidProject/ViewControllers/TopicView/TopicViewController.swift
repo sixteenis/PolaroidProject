@@ -75,6 +75,7 @@ final class TopicViewController: BaseViewController {
     override func setUpView() {
         let navright = UIBarButtonItem(customView: navRightBar)
         navigationItem.rightBarButtonItem = navright
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(navrightButtonTapped))
         navRightBar.addGestureRecognizer(tap)
         errorView.isHidden = true
@@ -111,14 +112,28 @@ private extension TopicViewController {
     }
     @objc func handleRefreshControl() {
         self.collectionView.refreshControl?.endRefreshing()
+        
         guard refreshCanBool else {
-            self.view.makeToast("잠시 후 다시 시도해 주세요!")
+            DispatchQueue.global().async {
+                sleep(1)
+                DispatchQueue.main.async {
+                    self.view.makeToast("잠시 후 다시 시도해 주세요!")
+                }
+            }
             return
         } //ture가 아니면 벗어남
         
         
         self.vm.inputViewDidLoad.value = () //네트워킹 해주고
-        self.view.makeToast("TOPIC 리로드 완료!")
+        // TODO: 일단 여기 두고 나중에 vm에 넣어서 통신이 완료된! 시점에! 호출!
+        DispatchQueue.global().async {
+            sleep(1)
+            DispatchQueue.main.async {
+                self.view.makeToast("TOPIC 리로드 완료!")
+            }
+        }
+        
+        
         self.refreshCanBool = false
         self.refreshTimer?.invalidate()
         self.refreshTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { [weak self] _ in
