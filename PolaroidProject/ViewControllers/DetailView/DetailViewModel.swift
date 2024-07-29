@@ -15,7 +15,7 @@ final class DetailViewModel {
     var inputpushRelamVC: Obsearvable<LikeList?> = Obsearvable(nil)
     
     var inputLikeButton: Obsearvable<Void?> = Obsearvable(nil)
-    var inputViewWillDisappear: Obsearvable<Void?> = Obsearvable(nil)
+    var inputViewDidDisappear: Obsearvable<Void?> = Obsearvable(nil)
     
     private(set) var outputlikeBool: Obsearvable<Bool?> = Obsearvable(nil)
     private(set) var outputLikeItem: Obsearvable<LikeList?> = Obsearvable(nil)
@@ -47,7 +47,7 @@ final class DetailViewModel {
             self.outputlikeBool.value?.toggle()
             self.outputAlert.value = ()
         }
-        inputViewWillDisappear.bind(true) { [weak self] _ in
+        inputViewDidDisappear.bind(true) { [weak self] _ in
             guard let self else { return }
             self.checkData()
         }

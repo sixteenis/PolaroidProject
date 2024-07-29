@@ -55,6 +55,9 @@ final class LikePhotoViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "MY POLAROID"
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         vm.inputViewWillAppear.value = ()
     }
 
@@ -78,7 +81,7 @@ final class LikePhotoViewController: BaseViewController {
         vm.outputScrollingTop.bind { [weak self] _ in
             guard let self else { return }
             if !self.vm.outputGetLikeList.value.isEmpty {
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
         }
         vm.outputColors.bind { [weak self] colors in

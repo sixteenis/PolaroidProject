@@ -19,11 +19,7 @@ final class OnboardingViewController: BaseViewController {
         $0.contentMode = .scaleToFill
         $0.backgroundColor = .red
     }
-    private let myName = UILabel().then {
-        $0.text = "박성민"
-        $0.textColor = .black
-        $0.font = .systemFont(ofSize: 33)
-    }
+
     private var startButton = SuccessButton("시작하기")
     
     override func viewDidLoad() {
@@ -35,7 +31,6 @@ final class OnboardingViewController: BaseViewController {
     override func setUpHierarchy() {
         view.addSubview(onbardingTitle)
         view.addSubview(onbardingImage)
-        view.addSubview(myName)
         view.addSubview(startButton)
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
@@ -49,10 +44,6 @@ final class OnboardingViewController: BaseViewController {
             make.top.equalTo(onbardingTitle.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(onbardingImage.snp.width)
-        }
-        myName.snp.makeConstraints { make in
-            make.top.equalTo(onbardingImage.snp.bottom).offset(40)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         startButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)

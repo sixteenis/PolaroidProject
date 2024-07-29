@@ -57,6 +57,11 @@ final class TopicViewController: BaseViewController {
             guard let self else { return }
             self.setUpDataSource()
             self.upDateSnapshot(topics: topicModel)
+            if !topicModel.isEmpty {
+                for section in 0..<self.vm.outputTopicList.value.count {
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: section), at: .left, animated: true)
+                }
+            }
         }
     }
     override func setUpHierarchy() {
@@ -127,11 +132,13 @@ private extension TopicViewController {
             return
         }
         self.vm.inputViewDidLoad.value = () //네트워킹 해주고
+        
         // TODO: 일단 여기 두고 나중에 vm에 넣어서 통신이 완료된! 시점에! 호출!
         DispatchQueue.global().async {
             sleep(1)
             DispatchQueue.main.async {
                 self.view.makeToast("TOPIC 리로드 완료!")
+                
             }
         }
         self.refreshCanBool = false

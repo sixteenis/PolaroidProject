@@ -29,12 +29,6 @@
                                     <constraint firstAttribute="height" constant="120" id="NyQ-fN-pf8"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="박성민" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-Hd-cBr">
-                                <rect key="frame" x="153.66666666666666" y="642" width="85.666666666666657" height="39.666666666666629"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -44,8 +38,6 @@
                             <constraint firstItem="M3m-xD-bHo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="OgM-rp-fQA"/>
                             <constraint firstItem="6YO-wt-LFX" firstAttribute="top" secondItem="M3m-xD-bHo" secondAttribute="bottom" constant="20" id="YMh-tf-C71"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6YO-wt-LFX" secondAttribute="trailing" constant="10" id="ZgX-WI-JAQ"/>
-                            <constraint firstItem="1fv-Hd-cBr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hyF-Nq-CzX"/>
-                            <constraint firstItem="1fv-Hd-cBr" firstAttribute="top" secondItem="6YO-wt-LFX" secondAttribute="bottom" constant="30" id="laP-UC-fUq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="M3m-xD-bHo" secondAttribute="trailing" constant="30" id="nWC-7P-taa"/>
                         </constraints>
                     </view>
