@@ -269,7 +269,7 @@ private extension SearchPhotoViewController {
             cell.completion = { [weak self] in
                 guard let self else { return }
                 self.vm.inputLikeButton.value = itemIdentifier.data
-                cell.toggleButton(self.vm.outputButtonToggle.value)
+                cell.toggleButton(self.vm.outputButtonToggle.value) //좋아요 색깔을 바꿀라면 여기서 color의 색을 전달받아서 쓰면될거 같음!
             }
         }
         return result

@@ -10,7 +10,7 @@ import Foundation
 final class SearchPhotoViewModel {
     private let networkManager = NetworkManager.shard
     private var likeRepository = LikeRepository.shard
-    private var model: SearchParams!
+    private var model: SearchParams = SearchParams(query: "", page: 1, orderby: .latest)
     private var likeList = LikeRepository.shard.getLikeLists()
     private var ImageList = [ImageModel]()
     private var colorList = [ColorModel]()
@@ -98,6 +98,10 @@ private extension SearchPhotoViewModel {
         }
         self.outputColors.value = result
         self.colorList = result
+        self.model.page = 1
+        if self.inputStartNetworking.value != "" {
+            getImageList(self.model)
+        }
     }
 }
 
