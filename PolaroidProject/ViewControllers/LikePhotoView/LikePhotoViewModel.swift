@@ -32,7 +32,7 @@ final class LikePhotoViewModel {
         }
         inputViewWillAppear.bind { [weak self] _ in
             guard let self else { return }
-            self.fetchLikeList()
+            self.fetchLikeList(isScroll: true)
         }
         
         inputFilterButtonTapped.bind { [weak self] _ in
@@ -47,14 +47,14 @@ final class LikePhotoViewModel {
         inputLikeButtonTap.bind { [weak self] item in
             guard let self, let item else {return}
             self.repository.toggleLike(item)
-            self.fetchLikeList()
+            self.fetchLikeList(isScroll: false)
         }
     }
 }
 
 // MARK: - 컬러, 필터 최종 결과 함수
 private extension LikePhotoViewModel {
-    func fetchLikeList() {
+    func fetchLikeList(isScroll: Bool = false) {
         let type = self.outputFilterType.value
         let color = self.colorList.filter { $0.isSelect == true}.first?.color.colorIndex
         var filter = [LikeList]()
@@ -70,7 +70,9 @@ private extension LikePhotoViewModel {
         }
         
         self.outputGetLikeList.value = filter
-        outputScrollingTop.value = ()
+        if isScroll {
+            outputScrollingTop.value = ()
+        }
     }
 }
 // MARK: - 컬러 부분
@@ -97,7 +99,7 @@ private extension LikePhotoViewModel {
         }
         self.outputColors.value = result
         self.colorList = result
-        fetchLikeList()
+        fetchLikeList(isScroll: true)
     }
 }
 // MARK: - 필터 버튼 부분
@@ -108,6 +110,6 @@ private extension LikePhotoViewModel {
         }else{
             self.outputFilterType.value = .past
         }
-        fetchLikeList()
+        fetchLikeList(isScroll: true)
     }
 }
