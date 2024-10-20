@@ -55,7 +55,9 @@ final class DetailViewController: BaseViewController {
     private let sizeLabel = InformationLabelView(frame: .zero, title: Information.size)
     private let hitsLabel = InformationLabelView(frame: .zero, title: Information.hits)
     private let downloadedLabel = InformationLabelView(frame: .zero, title: Information.download)
-    private let chartVC = UIHostingController(rootView: ChartView())
+    @State private var chartDates = ChartDatas(check: [ChartData](), Download: [ChartData]())
+    private let dataModel = ChartDataModel()
+    lazy var chartVC = UIHostingController(rootView: ChartView(dataModel: dataModel))
     
     let vm = DetailViewModel()
     
@@ -105,6 +107,11 @@ final class DetailViewController: BaseViewController {
             guard let self,let id = ids.0, let userid = ids.1 else {return}
             self.setUpWithRealm(id, userId: userid)
         }
+        vm.outputChartData.bind(true) { [weak self] data in
+            guard let self, let data else { return }
+            //self.chartVC.rootView.chartDates = data
+            self.dataModel.chartDates = data
+        }
     }
     override func setUpHierarchy() {
         view.addSubview(userProfile)
@@ -118,6 +125,7 @@ final class DetailViewController: BaseViewController {
         view.addSubview(downloadedLabel)
         addChild(chartVC)
         view.addSubview(chartVC.view)
+        chartVC.didMove(toParent: self)
     }
     override func setUpLayout() {
         userProfile.snp.makeConstraints { make in
@@ -170,7 +178,12 @@ final class DetailViewController: BaseViewController {
         }
     }
 }
-
+private extension DetailViewController {
+    //true이며
+    func setChartView(_ check: Bool) {
+        self.chartVC.view.isHidden = check
+    }
+}
 private extension DetailViewController {
     @objc func likeButtonTapped() {
         vm.inputLikeButton.value = ()

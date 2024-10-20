@@ -25,6 +25,7 @@ final class DetailViewModel {
     private(set) var outputID: Obsearvable<(String?,String?)> = Obsearvable((nil,nil))
     private(set) var outputType:Obsearvable<DetailDataType?> = Obsearvable(nil)
     private(set) var outputAlert:Obsearvable<Void?> = Obsearvable(nil)
+    private(set) var outputChartData: Obsearvable<ChartDatas?> = Obsearvable(nil)
     
     init() {
         inputpushVC.bind { [weak self] data in
@@ -52,6 +53,11 @@ final class DetailViewModel {
             self.checkData()
         }
     }
+    static func dateFromString(_ dateString: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.date(from: dateString) ?? Date()
+    }
     
 }
 // MARK: -통신해야될 때
@@ -62,9 +68,8 @@ private extension DetailViewModel {
             switch respons {
             case .success(let success):
                 let result = DetailSettingModel(userName: dto.user.name, date: dto.createdAt, size: "\(dto.height)  X \(dto.width)", hits: success.views.total.formatted(), download: success.downloads.total.formatted())
-//                print(success)
-//                print("------------")
                 self.outputSetModel.value = result
+                self.outputChartData.value = ChartDatas(check: success.views.historical.values.map {ChartData(date: DetailViewModel.dateFromString($0.date), count: $0.value)}, Download: success.downloads.historical.values.map {ChartData(date: DetailViewModel.dateFromString($0.date), count: $0.value)})
             case .failure(_):
                 let result = DetailSettingModel(userName: dto.user.name, date: dto.createdAt, size: "\(dto.height)  X \(dto.width)", hits: "0", download: "0")
                 self.outputSetModel.value = result
@@ -76,6 +81,7 @@ private extension DetailViewModel {
 }
 // MARK: - 통신 없이 가능할 때
 private extension DetailViewModel {
+    
     func getSetModel(_ likeList: LikeList) {
         let result = DetailSettingModel(userName: likeList.userName, date: likeList.createdAt, size: "\(likeList.height) X \(likeList.width)", hits: likeList.viewsTotal.formatted(), download: likeList.downloadTotal.formatted())
         self.outputSetModel.value = result
