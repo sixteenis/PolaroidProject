@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Then
 import Toast
+import SwiftUI
 
 fileprivate enum Information{
     static let size = "크기"
@@ -54,6 +55,7 @@ final class DetailViewController: BaseViewController {
     private let sizeLabel = InformationLabelView(frame: .zero, title: Information.size)
     private let hitsLabel = InformationLabelView(frame: .zero, title: Information.hits)
     private let downloadedLabel = InformationLabelView(frame: .zero, title: Information.download)
+    private let chartVC = UIHostingController(rootView: ChartView())
     
     let vm = DetailViewModel()
     
@@ -114,6 +116,8 @@ final class DetailViewController: BaseViewController {
         view.addSubview(sizeLabel)
         view.addSubview(hitsLabel)
         view.addSubview(downloadedLabel)
+        addChild(chartVC)
+        view.addSubview(chartVC.view)
     }
     override func setUpLayout() {
         userProfile.snp.makeConstraints { make in
@@ -158,6 +162,11 @@ final class DetailViewController: BaseViewController {
             make.leading.equalTo(informationLabel.snp.trailing).offset(40)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(20)
+        }
+        chartVC.view.snp.makeConstraints { make in
+            make.top.equalTo(downloadedLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }

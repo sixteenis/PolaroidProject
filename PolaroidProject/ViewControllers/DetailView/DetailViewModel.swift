@@ -62,6 +62,8 @@ private extension DetailViewModel {
             switch respons {
             case .success(let success):
                 let result = DetailSettingModel(userName: dto.user.name, date: dto.createdAt, size: "\(dto.height)  X \(dto.width)", hits: success.views.total.formatted(), download: success.downloads.total.formatted())
+//                print(success)
+//                print("------------")
                 self.outputSetModel.value = result
             case .failure(_):
                 let result = DetailSettingModel(userName: dto.user.name, date: dto.createdAt, size: "\(dto.height)  X \(dto.width)", hits: "0", download: "0")

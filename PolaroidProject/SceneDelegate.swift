@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let check = UserModelManager.shared.userNickname == ""
         
         let nav = check == true ? UINavigationController(rootViewController: OnboardingViewController()) : TabBarController()
-        
+
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }
