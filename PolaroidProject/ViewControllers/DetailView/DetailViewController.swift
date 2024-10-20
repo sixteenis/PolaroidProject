@@ -108,8 +108,11 @@ final class DetailViewController: BaseViewController {
             self.setUpWithRealm(id, userId: userid)
         }
         vm.outputChartData.bind(true) { [weak self] data in
-            guard let self, let data else { return }
-            //self.chartVC.rootView.chartDates = data
+            guard let self, let data else {
+                self?.setChartView(true)
+                return
+            }
+            self.setChartView(false)
             self.dataModel.chartDates = data
         }
     }

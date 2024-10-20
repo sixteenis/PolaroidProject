@@ -56,7 +56,7 @@ struct ChartView: View {
                     }
                 }
                 .frame(height: 300)
-                .padding(.leading, 80)
+                .padding(.leading, 95)
                 .padding(.trailing)
                 .padding(.top)
                 .chartXAxis(.hidden)
